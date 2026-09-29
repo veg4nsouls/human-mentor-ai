@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Human Mentor AI</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Space Grotesk',sans-serif;background:#1D1E25;color:#F6F3EE;min-height:100vh;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{font-family:'Space Grotesk',sans-serif;cursor:pointer}
+
+/* Nebula */
+.blob{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none}
+@keyframes nb1{0%,100%{transform:translate(0,0) scale(1)}30%{transform:translate(70px,-55px) scale(1.08)}65%{transform:translate(-40px,60px) scale(.94)}}
+@keyframes nb2{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(-90px,45px) scale(1.06)}70%{transform:translate(55px,-65px) scale(.92)}}
+@keyframes nb3{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(60px,70px) scale(1.12)}80%{transform:translate(-50px,-30px) scale(.97)}}
+@keyframes nb4{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-70px,50px) scale(1.1)}}
+
+/* Nav */
+nav{height:60px;background:rgba(18,19,25,.96);border-bottom:1px solid rgba(246,243,238,.07);display:flex;align-items:center;padding:0 36px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.logo{display:flex;align-items:center;gap:9px;margin-right:36px;flex-shrink:0}
+.logo-box{width:22px;height:22px;border:1px solid rgba(246,243,238,.25);border-radius:3px;display:flex;align-items:center;justify-content:center}
+.logo-name{font-size:13px;font-weight:700;letter-spacing:.05em;white-space:nowrap}
+.nav-links{display:flex;align-items:stretch;flex:1;height:60px}
+.nav-btn{display:flex;align-items:center;gap:5px;padding:0 16px;background:none;border:none;border-bottom:2px solid transparent;font-size:12.5px;font-weight:500;color:rgba(246,243,238,.6);letter-spacing:.01em;white-space:nowrap;height:100%;transition:color .15s;cursor:pointer}
+.nav-btn:hover,.nav-btn.active{color:#F6F3EE;border-bottom-color:#6F9BFF}
+.nav-right{display:flex;align-items:center;gap:16px;flex-shrink:0;margin-left:auto}
+.lang-toggle{display:flex;align-items:center;background:none;border:1px solid rgba(246,243,238,.15);border-radius:20px;padding:2px;gap:0}
+.lang-tab{padding:3px 10px;border-radius:16px;font-size:10px;font-weight:700;letter-spacing:.06em;transition:.15s}
+.lang-tab.active{background:#6F9BFF;color:#060d0a}
+.lang-tab.inactive{background:none;color:rgba(246,243,238,.5)}
+.nav-signin{font-size:12px;color:rgba(246,243,238,.6);font-weight:500}
+.nav-cta{background:transparent;color:rgba(246,243,238,.7);border:1px solid rgba(246,243,238,.2);border-radius:6px;padding:8px 18px;font-size:12px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+.nav-cta:hover{border-color:rgba(246,243,238,.5);color:#F6F3EE}
+
+/* Dropdown */
+.dropdown{position:fixed;top:60px;background:rgba(20,21,28,.98);backdrop-filter:blur(20px);border:1px solid rgba(246,243,238,.1);border-radius:14px;padding:16px;width:320px;z-index:200;box-shadow:0 24px 64px rgba(0,0,0,.9);display:none}
+.dropdown.open{display:block}
+.dropdown-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid rgba(246,243,238,.07);margin-bottom:10px}
+.dropdown-label{font-size:10px;font-weight:700;color:rgba(246,243,238,.5);letter-spacing:.1em;text-transform:uppercase}
+.dropdown-all{font-size:9px;color:#6F9BFF;font-weight:600;letter-spacing:.06em;background:none;border:none}
+.menu-item{display:flex;align-items:center;gap:10px;padding:9px 10px;background:rgba(246,243,238,.02);border:1px solid rgba(246,243,238,.05);border-radius:8px;width:100%;text-align:left;margin-bottom:4px}
+.menu-item:hover{background:rgba(111,155,255,.06);border-color:rgba(111,155,255,.15)}
+.menu-icon{width:32px;height:32px;background:rgba(111,155,255,.08);border:1px solid rgba(111,155,255,.15);border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.menu-label{font-size:12px;font-weight:600;color:#F6F3EE;line-height:1.3}
+.menu-desc{font-size:10px;color:rgba(246,243,238,.45);font-weight:400;margin-top:1px}
+
+/* Hero */
+.hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(40px,6vw,80px) clamp(20px,9vw,120px) 40px;text-align:center;position:relative;z-index:10;min-height:calc(100vh - 60px)}
+h1.hero-h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(56px,8vw,100px);font-weight:800;line-height:.95;color:#F6F3EE;max-width:900px;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:24px}
+.hero-sub{font-size:20px;color:rgba(246,243,238,.72);line-height:1.6;max-width:520px;width:100%;font-weight:400;letter-spacing:.005em;margin-bottom:22px}
+.hero-cta{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;max-width:520px;padding:18px 24px;background:#6F9BFF;border-radius:14px;cursor:pointer;text-decoration:none;transition:box-shadow .2s,transform .15s}
+.hero-cta:hover{box-shadow:0 0 0 5px rgba(111,155,255,.22),0 0 32px rgba(111,155,255,.38);transform:translateY(-1px)}
+.hero-cta span{font-size:21px;font-weight:800;color:#060d0a;letter-spacing:-.01em}
+.hero-privacy{margin-top:22px;font-size:12px;color:rgba(246,243,238,.65);font-weight:400;letter-spacing:.01em}
+
+/* Sub page */
+.subpage{flex:1;overflow-y:auto;position:relative;z-index:10;display:none}
+.subpage.active{display:block}
+.subpage-inner{max-width:1100px;margin:0 auto;padding:36px 60px 40px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:none;border:none;font-size:12px;font-weight:500;color:rgba(246,243,238,.6);padding:0;margin-bottom:20px}
+.back-btn:hover{color:#F6F3EE}
+.subpage-cat{font-size:10px;font-weight:700;color:#6F9BFF;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.subpage-h1{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:800;color:#F6F3EE;text-transform:uppercase;letter-spacing:.01em;line-height:.95;margin-bottom:16px}
+.subpage-intro{font-size:15px;color:rgba(246,243,238,.65);line-height:1.65;max-width:680px;margin-bottom:32px}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.card{padding:18px 20px;background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.07);border-radius:12px;display:flex;align-items:flex-start;gap:14px;transition:.2s}
+.card:hover{background:rgba(111,155,255,.06);border-color:rgba(111,155,255,.2)}
+.card-icon{width:36px;height:36px;background:rgba(111,155,255,.08);border:1px solid rgba(111,155,255,.15);border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.card-title{font-size:13px;font-weight:600;color:#F6F3EE;line-height:1.4;margin-bottom:4px}
+.card-desc{font-size:11px;color:rgba(246,243,238,.5);line-height:1.5}
+
+@media(max-width:860px){.nav-links{display:none}.nav-cta{display:none}}
+@media(max-width:540px){.nav-signin{display:none}}
+</style>
+</head>
+<body>
+
+<!-- NEBULA -->
+<div style="position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none" aria-hidden="true">
+  <div id="blob-teal-wrap" style="position:absolute;top:-140px;left:-120px;will-change:transform">
+    <div class="blob" style="width:560px;height:480px;background:radial-gradient(circle at 40% 40%,rgba(50,160,190,.3) 0%,transparent 68%);animation:nb1 8s ease-in-out infinite"></div>
+  </div>
+  <div class="blob" style="width:500px;height:500px;background:radial-gradient(circle at 55% 45%,rgba(130,80,200,.22) 0%,transparent 68%);position:absolute;top:-100px;right:-80px;animation:nb2 11s ease-in-out infinite"></div>
+  <div class="blob" style="width:680px;height:420px;background:radial-gradient(circle at 50% 50%,rgba(111,155,255,.14) 0%,transparent 65%);position:absolute;top:25%;left:15%;animation:nb3 13s ease-in-out infinite"></div>
+  <div class="blob" style="width:440px;height:380px;background:radial-gradient(circle at 50% 55%,rgba(180,80,130,.16) 0%,transparent 68%);position:absolute;bottom:-60px;right:5%;animation:nb4 9s ease-in-out infinite"></div>
+  <div class="blob" style="width:360px;height:300px;background:radial-gradient(circle at 50% 50%,rgba(160,100,60,.14) 0%,transparent 68%);position:absolute;bottom:0;left:-60px;animation:nb2 12s ease-in-out infinite reverse"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-box">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1L1 9h8L5 1Z" fill="#F6F3EE" opacity=".8"/></svg>
+    </div>
+    <span class="logo-name">HUMAN MENTOR</span>
+  </div>
+
+  <div class="nav-links">
+    <button class="nav-btn" onclick="toggleMenu(0)" id="nbtn0"><span id="nl0">Apoyo emocional</span><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 2.5L4 5L6.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="nav-btn" onclick="toggleMenu(1)" id="nbtn1"><span id="nl1">Mentoría</span><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 2.5L4 5L6.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="nav-btn" onclick="toggleMenu(2)" id="nbtn2"><span id="nl2">Desarrollo profesional</span><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 2.5L4 5L6.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="nav-btn" onclick="toggleMenu(3)" id="nbtn3"><span id="nl3">Outreach</span><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 2.5L4 5L6.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+
+  <div class="nav-right">
+    <button class="lang-toggle" onclick="toggleLang()">
+      <div class="lang-tab" id="tab-es">ES</div>
+      <div class="lang-tab inactive" id="tab-en">EN</div>
+    </button>
+    <a href="#" class="nav-signin" id="lbl-signin">Iniciar sesión</a>
+    <a href="intake.html" class="nav-cta" id="lbl-navcta">Encontrar mentor →</a>
+  </div>
+</nav>
+
+<!-- DROPDOWNS -->
+<div class="dropdown" id="dd0" style="left:176px"></div>
+<div class="dropdown" id="dd1" style="left:310px"></div>
+<div class="dropdown" id="dd2" style="left:420px"></div>
+<div class="dropdown" id="dd3" style="left:600px"></div>
+
+<!-- HERO -->
+<div id="view-home" style="position:relative;z-index:10">
+  <div class="hero">
+    <h1 class="hero-h1" id="hero-h1">NO ESTÁS SOLO</h1>
+    <p class="hero-sub" id="hero-sub">Analicemos tu situación actual para conectarte con el mentor o el recurso que necesitas para seguir adelante.</p>
+    <a href="intake.html" class="hero-cta">
+      <span id="lbl-cta">Da el primer paso</span>
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 11H18M13 6L18 11L13 16" stroke="#060d0a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <p class="hero-privacy" id="lbl-privacy">Tus respuestas son 100% privadas y confidenciales.</p>
+  </div>
+</div>
+
+<!-- SUB PAGES -->
+<div id="view-subpage" class="subpage">
+  <div class="subpage-inner">
+    <button class="back-btn" onclick="goHome()">← <span id="lbl-back">Inicio</span></button>
+    <div class="subpage-cat" id="sp-cat"></div>
+    <h1 class="subpage-h1" id="sp-h1"></h1>
+    <p class="subpage-intro" id="sp-intro"></p>
+    <div class="cards-grid" id="sp-cards"></div>
+  </div>
+</div>
+
+<script>
+var lang = 'es';
+var openMenu = null;
+
+var CONTENT = {
+  es: {
+    nav: ['Apoyo emocional','Mentoría','Desarrollo profesional','Outreach'],
+    signin: 'Iniciar sesión',
+    navcta: 'Encontrar mentor →',
+    heroH1: 'NO ESTÁS SOLO',
+    heroSub: 'Analicemos tu situación actual para conectarte con el mentor o el recurso que necesitas para seguir adelante.',
+    cta: 'Da el primer paso',
+    privacy: 'Tus respuestas son 100% privadas y confidenciales.',
+    back: 'Inicio',
+    menus: [
+      {
+        cat:'APOYO EMOCIONAL', line1:'APOYO EMOCIONAL Y', line2:'SALUD MENTAL',
+        intro:'Apoyo emocional especializado para activistas. Encontrarás recursos confidenciales, grupos de apoyo y profesionales formados para entender los desafíos únicos del activismo por los animales.',
+        items:[
+          {title:'Terapia psicológica especializada',desc:'Profesionales con enfoque antiespecista'},
+          {title:'Grupos de apoyo entre pares',desc:'Círculos de contención y desahogo'},
+          {title:'Talleres contra el burnout',desc:'Herramientas prácticas y prevención'},
+          {title:'Apoyo para tensiones familiares',desc:'Manejo del aislamiento social'}
+        ]
+      },
+      {
+        cat:'MENTORÍA', line1:'MENTORÍA Y', line2:'ACOMPAÑAMIENTO',
+        intro:'Conecta con activistas experimentados/as que han transitado los mismos caminos. Asesoría personalizada en dilemas éticos, estrategia de movimiento y desarrollo personal.',
+        items:[
+          {title:'Dilemas éticos laborales',desc:'Asesoría para decisiones difíciles'},
+          {title:'Orientación estratégica',desc:'Cómo enfocar tu activismo a largo plazo'},
+          {title:'Mentoría 1 a 1',desc:'Con un/a mentor/a verificado/a de tu área'}
+        ]
+      },
+      {
+        cat:'DESARROLLO PROFESIONAL', line1:'DESARROLLO', line2:'PROFESIONAL',
+        intro:'Herramientas y conexiones para construir una carrera remunerada dentro del movimiento de liberación animal.',
+        items:[
+          {title:'De voluntario a empleo remunerado',desc:'Transición hacia el trabajo profesional'},
+          {title:'Financiamiento y becas',desc:'Oportunidades para proyectos y eventos'},
+          {title:'Liderazgo y plan de acción',desc:'Desarrollo de habilidades estratégicas'},
+          {title:'Reorientación de carrera',desc:'Nuevos objetivos dentro del movimiento'}
+        ]
+      },
+      {
+        cat:'OUTREACH Y ORGANIZACIÓN', line1:'OUTREACH Y', line2:'ORGANIZACIÓN',
+        intro:'Recursos para fortalecer tu trabajo de campo, mejorar tu comunicación con no-veganos y gestionar equipos y grupos locales.',
+        items:[
+          {title:'Mejora del discurso de Outreach',desc:'Estrategias de comunicación efectiva'},
+          {title:'Resolución de conflictos',desc:'Mediación y comunicación no violenta'},
+          {title:'Encuentros presenciales por ciudad',desc:'Activistas de tu ciudad y región'}
+        ]
+      }
+    ]
+  },
+  en: {
+    nav: ['Emotional support','Mentorship','Professional development','Outreach'],
+    signin: 'Sign in',
+    navcta: 'Find a mentor →',
+    heroH1: 'YOU ARE NOT ALONE',
+    heroSub: 'Let\'s analyze your current situation to connect you with the mentor or resource you need to move forward.',
+    cta: 'Take the first step',
+    privacy: 'Your answers are 100% private and confidential.',
+    back: 'Home',
+    menus: [
+      {
+        cat:'EMOTIONAL SUPPORT', line1:'EMOTIONAL SUPPORT &', line2:'MENTAL HEALTH',
+        intro:'Specialized emotional support for activists. Confidential resources, support groups and trained professionals who understand the unique challenges of animal advocacy.',
+        items:[
+          {title:'Specialized psychological therapy',desc:'Professionals with anti-speciesist focus'},
+          {title:'Peer support groups',desc:'Containment and venting circles'},
+          {title:'Burnout prevention workshops',desc:'Practical tools and prevention'},
+          {title:'Family tension support',desc:'Social isolation management'}
+        ]
+      },
+      {
+        cat:'MENTORSHIP', line1:'MENTORSHIP &', line2:'GUIDANCE',
+        intro:'Connect with experienced activists who have walked the same paths. Personalized guidance on ethical dilemmas, movement strategy and personal growth.',
+        items:[
+          {title:'Work ethical dilemmas',desc:'Guidance for difficult decisions'},
+          {title:'Strategic orientation',desc:'How to focus your activism long-term'},
+          {title:'1-on-1 mentorship',desc:'With a verified mentor in your area'}
+        ]
+      },
+      {
+        cat:'PROFESSIONAL DEVELOPMENT', line1:'PROFESSIONAL', line2:'DEVELOPMENT',
+        intro:'Tools and connections to build a paid career within the animal liberation movement.',
+        items:[
+          {title:'From volunteer to paid work',desc:'Transition to professional employment'},
+          {title:'Funding & grants',desc:'Opportunities for projects and events'},
+          {title:'Leadership & action plan',desc:'Strategic skills development'},
+          {title:'Career reorientation',desc:'New goals within the movement'}
+        ]
+      },
+      {
+        cat:'OUTREACH & ORGANIZATION', line1:'OUTREACH &', line2:'ORGANIZATION',
+        intro:'Resources to strengthen your fieldwork, improve your communication with non-vegans and manage teams and local groups.',
+        items:[
+          {title:'Outreach messaging improvement',desc:'Effective communication strategies'},
+          {title:'Conflict resolution',desc:'Mediation and nonviolent communication'},
+          {title:'In-person city meetups',desc:'Activists in your city and region'}
+        ]
+      }
+    ]
+  }
+};
+
+function t(){ return CONTENT[lang]; }
+
+function render() {
+  var c = t();
+  document.documentElement.lang = lang;
+  // Nav labels
+  for(var i=0;i<4;i++) document.getElementById('nl'+i).textContent = c.nav[i];
+  document.getElementById('lbl-signin').textContent = c.signin;
+  document.getElementById('lbl-navcta').textContent = c.navcta;
+  // Lang tabs
+  document.getElementById('tab-es').className = 'lang-tab' + (lang==='es'?' active':' inactive');
+  document.getElementById('tab-en').className = 'lang-tab' + (lang==='en'?' active':' inactive');
+  // Hero
+  document.getElementById('hero-h1').textContent = c.heroH1;
+  document.getElementById('hero-sub').textContent = c.heroSub;
+  document.getElementById('lbl-cta').textContent = c.cta;
+  document.getElementById('lbl-privacy').textContent = c.privacy;
+  document.getElementById('lbl-back').textContent = c.back;
+  // Dropdowns
+  for(var j=0;j<4;j++) renderDropdown(j);
+}
+
+function renderDropdown(i){
+  var c = t();
+  var m = c.menus[i];
+  var dd = document.getElementById('dd'+i);
+  var html = '<div class="dropdown-header"><span class="dropdown-label">'+c.nav[i]+'</span><button class="dropdown-all">VER TODO →</button></div>';
+  m.items.forEach(function(item){
+    html += '<button class="menu-item" onclick="openSub('+i+')">'
+      +'<div class="menu-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="#6F9BFF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+      +'<div><div class="menu-label">'+item.title+'</div><div class="menu-desc">'+item.desc+'</div></div>'
+      +'</button>';
+  });
+  dd.innerHTML = html;
+}
+
+function toggleLang(){
+  lang = lang==='es'?'en':'es';
+  render();
+}
+
+function toggleMenu(i){
+  openMenu = openMenu===i ? null : i;
+  for(var j=0;j<4;j++){
+    var dd = document.getElementById('dd'+j);
+    var btn = document.getElementById('nbtn'+j);
+    dd.className = 'dropdown' + (openMenu===j?' open':'');
+    btn.className = 'nav-btn' + (openMenu===j?' active':'');
+  }
+}
+
+function openSub(i){
+  openMenu = null;
+  for(var j=0;j<4;j++) document.getElementById('dd'+j).className='dropdown';
+  var c = t();
+  var m = c.menus[i];
+  document.getElementById('sp-cat').textContent = m.cat;
+  document.getElementById('sp-h1').innerHTML = m.line1+'<br>'+m.line2;
+  document.getElementById('sp-intro').textContent = m.intro;
+  var cardsHtml = '';
+  m.items.forEach(function(item){
+    cardsHtml += '<div class="card">'
+      +'<div class="card-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2l6 6-6 6" stroke="#6F9BFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+      +'<div><div class="card-title">'+item.title+'</div><div class="card-desc">'+item.desc+'</div></div>'
+      +'</div>';
+  });
+  document.getElementById('sp-cards').innerHTML = cardsHtml;
+  document.getElementById('view-home').style.display = 'none';
+  document.getElementById('view-subpage').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+function goHome(){
+  document.getElementById('view-home').style.display = 'block';
+  document.getElementById('view-subpage').style.display = 'none';
+}
+
+// Close dropdowns on outside click
+document.addEventListener('click', function(e){
+  if(!e.target.closest('.nav-btn') && !e.target.closest('.dropdown')){
+    openMenu = null;
+    for(var j=0;j<4;j++) document.getElementById('dd'+j).className='dropdown';
+    document.querySelectorAll('.nav-btn').forEach(function(b){b.className='nav-btn';});
+  }
+});
+
+// Mouse parallax on teal blob
+(function(){
+  var mx = window.innerWidth/2, my = window.innerHeight/2;
+  var cx = 0, cy = 0;
+  document.addEventListener('mousemove',function(e){ mx=e.clientX; my=e.clientY; });
+  function loop(){
+    var wrap = document.getElementById('blob-teal-wrap');
+    if(wrap){
+      var tx = (mx - window.innerWidth*.5)*.09;
+      var ty = (my - window.innerHeight*.5)*.07;
+      cx += (tx-cx)*.05; cy += (ty-cy)*.05;
+      wrap.style.transform = 'translate('+cx+'px,'+cy+'px)';
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intake — Human Mentor AI</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Space Grotesk',sans-serif;background:#1D1E25;color:#F6F3EE;min-height:100vh;display:flex;flex-direction:column}
+button{font-family:'Space Grotesk',sans-serif;cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+/* Subtle background */
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 800px 500px at 20% -10%,rgba(50,160,190,.09) 0%,transparent 60%),radial-gradient(ellipse 600px 400px at 80% 110%,rgba(111,155,255,.07) 0%,transparent 60%);pointer-events:none;z-index:0}
+
+/* Top bar */
+.topbar{height:52px;background:rgba(18,19,25,.95);border-bottom:1px solid rgba(246,243,238,.06);display:flex;align-items:center;padding:0 32px;position:relative;z-index:10;backdrop-filter:blur(10px)}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-box{width:20px;height:20px;border:1px solid rgba(246,243,238,.25);border-radius:3px;display:flex;align-items:center;justify-content:center}
+.logo-name{font-size:12px;font-weight:700;letter-spacing:.06em}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:16px}
+.lang-toggle{display:flex;align-items:center;background:none;border:1px solid rgba(246,243,238,.15);border-radius:20px;padding:2px}
+.lang-tab{padding:3px 10px;border-radius:16px;font-size:10px;font-weight:700;letter-spacing:.06em;transition:.15s;cursor:pointer;border:none}
+.lang-tab.active{background:#6F9BFF;color:#060d0a}
+.lang-tab.inactive{background:none;color:rgba(246,243,238,.5)}
+.home-link{font-size:11px;color:rgba(246,243,238,.65);font-weight:500}
+.home-link:hover{color:#F6F3EE}
+
+/* Layout */
+.intake-wrap{flex:1;display:flex;flex-direction:column;align-items:center;padding:40px 20px 60px;position:relative;z-index:10}
+
+/* Step indicator */
+.steps-bar{display:flex;align-items:center;gap:0;margin-bottom:40px;width:100%;max-width:540px}
+.step-dot{width:8px;height:8px;border-radius:50%;background:rgba(246,243,238,.15);transition:.35s;flex-shrink:0}
+.step-dot.done{background:#6F9BFF}
+.step-dot.current{background:#F6F3EE;box-shadow:0 0 0 3px rgba(246,243,238,.15)}
+.step-line{flex:1;height:1px;background:rgba(246,243,238,.1);transition:.35s}
+.step-line.done{background:#6F9BFF}
+.step-label{font-size:10px;font-weight:600;color:rgba(246,243,238,.75);letter-spacing:.1em;text-transform:uppercase;text-align:right;width:100%;max-width:540px;margin-bottom:8px}
+
+/* Card */
+.card{width:100%;max-width:540px;background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.08);border-radius:20px;padding:32px 36px 28px}
+.q-cat{font-size:9px;font-weight:700;color:#6F9BFF;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.q-title{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:800;color:#F6F3EE;text-transform:uppercase;line-height:.95;letter-spacing:.01em;margin-bottom:10px}
+.q-sub{font-size:13px;color:rgba(246,243,238,.72);line-height:1.6;margin-bottom:24px}
+
+/* Options */
+.options{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.option{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.08);border-radius:12px;text-align:left;width:100%;transition:.15s}
+.option:hover{border-color:rgba(111,155,255,.3);background:rgba(111,155,255,.05)}
+.option.selected{background:rgba(111,155,255,.1);border-color:#6F9BFF}
+.opt-icon{width:36px;height:36px;background:rgba(246,243,238,.06);border:1px solid rgba(246,243,238,.1);border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px}
+.option.selected .opt-icon{background:rgba(111,155,255,.15);border-color:rgba(111,155,255,.3)}
+.opt-title{font-size:13px;font-weight:600;color:#F6F3EE;margin-bottom:2px;line-height:1.3}
+.opt-desc{font-size:11px;color:rgba(246,243,238,.7);line-height:1.45}
+
+/* Textarea */
+.free-wrap{margin-bottom:28px}
+.free-input{width:100%;min-height:120px;background:rgba(246,243,238,.04);border:1px solid rgba(246,243,238,.1);border-radius:12px;padding:16px;font-family:'Space Grotesk',sans-serif;font-size:14px;color:#F6F3EE;resize:vertical;outline:none;transition:.2s}
+.free-input::placeholder{color:rgba(246,243,238,.65)}
+.free-input:focus{border-color:rgba(111,155,255,.4);background:rgba(111,155,255,.04)}
+.free-hint{font-size:11px;color:rgba(246,243,238,.65);margin-top:8px;line-height:1.5}
+
+/* Buttons */
+.btn-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.btn-back{background:none;border:none;font-size:13px;font-weight:500;color:rgba(246,243,238,.8);padding:0;display:flex;align-items:center;gap:5px}
+.btn-back:hover{color:#F6F3EE}
+.btn-next{display:flex;align-items:center;gap:8px;background:#6F9BFF;border:none;border-radius:10px;padding:12px 24px;font-size:15px;font-weight:700;color:#060d0a;margin-left:auto;transition:.15s}
+.btn-next:hover{box-shadow:0 0 0 4px rgba(111,155,255,.25)}
+.btn-next:disabled{opacity:.4;cursor:default;box-shadow:none}
+
+/* Name fields */
+.name-fields{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.field-label{font-size:11px;font-weight:600;color:rgba(246,243,238,.75);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+.field-input{width:100%;background:rgba(246,243,238,.04);border:1px solid rgba(246,243,238,.1);border-radius:10px;padding:13px 16px;font-family:'Space Grotesk',sans-serif;font-size:14px;color:#F6F3EE;outline:none;transition:.2s}
+.field-input::placeholder{color:rgba(246,243,238,.45)}
+.field-input:focus{border-color:rgba(111,155,255,.4)}
+
+/* Result screen */
+.result-card{width:100%;max-width:540px;background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.08);border-radius:20px;padding:36px;text-align:center}
+.result-icon{width:64px;height:64px;background:rgba(111,155,255,.12);border:1px solid rgba(111,155,255,.25);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:28px}
+.result-h1{font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:800;color:#F6F3EE;text-transform:uppercase;margin-bottom:14px;line-height:.95}
+.result-sub{font-size:15px;color:rgba(246,243,238,.72);line-height:1.65;margin-bottom:28px}
+.result-cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#6F9BFF;border:none;border-radius:12px;padding:16px 24px;font-size:16px;font-weight:700;color:#060d0a}
+.result-restart{margin-top:14px;background:none;border:none;font-size:12px;color:rgba(246,243,238,.5);font-weight:500}
+.result-restart:hover{color:rgba(246,243,238,.8)}
+</style>
+</head>
+<body>
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="index.html" class="logo">
+    <div class="logo-box">
+      <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1L1 8h7L4.5 1Z" fill="#F6F3EE" opacity=".8"/></svg>
+    </div>
+    <span class="logo-name">HUMAN MENTOR</span>
+  </a>
+  <div class="topbar-right">
+    <button class="lang-toggle" onclick="toggleLang()">
+      <button class="lang-tab" id="tab-es" onclick="setLang('es')">ES</button>
+      <button class="lang-tab inactive" id="tab-en" onclick="setLang('en')">EN</button>
+    </button>
+    <a href="index.html" class="home-link" id="lbl-home">← Inicio</a>
+  </div>
+</div>
+
+<!-- INTAKE BODY -->
+<div class="intake-wrap">
+  <div class="step-label" id="lbl-step"></div>
+  <div class="steps-bar" id="steps-bar"></div>
+  <div id="screen"></div>
+</div>
+
+<script>
+var lang = 'es';
+var step = 0;
+var answers = {};
+
+var T = {
+  es: {
+    stepLabel: function(i,n){ return 'PASO '+(i+1)+' DE '+n; },
+    home: '← Inicio',
+    back: '← Atrás',
+    next: 'Continuar',
+    next_arrow: '→',
+    finish: 'Ver mi ruta',
+    restart: 'Volver al inicio',
+    questions: [
+      {
+        cat:'SITUACIÓN ACTUAL',
+        title:'¿CUÁL ES TU PRINCIPAL DESAFÍO?',
+        sub:'Cuéntanos qué estás atravesando para conectarte con el apoyo adecuado.',
+        type:'options',
+        key:'challenge',
+        options:[
+          {icon:'🧠',title:'Agotamiento emocional (burnout)',desc:'Siento que ya no tengo energía para el activismo'},
+          {icon:'🤝',title:'Falta de comunidad o apoyo',desc:'Me siento solo/a en mis convicciones'},
+          {icon:'💼',title:'Quiero profesionalizar mi activismo',desc:'Busco trabajo remunerado dentro del movimiento'},
+          {icon:'🗣️',title:'Mejorar mi impacto en Outreach',desc:'Quiero conectar mejor con personas no veganas'},
+          {icon:'⚡',title:'Conflictos internos o dilemas éticos',desc:'Tengo preguntas sobre mis elecciones y valores'}
+        ]
+      },
+      {
+        cat:'ÁREA DE ENFOQUE',
+        title:'¿EN QUÉ ÁREA NECESITAS MÁS APOYO?',
+        sub:'Selecciona la que más resuene contigo ahora mismo.',
+        type:'options',
+        key:'area',
+        options:[
+          {icon:'💚',title:'Salud mental y bienestar emocional',desc:'Terapia, grupos de contención, autocuidado'},
+          {icon:'🚀',title:'Desarrollo profesional',desc:'Carrera, financiamiento y liderazgo'},
+          {icon:'🌱',title:'Estrategia y mentoría de activismo',desc:'Orientación personalizada y hoja de ruta'},
+          {icon:'👥',title:'Comunidad y organización local',desc:'Conexión con activistas de mi región'}
+        ]
+      },
+      {
+        cat:'EXPERIENCIA',
+        title:'¿CUÁNTO TIEMPO LLEVAS EN EL ACTIVISMO?',
+        sub:'Esto nos ayuda a entender tu trayectoria.',
+        type:'options',
+        key:'experience',
+        options:[
+          {icon:'🌱',title:'Menos de 1 año',desc:'Estoy comenzando mi camino'},
+          {icon:'⚡',title:'1 a 3 años',desc:'Tengo algo de experiencia'},
+          {icon:'🔥',title:'3 a 6 años',desc:'Llevo varios años comprometido/a'},
+          {icon:'🌍',title:'Más de 6 años',desc:'Soy un activista/a veterano/a'}
+        ]
+      },
+      {
+        cat:'DISPONIBILIDAD',
+        title:'¿CON QUÉ FRECUENCIA PODÉS REUNIRTE?',
+        sub:'Para recomendarte el tipo de acompañamiento que mejor se adapta a tu vida.',
+        type:'options',
+        key:'availability',
+        options:[
+          {icon:'📅',title:'Una vez por semana',desc:'Tengo bastante tiempo disponible'},
+          {icon:'🗓️',title:'Dos veces por mes',desc:'Disponibilidad moderada'},
+          {icon:'📆',title:'Una vez por mes',desc:'Mi tiempo es limitado'},
+          {icon:'⚡',title:'Solo cuando pueda',desc:'Necesito máxima flexibilidad'}
+        ]
+      },
+      {
+        cat:'SOBRE VOS',
+        title:'¿CÓMO TE LLAMÁS?',
+        sub:'Queremos personalizar tu experiencia. Podés usar un apodo si preferís.',
+        type:'name',
+        key:'name'
+      },
+      {
+        cat:'TU SITUACIÓN',
+        title:'¿ALGO MÁS QUE QUIERAS COMPARTIR?',
+        sub:'Cuéntanos con tus propias palabras qué estás viviendo. Esto es completamente confidencial.',
+        type:'free',
+        key:'story',
+        hint:'No hay respuestas correctas o incorrectas. Cuanta más información nos des, mejor podremos orientarte.',
+        placeholder:'Escribe aquí lo que estás viviendo...'
+      }
+    ],
+    result: {
+      icon:'🌱',
+      title:'ESTAMOS CON VOS',
+      sub: function(a){ return '¡Gracias, '+(a.name||'amigo/a')+'! Analizamos tu perfil y te conectaremos con el mentor o recurso que mejor se adapta a tu situación. Alguien de nuestro equipo se pondrá en contacto pronto.'; },
+      cta:'Ver mi hoja de ruta',
+      restart:'Empezar de nuevo'
+    }
+  },
+  en: {
+    stepLabel: function(i,n){ return 'STEP '+(i+1)+' OF '+n; },
+    home: '← Home',
+    back: '← Back',
+    next: 'Continue',
+    next_arrow: '→',
+    finish: 'See my roadmap',
+    restart: 'Start over',
+    questions: [
+      {
+        cat:'CURRENT SITUATION',
+        title:'WHAT IS YOUR MAIN CHALLENGE?',
+        sub:"Tell us what you're going through so we can connect you with the right support.",
+        type:'options',
+        key:'challenge',
+        options:[
+          {icon:'🧠',title:'Emotional burnout',desc:"I feel I have no energy left for activism"},
+          {icon:'🤝',title:'Lack of community or support',desc:'I feel alone in my convictions'},
+          {icon:'💼',title:'I want to professionalize my activism',desc:'I\'m looking for paid work within the movement'},
+          {icon:'🗣️',title:'Improve my Outreach impact',desc:'I want to connect better with non-vegans'},
+          {icon:'⚡',title:'Internal conflicts or ethical dilemmas',desc:'I have questions about my choices and values'}
+        ]
+      },
+      {
+        cat:'FOCUS AREA',
+        title:'WHERE DO YOU NEED THE MOST SUPPORT?',
+        sub:'Select the one that resonates most with you right now.',
+        type:'options',
+        key:'area',
+        options:[
+          {icon:'💚',title:'Mental health & emotional wellbeing',desc:'Therapy, support groups, self-care'},
+          {icon:'🚀',title:'Professional development',desc:'Career, funding and leadership'},
+          {icon:'🌱',title:'Activism strategy & mentorship',desc:'Personalized guidance and roadmap'},
+          {icon:'👥',title:'Community & local organizing',desc:'Connection with activists in my region'}
+        ]
+      },
+      {
+        cat:'EXPERIENCE',
+        title:'HOW LONG HAVE YOU BEEN AN ACTIVIST?',
+        sub:'This helps us understand your journey.',
+        type:'options',
+        key:'experience',
+        options:[
+          {icon:'🌱',title:'Less than 1 year',desc:"I'm just starting my path"},
+          {icon:'⚡',title:'1 to 3 years',desc:'I have some experience'},
+          {icon:'🔥',title:'3 to 6 years',desc:"I've been committed for several years"},
+          {icon:'🌍',title:'More than 6 years',desc:"I'm a veteran activist"}
+        ]
+      },
+      {
+        cat:'AVAILABILITY',
+        title:'HOW OFTEN CAN YOU MEET?',
+        sub:'So we can recommend the type of support that best fits your life.',
+        type:'options',
+        key:'availability',
+        options:[
+          {icon:'📅',title:'Once a week',desc:'I have plenty of time available'},
+          {icon:'🗓️',title:'Twice a month',desc:'Moderate availability'},
+          {icon:'📆',title:'Once a month',desc:'My time is limited'},
+          {icon:'⚡',title:'Whenever I can',desc:'I need maximum flexibility'}
+        ]
+      },
+      {
+        cat:'ABOUT YOU',
+        title:"WHAT'S YOUR NAME?",
+        sub:'We want to personalize your experience. You can use a nickname if you prefer.',
+        type:'name',
+        key:'name'
+      },
+      {
+        cat:'YOUR SITUATION',
+        title:'ANYTHING ELSE YOU WANT TO SHARE?',
+        sub:"Tell us in your own words what you're going through. This is completely confidential.",
+        type:'free',
+        key:'story',
+        hint:"There are no right or wrong answers. The more information you give us, the better we can guide you.",
+        placeholder:'Write here what you are experiencing...'
+      }
+    ],
+    result: {
+      icon:'🌱',
+      title:"WE'RE WITH YOU",
+      sub: function(a){ return 'Thank you, '+(a.name||'friend')+"! We've analyzed your profile and will connect you with the mentor or resource that best fits your situation. Someone from our team will be in touch soon."; },
+      cta:'See my roadmap',
+      restart:'Start over'
+    }
+  }
+};
+
+function c(){ return T[lang]; }
+function q(){ return c().questions; }
+
+function toggleLang(){ lang = lang==='es'?'en':'es'; renderAll(); }
+function setLang(l){ lang=l; renderAll(); }
+
+function renderAll(){
+  document.documentElement.lang = lang;
+  document.getElementById('tab-es').className = 'lang-tab'+(lang==='es'?' active':' inactive');
+  document.getElementById('tab-en').className = 'lang-tab'+(lang==='en'?' active':' inactive');
+  document.getElementById('lbl-home').textContent = c().home;
+  renderStep();
+}
+
+function renderStepsBar(){
+  var total = q().length;
+  var bar = document.getElementById('steps-bar');
+  var html = '';
+  for(var i=0;i<total;i++){
+    if(i>0) html += '<div class="step-line'+(i<=step?' done':'')+'"></div>';
+    var cls = i<step?'done':i===step?'current':'';
+    html += '<div class="step-dot'+( cls?' '+cls:'')+'"></div>';
+  }
+  bar.innerHTML = html;
+  if(step < total){
+    document.getElementById('lbl-step').textContent = c().stepLabel(step, total);
+  } else {
+    document.getElementById('lbl-step').textContent = '';
+  }
+}
+
+function renderStep(){
+  renderStepsBar();
+  var qs = q();
+  if(step >= qs.length){ renderResult(); return; }
+  var qdata = qs[step];
+  var screen = document.getElementById('screen');
+
+  var html = '<div class="card">'
+    +'<div class="q-cat">'+qdata.cat+'</div>'
+    +'<h1 class="q-title">'+qdata.title+'</h1>'
+    +'<p class="q-sub">'+qdata.sub+'</p>';
+
+  if(qdata.type==='options'){
+    html += '<div class="options">';
+    qdata.options.forEach(function(opt,oi){
+      var sel = answers[qdata.key]===oi;
+      html += '<button class="option'+(sel?' selected':'')+'" onclick="selectOpt('+oi+')">'
+        +'<div class="opt-icon">'+opt.icon+'</div>'
+        +'<div><div class="opt-title">'+opt.title+'</div><div class="opt-desc">'+opt.desc+'</div></div>'
+        +'</button>';
+    });
+    html += '</div>';
+  } else if(qdata.type==='name'){
+    html += '<div class="name-fields">'
+      +'<div><div class="field-label">'+(lang==='es'?'Nombre o apodo':'Name or nickname')+'</div>'
+      +'<input class="field-input" type="text" id="inp-name" placeholder="'+(lang==='es'?'Tu nombre...':'Your name...')+'" value="'+(answers.name||'')+'" oninput="answers.name=this.value"></div>'
+      +'</div>';
+  } else if(qdata.type==='free'){
+    html += '<div class="free-wrap">'
+      +'<textarea class="free-input" id="inp-story" placeholder="'+qdata.placeholder+'" oninput="answers.story=this.value">'+( answers.story||'')+'</textarea>'
+      +'<div class="free-hint">'+qdata.hint+'</div>'
+      +'</div>';
+  }
+
+  html += '<div class="btn-row">';
+  if(step>0) html += '<button class="btn-back" onclick="goBack()">'+c().back+'</button>';
+  else html += '<div></div>';
+
+  var isLast = step===qs.length-1;
+  var canContinue = true;
+  if(qdata.type==='options' && answers[qdata.key]===undefined) canContinue=false;
+  html += '<button class="btn-next" onclick="goNext()" '+(canContinue?'':'disabled')+'>'
+    +(isLast?c().finish:c().next)+' '+c().next_arrow+'</button>';
+  html += '</div></div>';
+
+  screen.innerHTML = html;
+}
+
+function selectOpt(i){
+  var key = q()[step].key;
+  answers[key] = i;
+  renderStep();
+}
+
+function goNext(){
+  var qdata = q()[step];
+  if(qdata.type==='options' && answers[qdata.key]===undefined) return;
+  step++;
+  renderStep();
+  window.scrollTo(0,0);
+}
+
+function goBack(){
+  if(step>0){ step--; renderStep(); window.scrollTo(0,0); }
+}
+
+function renderResult(){
+  var r = c().result;
+  var screen = document.getElementById('screen');
+  var bar = document.getElementById('steps-bar');
+  // All dots done
+  var total = q().length;
+  var html = '';
+  for(var i=0;i<total;i++){
+    if(i>0) html += '<div class="step-line done"></div>';
+    html += '<div class="step-dot done"></div>';
+  }
+  bar.innerHTML = html;
+  document.getElementById('lbl-step').textContent = '';
+
+  screen.innerHTML = '<div class="result-card">'
+    +'<div class="result-icon">'+r.icon+'</div>'
+    +'<h1 class="result-h1">'+r.title+'</h1>'
+    +'<p class="result-sub">'+r.sub(answers)+'</p>'
+    +'<a href="dashboard.html" class="result-cta">'+r.cta+' <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M9 3l6 6-6 6" stroke="#060d0a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>'
+    +'<button class="result-restart" onclick="restart()">'+r.restart+'</button>'
+    +'</div>';
+}
+
+function restart(){
+  step=0; answers={}; renderAll();
+}
+
+renderAll();
+</script>
+</body>
+</html>

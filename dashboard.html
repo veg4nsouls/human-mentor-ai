@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard — Human Mentor AI</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Space Grotesk',sans-serif;background:#1D1E25;color:#F6F3EE;min-height:100vh;display:flex;flex-direction:column}
+button{font-family:'Space Grotesk',sans-serif;cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+/* Header */
+header{height:56px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(246,243,238,.07);display:flex;align-items:center;padding:0 28px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);gap:16px;flex-shrink:0}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-box{width:20px;height:20px;border:1px solid rgba(246,243,238,.25);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-name{font-size:12px;font-weight:700;letter-spacing:.06em;white-space:nowrap}
+.header-sep{width:1px;height:24px;background:rgba(246,243,238,.08);flex-shrink:0}
+.header-title{font-size:12px;font-weight:600;color:rgba(246,243,238,.6)}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.lang-toggle{display:flex;align-items:center;background:none;border:1px solid rgba(246,243,238,.15);border-radius:20px;padding:2px;gap:0;flex-shrink:0}
+.lang-tab{padding:3px 10px;border-radius:16px;font-size:10px;font-weight:700;letter-spacing:.06em;transition:.15s;border:none;cursor:pointer}
+.lang-tab.active{background:#6F9BFF;color:#060d0a}
+.lang-tab.inactive{background:none;color:rgba(246,243,238,.5)}
+.user-chip{display:flex;align-items:center;gap:8px;background:rgba(246,243,238,.04);border:1px solid rgba(246,243,238,.08);border-radius:20px;padding:5px 12px 5px 5px}
+.user-avatar{width:24px;height:24px;background:linear-gradient(135deg,#6F9BFF,rgba(130,80,200,.8));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.user-name{font-size:11px;font-weight:600;color:rgba(246,243,238,.8)}
+
+/* Layout */
+.layout{display:flex;flex:1;min-height:0}
+
+/* Sidebar */
+.sidebar{width:220px;background:rgba(18,19,25,.6);border-right:1px solid rgba(246,243,238,.06);flex-shrink:0;padding:20px 0;display:flex;flex-direction:column}
+.sidebar-section{padding:0 12px;margin-bottom:20px}
+.sidebar-label{font-size:9px;font-weight:700;color:rgba(246,243,238,.3);letter-spacing:.12em;text-transform:uppercase;padding:0 8px;margin-bottom:6px}
+.side-item{display:flex;align-items:center;gap:10px;padding:8px 8px;border-radius:8px;font-size:12px;font-weight:500;color:rgba(246,243,238,.55);width:100%;text-align:left;background:none;border:none;transition:.15s}
+.side-item:hover{background:rgba(246,243,238,.04);color:rgba(246,243,238,.85)}
+.side-item.active{background:rgba(111,155,255,.1);color:#6F9BFF;font-weight:600}
+.side-icon{width:28px;height:28px;background:rgba(246,243,238,.04);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.side-item.active .side-icon{background:rgba(111,155,255,.12)}
+.sidebar-sep{height:1px;background:rgba(246,243,238,.05);margin:8px 12px}
+.side-progress{margin:0 12px;padding:14px;background:rgba(111,155,255,.06);border:1px solid rgba(111,155,255,.12);border-radius:10px}
+.progress-label{font-size:10px;font-weight:600;color:rgba(246,243,238,.65);margin-bottom:8px}
+.progress-bar{height:4px;background:rgba(246,243,238,.08);border-radius:2px;margin-bottom:6px}
+.progress-fill{height:100%;background:#6F9BFF;border-radius:2px;transition:.4s}
+.progress-val{font-size:10px;font-weight:700;color:#6F9BFF}
+
+/* Main content */
+.main{flex:1;overflow-y:auto;padding:28px 32px}
+.page-header{margin-bottom:28px}
+.page-cat{font-size:9px;font-weight:700;color:#6F9BFF;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.page-h1{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:800;color:#F6F3EE;text-transform:uppercase;line-height:.95;letter-spacing:.01em;margin-bottom:10px}
+.page-sub{font-size:13px;color:rgba(246,243,238,.65);line-height:1.65;max-width:580px}
+
+/* Phase sections */
+.phase{margin-bottom:28px}
+.phase-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.phase-num{width:28px;height:28px;background:rgba(111,155,255,.12);border:1px solid rgba(111,155,255,.2);border-radius:7px;font-size:11px;font-weight:800;color:#6F9BFF;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.phase-title{font-size:14px;font-weight:700;color:#F6F3EE}
+.phase-subtitle{font-size:11px;color:rgba(246,243,238,.5);font-weight:400}
+.milestone-badge{margin-left:auto;font-size:9px;font-weight:700;letter-spacing:.08em;color:rgba(246,243,238,.4);background:rgba(246,243,238,.04);border:1px solid rgba(246,243,238,.08);border-radius:20px;padding:3px 10px;text-transform:uppercase;flex-shrink:0}
+.milestone-badge.active-phase{color:#6F9BFF;background:rgba(111,155,255,.08);border-color:rgba(111,155,255,.2)}
+
+.tasks{display:flex;flex-direction:column;gap:6px}
+.task{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.07);border-radius:10px;transition:.15s}
+.task.done{opacity:.6}
+.task.active-task{border-color:rgba(111,155,255,.25);background:rgba(111,155,255,.05)}
+.task-check{width:18px;height:18px;border-radius:5px;border:1.5px solid rgba(246,243,238,.2);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center}
+.task.done .task-check{background:#6F9BFF;border-color:#6F9BFF}
+.task.active-task .task-check{border-color:#6F9BFF}
+.task-body{flex:1}
+.task-title{font-size:12.5px;font-weight:600;color:#F6F3EE;line-height:1.4;margin-bottom:2px}
+.task.done .task-title{text-decoration:line-through;color:rgba(246,243,238,.5)}
+.task-desc{font-size:11px;color:rgba(246,243,238,.5);line-height:1.5}
+.task-tag{flex-shrink:0;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:10px;margin-top:2px}
+.tag-done{background:rgba(111,155,255,.1);color:#6F9BFF}
+.tag-now{background:rgba(111,200,130,.1);color:rgba(111,200,130,.9)}
+.tag-next{background:rgba(246,243,238,.05);color:rgba(246,243,238,.4)}
+
+/* Resources */
+.resources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:28px}
+.resource-card{padding:16px 18px;background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.07);border-radius:12px;display:flex;flex-direction:column;gap:8px;transition:.2s}
+.resource-card:hover{border-color:rgba(111,155,255,.2);background:rgba(111,155,255,.04)}
+.resource-icon{width:34px;height:34px;background:rgba(111,155,255,.08);border:1px solid rgba(111,155,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.resource-title{font-size:12.5px;font-weight:600;color:#F6F3EE;line-height:1.35}
+.resource-meta{font-size:10px;color:rgba(246,243,238,.45)}
+.resource-link{font-size:10px;color:#6F9BFF;font-weight:600}
+
+/* Stats row */
+.stats{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap}
+.stat{flex:1;min-width:120px;padding:16px 18px;background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.07);border-radius:12px}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:800;color:#F6F3EE;line-height:1;margin-bottom:4px}
+.stat-num span{font-size:16px;font-weight:400;color:#6F9BFF;margin-left:2px}
+.stat-label{font-size:11px;color:rgba(246,243,238,.55)}
+
+@media(max-width:720px){.sidebar{display:none}.main{padding:20px 16px}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-box">
+      <svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1L1 8h7L4.5 1Z" fill="#F6F3EE" opacity=".8"/></svg>
+    </div>
+    <span class="logo-name">HUMAN MENTOR</span>
+  </a>
+  <div class="header-sep"></div>
+  <span class="header-title" id="hdr-title">Mi hoja de ruta</span>
+  <div class="header-right">
+    <button class="lang-toggle" onclick="toggleLang()">
+      <button class="lang-tab active" id="tab-es" onclick="setLang('es')">ES</button>
+      <button class="lang-tab inactive" id="tab-en" onclick="setLang('en')">EN</button>
+    </button>
+    <div class="user-chip">
+      <div class="user-avatar">A</div>
+      <span class="user-name" id="user-name">Activista</span>
+    </div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label" id="sb-menu">Menú</div>
+      <button class="side-item active" onclick="showSection('roadmap')">
+        <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M1 7h8M1 11h5" stroke="#6F9BFF" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <span id="sb-roadmap">Hoja de ruta</span>
+      </button>
+      <button class="side-item" onclick="showSection('resources')">
+        <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><rect x="8" y="2" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><rect x="2" y="8" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><rect x="8" y="8" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/></svg></div>
+        <span id="sb-resources">Recursos</span>
+      </button>
+      <button class="side-item" onclick="showSection('community')">
+        <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="2.5" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><path d="M2 12c0-2.21 2.24-4 5-4s5 1.79 5 4" stroke="rgba(246,243,238,.5)" stroke-width="1.25" stroke-linecap="round"/></svg></div>
+        <span id="sb-community">Comunidad</span>
+      </button>
+    </div>
+
+    <div class="sidebar-sep"></div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label" id="sb-support">Apoyo</div>
+      <button class="side-item">
+        <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2a5 5 0 100 10A5 5 0 007 2zm0 3v2.5L8.5 9" stroke="rgba(246,243,238,.5)" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span id="sb-mentor">Mi mentor/a</span>
+      </button>
+      <button class="side-item">
+        <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3h10a1 1 0 011 1v6a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><path d="M1 4l6 4 6-4" stroke="rgba(246,243,238,.5)" stroke-width="1.25" stroke-linecap="round"/></svg></div>
+        <span id="sb-messages">Mensajes</span>
+      </button>
+    </div>
+
+    <div style="flex:1"></div>
+    <div class="side-progress" id="side-progress-box">
+      <div class="progress-label" id="prog-label">Tu progreso</div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:35%"></div></div>
+      <div class="progress-val">35% <span style="font-size:10px;color:rgba(246,243,238,.4);font-weight:400" id="prog-done">completado</span></div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main" id="main-content"></div>
+
+</div>
+
+<script>
+var lang = 'es';
+var currentSection = 'roadmap';
+
+var T = {
+  es: {
+    hdrTitle: 'Mi hoja de ruta',
+    userName: 'Activista',
+    sbMenu: 'Menú',
+    sbRoadmap: 'Hoja de ruta',
+    sbResources: 'Recursos',
+    sbCommunity: 'Comunidad',
+    sbSupport: 'Apoyo',
+    sbMentor: 'Mi mentor/a',
+    sbMessages: 'Mensajes',
+    progLabel: 'Tu progreso',
+    progDone: 'completado',
+    roadmap: {
+      cat: 'TU HOJA DE RUTA',
+      title: 'CAMINO AL BIENESTAR Y EL IMPACTO',
+      sub: 'Este es tu plan personalizado basado en tus respuestas. Cada fase te lleva un paso más cerca de tus objetivos.',
+      statsItems: [
+        {num:'3',unit:'/6',label:'Tareas completadas'},
+        {num:'2',unit:'sem',label:'Tiempo activo'},
+        {num:'1',unit:'',label:'Mentor asignado'}
+      ],
+      phases: [
+        {
+          num:'01',
+          title:'Diagnóstico y conexión inicial',
+          subtitle:'Semanas 1–2',
+          badge:'COMPLETADA',
+          badgeClass:'',
+          tasks:[
+            {state:'done',title:'Completar el formulario de intake',desc:'Has compartido tu situación actual.',tag:'done'},
+            {state:'done',title:'Recibir análisis de perfil',desc:'Hemos evaluado tus necesidades.',tag:'done'},
+            {state:'done',title:'Conectar con un mentor/a',desc:'Se te asignó un mentor especializado.',tag:'done'}
+          ]
+        },
+        {
+          num:'02',
+          title:'Primeras sesiones y apoyo inmediato',
+          subtitle:'Semanas 3–6',
+          badge:'EN CURSO',
+          badgeClass:'active-phase',
+          tasks:[
+            {state:'active',title:'Primera sesión con tu mentor/a',desc:'Explorá tus objetivos y establece expectativas.',tag:'now'},
+            {state:'pending',title:'Unirte al grupo de apoyo semanal',desc:'Sesiones grupales online cada jueves.',tag:'next'},
+            {state:'pending',title:'Completar módulo de autocuidado',desc:'Recursos y ejercicios para el burnout.',tag:'next'}
+          ]
+        },
+        {
+          num:'03',
+          title:'Desarrollo y estrategia',
+          subtitle:'Meses 2–3',
+          badge:'PRÓXIMA',
+          badgeClass:'',
+          tasks:[
+            {state:'pending',title:'Definir tu plan de acción a 6 meses',desc:'Con tu mentor/a, trazá objetivos concretos.',tag:'next'},
+            {state:'pending',title:'Participar en taller de habilidades',desc:'Comunicación efectiva y liderazgo.',tag:'next'},
+            {state:'pending',title:'Conectar con red de activistas regionales',desc:'Grupos locales y oportunidades de colaboración.',tag:'next'}
+          ]
+        }
+      ]
+    },
+    resources: {
+      cat: 'RECURSOS',
+      title: 'HERRAMIENTAS Y APOYO',
+      sub: 'Material seleccionado especialmente para tu situación.',
+      items: [
+        {icon:'🧘',title:'Guía de autocuidado para activistas',meta:'PDF · 12 páginas',link:'Descargar'},
+        {icon:'🎙️',title:'Podcast: Activismo sostenible',meta:'Audio · 45 min',link:'Escuchar'},
+        {icon:'📖',title:'Dilemas éticos en el activismo',meta:'Artículo · 8 min',link:'Leer'},
+        {icon:'🤝',title:'Directorio de grupos locales',meta:'Directorio interactivo',link:'Explorar'},
+        {icon:'💡',title:'Técnicas de comunicación no violenta',meta:'Taller online · 90 min',link:'Inscribirse'},
+        {icon:'🌱',title:'De voluntario a trabajo remunerado',meta:'Guía en 5 pasos',link:'Ver guía'}
+      ]
+    },
+    community: {
+      cat: 'COMUNIDAD',
+      title: 'TU RED DE ACTIVISTAS',
+      sub: 'Conectá con activistas que comparten tus mismos desafíos y valores.',
+      items: [
+        {icon:'💬',title:'Grupo de apoyo — Buenos Aires',meta:'24 miembros activos · Jueves 19hs'},
+        {icon:'🌍',title:'Red latinoamericana de activistas',meta:'340 miembros · Online'},
+        {icon:'⚡',title:'Slack: Activismo y bienestar',meta:'Invitación disponible'},
+        {icon:'📅',title:'Próximo encuentro presencial',meta:'12 oct — CABA · 15 activistas confirmados/as'}
+      ]
+    }
+  },
+  en: {
+    hdrTitle: 'My roadmap',
+    userName: 'Activist',
+    sbMenu: 'Menu',
+    sbRoadmap: 'Roadmap',
+    sbResources: 'Resources',
+    sbCommunity: 'Community',
+    sbSupport: 'Support',
+    sbMentor: 'My mentor',
+    sbMessages: 'Messages',
+    progLabel: 'Your progress',
+    progDone: 'completed',
+    roadmap: {
+      cat: 'YOUR ROADMAP',
+      title: 'PATH TO WELLBEING AND IMPACT',
+      sub: 'This is your personalized plan based on your answers. Each phase brings you one step closer to your goals.',
+      statsItems: [
+        {num:'3',unit:'/6',label:'Tasks completed'},
+        {num:'2',unit:'wk',label:'Active time'},
+        {num:'1',unit:'',label:'Mentor assigned'}
+      ],
+      phases: [
+        {
+          num:'01',
+          title:'Initial diagnosis and connection',
+          subtitle:'Weeks 1–2',
+          badge:'COMPLETED',
+          badgeClass:'',
+          tasks:[
+            {state:'done',title:'Complete the intake form',desc:'You have shared your current situation.',tag:'done'},
+            {state:'done',title:'Receive profile analysis',desc:'We have evaluated your needs.',tag:'done'},
+            {state:'done',title:'Connect with a mentor',desc:'A specialized mentor has been assigned.',tag:'done'}
+          ]
+        },
+        {
+          num:'02',
+          title:'First sessions and immediate support',
+          subtitle:'Weeks 3–6',
+          badge:'IN PROGRESS',
+          badgeClass:'active-phase',
+          tasks:[
+            {state:'active',title:'First session with your mentor',desc:'Explore your goals and set expectations.',tag:'now'},
+            {state:'pending',title:'Join the weekly support group',desc:'Online group sessions every Thursday.',tag:'next'},
+            {state:'pending',title:'Complete self-care module',desc:'Resources and exercises for burnout.',tag:'next'}
+          ]
+        },
+        {
+          num:'03',
+          title:'Development and strategy',
+          subtitle:'Months 2–3',
+          badge:'UPCOMING',
+          badgeClass:'',
+          tasks:[
+            {state:'pending',title:'Define your 6-month action plan',desc:'With your mentor, set concrete goals.',tag:'next'},
+            {state:'pending',title:'Attend skills workshop',desc:'Effective communication and leadership.',tag:'next'},
+            {state:'pending',title:'Connect with regional activist network',desc:'Local groups and collaboration opportunities.',tag:'next'}
+          ]
+        }
+      ]
+    },
+    resources: {
+      cat: 'RESOURCES',
+      title: 'TOOLS AND SUPPORT',
+      sub: 'Material selected especially for your situation.',
+      items: [
+        {icon:'🧘',title:'Self-care guide for activists',meta:'PDF · 12 pages',link:'Download'},
+        {icon:'🎙️',title:'Podcast: Sustainable activism',meta:'Audio · 45 min',link:'Listen'},
+        {icon:'📖',title:'Ethical dilemmas in activism',meta:'Article · 8 min',link:'Read'},
+        {icon:'🤝',title:'Local groups directory',meta:'Interactive directory',link:'Explore'},
+        {icon:'💡',title:'Nonviolent communication techniques',meta:'Online workshop · 90 min',link:'Register'},
+        {icon:'🌱',title:'From volunteer to paid work',meta:'5-step guide',link:'View guide'}
+      ]
+    },
+    community: {
+      cat: 'COMMUNITY',
+      title: 'YOUR ACTIVIST NETWORK',
+      sub: 'Connect with activists who share your same challenges and values.',
+      items: [
+        {icon:'💬',title:'Support group — Buenos Aires',meta:'24 active members · Thursdays 7pm'},
+        {icon:'🌍',title:'Latin American activist network',meta:'340 members · Online'},
+        {icon:'⚡',title:'Slack: Activism & wellbeing',meta:'Invitation available'},
+        {icon:'📅',title:'Next in-person meetup',meta:'Oct 12 — CABA · 15 confirmed activists'}
+      ]
+    }
+  }
+};
+
+function c(){ return T[lang]; }
+function toggleLang(){ lang=lang==='es'?'en':'es'; renderAll(); }
+function setLang(l){ lang=l; renderAll(); }
+
+function renderAll(){
+  document.documentElement.lang = lang;
+  var ct = c();
+  document.getElementById('tab-es').className = 'lang-tab'+(lang==='es'?' active':' inactive');
+  document.getElementById('tab-en').className = 'lang-tab'+(lang==='en'?' active':' inactive');
+  document.getElementById('hdr-title').textContent = ct.hdrTitle;
+  document.getElementById('user-name').textContent = ct.userName;
+  document.getElementById('sb-menu').textContent = ct.sbMenu;
+  document.getElementById('sb-roadmap').textContent = ct.sbRoadmap;
+  document.getElementById('sb-resources').textContent = ct.sbResources;
+  document.getElementById('sb-community').textContent = ct.sbCommunity;
+  document.getElementById('sb-support').textContent = ct.sbSupport;
+  document.getElementById('sb-mentor').textContent = ct.sbMentor;
+  document.getElementById('sb-messages').textContent = ct.sbMessages;
+  document.getElementById('prog-label').textContent = ct.progLabel;
+  document.getElementById('prog-done').textContent = ct.progDone;
+  renderSection();
+}
+
+function showSection(s){
+  currentSection = s;
+  document.querySelectorAll('.side-item').forEach(function(el,i){
+    var names = ['roadmap','resources','community'];
+    el.className = 'side-item'+(names[i]===s?' active':'');
+  });
+  renderSection();
+}
+
+function renderSection(){
+  var ct = c();
+  var html = '';
+  if(currentSection==='roadmap'){
+    var r = ct.roadmap;
+    html += '<div class="page-header">'
+      +'<div class="page-cat">'+r.cat+'</div>'
+      +'<h1 class="page-h1">'+r.title+'</h1>'
+      +'<p class="page-sub">'+r.sub+'</p>'
+      +'</div>';
+    // Stats
+    html += '<div class="stats">';
+    r.statsItems.forEach(function(s){
+      html += '<div class="stat"><div class="stat-num">'+s.num+'<span>'+s.unit+'</span></div><div class="stat-label">'+s.label+'</div></div>';
+    });
+    html += '</div>';
+    // Phases
+    r.phases.forEach(function(p){
+      html += '<div class="phase">'
+        +'<div class="phase-header">'
+        +'<div class="phase-num">'+p.num+'</div>'
+        +'<div><div class="phase-title">'+p.title+'</div><div class="phase-subtitle">'+p.subtitle+'</div></div>'
+        +'<div class="milestone-badge '+p.badgeClass+'">'+p.badge+'</div>'
+        +'</div>'
+        +'<div class="tasks">';
+      p.tasks.forEach(function(t){
+        var stateCls = t.state==='done'?'done':t.state==='active'?'active-task':'';
+        var tagLabel = t.tag==='done'?(lang==='es'?'Listo':'Done'):t.tag==='now'?(lang==='es'?'Ahora':'Now'):(lang==='es'?'Próximo':'Next');
+        var tagCls = t.tag==='done'?'tag-done':t.tag==='now'?'tag-now':'tag-next';
+        html += '<div class="task '+stateCls+'">'
+          +'<div class="task-check">'+(t.state==='done'?'<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5.5L4.2 7.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>':'')+'</div>'
+          +'<div class="task-body"><div class="task-title">'+t.title+'</div><div class="task-desc">'+t.desc+'</div></div>'
+          +'<div class="task-tag '+tagCls+'">'+tagLabel+'</div>'
+          +'</div>';
+      });
+      html += '</div></div>';
+    });
+  } else if(currentSection==='resources'){
+    var res = ct.resources;
+    html += '<div class="page-header">'
+      +'<div class="page-cat">'+res.cat+'</div>'
+      +'<h1 class="page-h1">'+res.title+'</h1>'
+      +'<p class="page-sub">'+res.sub+'</p>'
+      +'</div>';
+    html += '<div class="resources-grid">';
+    res.items.forEach(function(item){
+      html += '<div class="resource-card">'
+        +'<div class="resource-icon">'+item.icon+'</div>'
+        +'<div class="resource-title">'+item.title+'</div>'
+        +'<div class="resource-meta">'+item.meta+'</div>'
+        +'<div class="resource-link">'+item.link+' →</div>'
+        +'</div>';
+    });
+    html += '</div>';
+  } else if(currentSection==='community'){
+    var com = ct.community;
+    html += '<div class="page-header">'
+      +'<div class="page-cat">'+com.cat+'</div>'
+      +'<h1 class="page-h1">'+com.title+'</h1>'
+      +'<p class="page-sub">'+com.sub+'</p>'
+      +'</div>';
+    html += '<div class="resources-grid">';
+    com.items.forEach(function(item){
+      html += '<div class="resource-card">'
+        +'<div class="resource-icon">'+item.icon+'</div>'
+        +'<div class="resource-title">'+item.title+'</div>'
+        +'<div class="resource-meta">'+item.meta+'</div>'
+        +'<div class="resource-link">'+(lang==='es'?'Ver más →':'See more →')+'</div>'
+        +'</div>';
+    });
+    html += '</div>';
+  }
+  document.getElementById('main-content').innerHTML = html;
+}
+
+renderAll();
+</script>
+</body>
+</html>
