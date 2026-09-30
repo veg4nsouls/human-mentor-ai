@@ -18,13 +18,13 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .topbar{height:52px;background:rgba(18,19,25,.95);border-bottom:1px solid rgba(246,243,238,.06);display:flex;align-items:center;padding:0 32px;position:relative;z-index:10;backdrop-filter:blur(10px)}
 .logo{display:flex;align-items:center;gap:8px}
 .logo-box{width:20px;height:20px;border:1px solid rgba(246,243,238,.25);border-radius:3px;display:flex;align-items:center;justify-content:center}
-.logo-name{font-size:12px;font-weight:700;letter-spacing:.06em}
+.logo-name{font-size:14px;font-weight:700;letter-spacing:.06em}
 .topbar-right{margin-left:auto;display:flex;align-items:center;gap:16px}
 .lang-toggle{display:flex;align-items:center;background:none;border:1px solid rgba(246,243,238,.15);border-radius:20px;padding:2px}
-.lang-tab{padding:3px 10px;border-radius:16px;font-size:10px;font-weight:700;letter-spacing:.06em;transition:.15s;cursor:pointer;border:none}
+.lang-tab{padding:3px 10px;border-radius:16px;font-size:12px;font-weight:700;letter-spacing:.06em;transition:.15s;cursor:pointer;border:none}
 .lang-tab.active{background:#6F9BFF;color:#060d0a}
 .lang-tab.inactive{background:none;color:rgba(246,243,238,.5)}
-.home-link{font-size:11px;color:rgba(246,243,238,.65);font-weight:500}
+.home-link{font-size:13px;color:rgba(246,243,238,.65);font-weight:500}
 .home-link:hover{color:#F6F3EE}
 
 /* Layout */
@@ -37,53 +37,53 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .step-dot.current{background:#F6F3EE;box-shadow:0 0 0 3px rgba(246,243,238,.15)}
 .step-line{flex:1;height:1px;background:rgba(246,243,238,.1);transition:.35s}
 .step-line.done{background:#6F9BFF}
-.step-label{font-size:10px;font-weight:600;color:rgba(246,243,238,.75);letter-spacing:.1em;text-transform:uppercase;text-align:right;width:100%;max-width:540px;margin-bottom:8px}
+.step-label{font-size:12px;font-weight:600;color:rgba(246,243,238,.75);letter-spacing:.1em;text-transform:uppercase;text-align:right;width:100%;max-width:540px;margin-bottom:8px}
 
 /* Card */
 .card{width:100%;max-width:540px;background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.08);border-radius:20px;padding:32px 36px 28px}
-.q-cat{font-size:9px;font-weight:700;color:#6F9BFF;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
-.q-title{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:800;color:#F6F3EE;text-transform:uppercase;line-height:.95;letter-spacing:.01em;margin-bottom:10px}
-.q-sub{font-size:13px;color:rgba(246,243,238,.72);line-height:1.6;margin-bottom:24px}
+.q-cat{font-size:11px;font-weight:700;color:#6F9BFF;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.q-title{font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:800;color:#F6F3EE;text-transform:uppercase;line-height:.95;letter-spacing:.01em;margin-bottom:10px}
+.q-sub{font-size:15px;color:rgba(246,243,238,.72);line-height:1.6;margin-bottom:24px}
 
 /* Options */
 .options{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
 .option{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.08);border-radius:12px;text-align:left;width:100%;transition:.15s}
 .option:hover{border-color:rgba(111,155,255,.3);background:rgba(111,155,255,.05)}
 .option.selected{background:rgba(111,155,255,.1);border-color:#6F9BFF}
-.opt-icon{width:36px;height:36px;background:rgba(246,243,238,.06);border:1px solid rgba(246,243,238,.1);border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px}
+.opt-icon{width:36px;height:36px;background:rgba(246,243,238,.06);border:1px solid rgba(246,243,238,.1);border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px}
 .option.selected .opt-icon{background:rgba(111,155,255,.15);border-color:rgba(111,155,255,.3)}
-.opt-title{font-size:13px;font-weight:600;color:#F6F3EE;margin-bottom:2px;line-height:1.3}
-.opt-desc{font-size:11px;color:rgba(246,243,238,.7);line-height:1.45}
+.opt-title{font-size:15px;font-weight:600;color:#F6F3EE;margin-bottom:2px;line-height:1.3}
+.opt-desc{font-size:13px;color:rgba(246,243,238,.7);line-height:1.45}
 
 /* Textarea */
 .free-wrap{margin-bottom:28px}
-.free-input{width:100%;min-height:120px;background:rgba(246,243,238,.04);border:1px solid rgba(246,243,238,.1);border-radius:12px;padding:16px;font-family:'Space Grotesk',sans-serif;font-size:14px;color:#F6F3EE;resize:vertical;outline:none;transition:.2s}
+.free-input{width:100%;min-height:120px;background:rgba(246,243,238,.04);border:1px solid rgba(246,243,238,.1);border-radius:12px;padding:16px;font-family:'Space Grotesk',sans-serif;font-size:16px;color:#F6F3EE;resize:vertical;outline:none;transition:.2s}
 .free-input::placeholder{color:rgba(246,243,238,.65)}
 .free-input:focus{border-color:rgba(111,155,255,.4);background:rgba(111,155,255,.04)}
-.free-hint{font-size:11px;color:rgba(246,243,238,.65);margin-top:8px;line-height:1.5}
+.free-hint{font-size:13px;color:rgba(246,243,238,.65);margin-top:8px;line-height:1.5}
 
 /* Buttons */
 .btn-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.btn-back{background:none;border:none;font-size:13px;font-weight:500;color:rgba(246,243,238,.8);padding:0;display:flex;align-items:center;gap:5px}
+.btn-back{background:none;border:none;font-size:17px;font-weight:500;color:rgba(246,243,238,.8);padding:0;display:flex;align-items:center;gap:5px}
 .btn-back:hover{color:#F6F3EE}
-.btn-next{display:flex;align-items:center;gap:8px;background:#6F9BFF;border:none;border-radius:10px;padding:12px 24px;font-size:15px;font-weight:700;color:#060d0a;margin-left:auto;transition:.15s}
+.btn-next{display:flex;align-items:center;gap:8px;background:#6F9BFF;border:none;border-radius:10px;padding:12px 24px;font-size:17px;font-weight:700;color:#060d0a;margin-left:auto;transition:.15s}
 .btn-next:hover{box-shadow:0 0 0 4px rgba(111,155,255,.25)}
 .btn-next:disabled{opacity:.4;cursor:default;box-shadow:none}
 
 /* Name fields */
 .name-fields{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
-.field-label{font-size:11px;font-weight:600;color:rgba(246,243,238,.75);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
-.field-input{width:100%;background:rgba(246,243,238,.04);border:1px solid rgba(246,243,238,.1);border-radius:10px;padding:13px 16px;font-family:'Space Grotesk',sans-serif;font-size:14px;color:#F6F3EE;outline:none;transition:.2s}
+.field-label{font-size:13px;font-weight:600;color:rgba(246,243,238,.75);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+.field-input{width:100%;background:rgba(246,243,238,.04);border:1px solid rgba(246,243,238,.1);border-radius:10px;padding:13px 16px;font-family:'Space Grotesk',sans-serif;font-size:16px;color:#F6F3EE;outline:none;transition:.2s}
 .field-input::placeholder{color:rgba(246,243,238,.45)}
 .field-input:focus{border-color:rgba(111,155,255,.4)}
 
 /* Result screen */
 .result-card{width:100%;max-width:540px;background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.08);border-radius:20px;padding:36px;text-align:center}
-.result-icon{width:64px;height:64px;background:rgba(111,155,255,.12);border:1px solid rgba(111,155,255,.25);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:28px}
-.result-h1{font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:800;color:#F6F3EE;text-transform:uppercase;margin-bottom:14px;line-height:.95}
-.result-sub{font-size:15px;color:rgba(246,243,238,.72);line-height:1.65;margin-bottom:28px}
-.result-cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#6F9BFF;border:none;border-radius:12px;padding:16px 24px;font-size:16px;font-weight:700;color:#060d0a}
-.result-restart{margin-top:14px;background:none;border:none;font-size:12px;color:rgba(246,243,238,.5);font-weight:500}
+.result-icon{width:64px;height:64px;background:rgba(111,155,255,.12);border:1px solid rgba(111,155,255,.25);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:30px}
+.result-h1{font-family:'Barlow Condensed',sans-serif;font-size:46px;font-weight:800;color:#F6F3EE;text-transform:uppercase;margin-bottom:14px;line-height:.95}
+.result-sub{font-size:17px;color:rgba(246,243,238,.72);line-height:1.65;margin-bottom:28px}
+.result-cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#6F9BFF;border:none;border-radius:12px;padding:16px 24px;font-size:18px;font-weight:700;color:#060d0a}
+.result-restart{margin-top:14px;background:none;border:none;font-size:14px;color:rgba(246,243,238,.5);font-weight:500}
 .result-restart:hover{color:rgba(246,243,238,.8)}
 </style>
 </head>
@@ -113,7 +113,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 </div>
 
 <script>
-var lang = 'es';
+var lang = (function(){ try{ return localStorage.getItem('hm_lang')||'es'; }catch(e){ return 'es'; } })();
 var step = 0;
 var answers = {};
 
@@ -181,16 +181,16 @@ var T = {
         ]
       },
       {
-        cat:'SOBRE VOS',
-        title:'¿CÓMO TE LLAMÁS?',
-        sub:'Queremos personalizar tu experiencia. Podés usar un apodo si preferís.',
+        cat:'SOBRE TI',
+        title:'¿CÓMO TE LLAMAS?',
+        sub:'Queremos personalizar tu experiencia. Puedes usar un apodo si prefieres.',
         type:'name',
         key:'name'
       },
       {
         cat:'TU SITUACIÓN',
         title:'¿ALGO MÁS QUE QUIERAS COMPARTIR?',
-        sub:'Cuéntanos con tus propias palabras qué estás viviendo. Esto es completamente confidencial.',
+        sub:'Cuéntanos con tus propias palabras qué estás viviendo. Es completamente confidencial.',
         type:'free',
         key:'story',
         hint:'No hay respuestas correctas o incorrectas. Cuanta más información nos des, mejor podremos orientarte.',
@@ -199,8 +199,8 @@ var T = {
     ],
     result: {
       icon:'🌱',
-      title:'ESTAMOS CON VOS',
-      sub: function(a){ return '¡Gracias, '+(a.name||'amigo/a')+'! Analizamos tu perfil y te conectaremos con el mentor o recurso que mejor se adapta a tu situación. Alguien de nuestro equipo se pondrá en contacto pronto.'; },
+      title:'ESTAMOS CONTIGO',
+      sub: function(a){ return '¡Gracias, '+(a.name||'amigo/a')+'! Analizamos tu perfil y te conectaremos con el mentor o recurso que mejor se adapta a tu situación.'; },
       cta:'Ver mi hoja de ruta',
       restart:'Empezar de nuevo'
     }
@@ -297,8 +297,8 @@ var T = {
 function c(){ return T[lang]; }
 function q(){ return c().questions; }
 
-function toggleLang(){ lang = lang==='es'?'en':'es'; renderAll(); }
-function setLang(l){ lang=l; renderAll(); }
+function toggleLang(){ lang = lang==='es'?'en':'es'; try{localStorage.setItem('hm_lang',lang);}catch(e){} renderAll(); }
+function setLang(l){ lang=l; try{localStorage.setItem('hm_lang',l);}catch(e){} renderAll(); }
 
 function renderAll(){
   document.documentElement.lang = lang;
@@ -391,6 +391,48 @@ function goBack(){
   if(step>0){ step--; renderStep(); window.scrollTo(0,0); }
 }
 
+
+function renderMentorRec(){
+  // Map answers to mentor categories
+  var cat = null;
+  var area = answers.area;
+  var challenge = answers.challenge;
+  // area 2 = mentoría, challenge 3 = outreach, area 1 = profesional
+  if(area===2 || area===1 || challenge===3) cat = (area===1 ? 'profesional' : area===2 ? 'mentoria' : 'outreach');
+  var mentorHtml = lang==='es'
+    ? '<div style="margin-top:20px;padding:16px;background:rgba(111,155,255,.07);border:1px solid rgba(111,155,255,.18);border-radius:14px;text-align:left">'
+      +'<div style="font-size:17px;font-weight:700;color:#6F9BFF;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px">MENTOR RECOMENDADO PARA TI</div>'
+      +'<div style="display:flex;align-items:center;gap:12px">'
+      +'<div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,rgba(111,155,255,.3),rgba(130,80,200,.3));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#F6F3EE;border:1px solid rgba(111,155,255,.2)">DP</div>'
+      +'<div style="flex:1;min-width:0">'
+      +'<div style="font-size:18px;font-weight:700;color:#F6F3EE;margin-bottom:2px">David Perle</div>'
+      +'<div style="font-size:17px;color:rgba(246,243,238,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Senior Manager, División de Medios · PETA</div>'
+      +'</div></div>'
+      +'<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">'
+      +'<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(111,155,255,.12);color:#6F9BFF;border:1px solid rgba(111,155,255,.2)">Mentoría</span>'
+      +'<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(50,200,140,.1);color:rgba(80,210,150,.9);border:1px solid rgba(50,200,140,.2)">Outreach</span>'
+      +'<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(246,243,238,.06);color:rgba(246,243,238,.5);border:1px solid rgba(246,243,238,.1)">Online · 20 años</span>'
+      +'</div>'
+      +'<a href="mentors.html" style="display:block;margin-top:12px;text-align:center;padding:9px 16px;border:1px solid rgba(111,155,255,.35);border-radius:8px;font-size:14px;font-weight:700;color:#6F9BFF;background:none;text-decoration:none">Ver perfil completo →</a>'
+      +'</div>'
+    : '<div style="margin-top:20px;padding:16px;background:rgba(111,155,255,.07);border:1px solid rgba(111,155,255,.18);border-radius:14px;text-align:left">'
+      +'<div style="font-size:17px;font-weight:700;color:#6F9BFF;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px">RECOMMENDED MENTOR FOR YOU</div>'
+      +'<div style="display:flex;align-items:center;gap:12px">'
+      +'<div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,rgba(111,155,255,.3),rgba(130,80,200,.3));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#F6F3EE;border:1px solid rgba(111,155,255,.2)">DP</div>'
+      +'<div style="flex:1;min-width:0">'
+      +'<div style="font-size:18px;font-weight:700;color:#F6F3EE;margin-bottom:2px">David Perle</div>'
+      +'<div style="font-size:17px;color:rgba(246,243,238,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Senior Manager, Media Division · PETA</div>'
+      +'</div></div>'
+      +'<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">'
+      +'<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(111,155,255,.12);color:#6F9BFF;border:1px solid rgba(111,155,255,.2)">Mentorship</span>'
+      +'<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(50,200,140,.1);color:rgba(80,210,150,.9);border:1px solid rgba(50,200,140,.2)">Outreach</span>'
+      +'<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(246,243,238,.06);color:rgba(246,243,238,.5);border:1px solid rgba(246,243,238,.1)">Online · 20 yrs</span>'
+      +'</div>'
+      +'<a href="mentors.html" style="display:block;margin-top:12px;text-align:center;padding:9px 16px;border:1px solid rgba(111,155,255,.35);border-radius:8px;font-size:14px;font-weight:700;color:#6F9BFF;background:none;text-decoration:none">See full profile →</a>'
+      +'</div>';
+  return mentorHtml;
+}
+
 function renderResult(){
   var r = c().result;
   var screen = document.getElementById('screen');
@@ -410,6 +452,7 @@ function renderResult(){
     +'<h1 class="result-h1">'+r.title+'</h1>'
     +'<p class="result-sub">'+r.sub(answers)+'</p>'
     +'<a href="dashboard.html" class="result-cta">'+r.cta+' <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M9 3l6 6-6 6" stroke="#060d0a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>'
+    +renderMentorRec()
     +'<button class="result-restart" onclick="restart()">'+r.restart+'</button>'
     +'</div>';
 }

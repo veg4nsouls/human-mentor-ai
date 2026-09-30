@@ -7,7 +7,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Space Grotesk',sans-serif;background:#1D1E25;color:#F6F3EE;min-height:100vh;overflow-x:hidden}
+body{font-family:'Space Grotesk',sans-serif;background:#1D1E25;color:#F6F3EE;min-height:100vh}
+html{overflow-x:hidden}
 a{text-decoration:none;color:inherit}
 button{font-family:'Space Grotesk',sans-serif;cursor:pointer}
 
@@ -79,14 +80,14 @@ h1.hero-h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(56px,8vw,10
 <body>
 
 <!-- NEBULA -->
-<div style="position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none" aria-hidden="true">
+<div style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;overflow:hidden" aria-hidden="true">
   <div id="blob-teal-wrap" style="position:absolute;top:-140px;left:-120px;will-change:transform">
-    <div class="blob" style="width:560px;height:480px;background:radial-gradient(circle at 40% 40%,rgba(50,160,190,.3) 0%,transparent 68%);animation:nb1 8s ease-in-out infinite"></div>
+    <div class="blob" style="width:600px;height:520px;background:radial-gradient(circle at 40% 40%,rgba(50,160,190,.55) 0%,transparent 65%);animation:nb1 8s ease-in-out infinite"></div>
   </div>
-  <div class="blob" style="width:500px;height:500px;background:radial-gradient(circle at 55% 45%,rgba(130,80,200,.22) 0%,transparent 68%);position:absolute;top:-100px;right:-80px;animation:nb2 11s ease-in-out infinite"></div>
-  <div class="blob" style="width:680px;height:420px;background:radial-gradient(circle at 50% 50%,rgba(111,155,255,.14) 0%,transparent 65%);position:absolute;top:25%;left:15%;animation:nb3 13s ease-in-out infinite"></div>
-  <div class="blob" style="width:440px;height:380px;background:radial-gradient(circle at 50% 55%,rgba(180,80,130,.16) 0%,transparent 68%);position:absolute;bottom:-60px;right:5%;animation:nb4 9s ease-in-out infinite"></div>
-  <div class="blob" style="width:360px;height:300px;background:radial-gradient(circle at 50% 50%,rgba(160,100,60,.14) 0%,transparent 68%);position:absolute;bottom:0;left:-60px;animation:nb2 12s ease-in-out infinite reverse"></div>
+  <div class="blob" style="width:540px;height:540px;background:radial-gradient(circle at 55% 45%,rgba(130,80,200,.45) 0%,transparent 65%);position:absolute;top:-100px;right:-80px;animation:nb2 11s ease-in-out infinite"></div>
+  <div class="blob" style="width:700px;height:460px;background:radial-gradient(circle at 50% 50%,rgba(111,155,255,.32) 0%,transparent 62%);position:absolute;top:25%;left:15%;animation:nb3 13s ease-in-out infinite"></div>
+  <div class="blob" style="width:480px;height:400px;background:radial-gradient(circle at 50% 55%,rgba(180,80,130,.35) 0%,transparent 65%);position:absolute;bottom:-60px;right:5%;animation:nb4 9s ease-in-out infinite"></div>
+  <div class="blob" style="width:380px;height:320px;background:radial-gradient(circle at 50% 50%,rgba(200,120,50,.3) 0%,transparent 65%);position:absolute;bottom:0;left:-60px;animation:nb2 12s ease-in-out infinite reverse"></div>
 </div>
 
 <!-- NAV -->
@@ -146,7 +147,7 @@ h1.hero-h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(56px,8vw,10
 </div>
 
 <script>
-var lang = 'es';
+var lang = (function(){ try{ return localStorage.getItem('hm_lang')||'es'; }catch(e){ return 'es'; } })();
 var openMenu = null;
 
 var CONTENT = {
@@ -290,6 +291,7 @@ function renderDropdown(i){
 
 function toggleLang(){
   lang = lang==='es'?'en':'es';
+  try{localStorage.setItem('hm_lang',lang);}catch(e){}
   render();
 }
 
