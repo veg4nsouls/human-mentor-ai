@@ -142,6 +142,13 @@ var T = {
         ]
       },
       {
+        cat:'TU SITUACIÓN',
+        title:'¿QUÉ TIPO DE APOYO NECESITAS?',
+        sub:'Selecciona la opción que mejor describe lo que estás buscando.',
+        type:'sub_options',
+        key:'challenge_detail'
+      },
+      {
         cat:'ÁREA DE ENFOQUE',
         title:'¿EN QUÉ ÁREA NECESITAS MÁS APOYO?',
         sub:'Selecciona la que más resuene contigo ahora mismo.',
@@ -197,6 +204,53 @@ var T = {
         placeholder:'Escribe aquí lo que estás viviendo...'
       }
     ],
+    subOptions: [
+      { cat:'TU SITUACIÓN', title:'¿QUÉ TIPO DE APOYO NECESITAS?', sub:'Selecciona la opción que mejor describe lo que estás buscando.',
+        options:[
+          {icon:'🤝',title:'Acompañamiento 1 a 1 con un/a mentor/a que superó el burnout',desc:'Quiero hablar directamente con un/a activista experimentado/a que haya superado el agotamiento emocional y sepa cómo salir de esto'},
+          {icon:'🧬',title:'Conectarme con terapeutas con perspectiva antiespecista',desc:'Siento que la terapia convencional no entiende la carga emocional del activismo y necesito profesionales formados en antiespecismo'},
+          {icon:'💬',title:'Círculos de desahogo y espacio seguro (virtual)',desc:'Necesito participar en espacios grupales de contención emocional para compartir mis experiencias sin sentirme juzgado/a'},
+          {icon:'🛡️',title:'Prevención del burnout y agotamiento agudo',desc:'Busco talleres y estrategias para identificar señales de colapso emocional a tiempo y prevenir el agotamiento en mi organización'},
+          {icon:'🌿',title:'Herramientas de autoatención para el estrés diario',desc:'Busco guías prácticas y ejercicios para autorregular la ansiedad y la carga emocional provocada por el activismo'}
+        ]
+      },
+      { cat:'TU SITUACIÓN', title:'¿QUÉ TIPO DE APOYO NECESITAS?', sub:'Selecciona la opción que mejor describe lo que estás buscando.',
+        options:[
+          {icon:'🤝',title:'Contactarme con un/a mentor/a humano/a',desc:'Necesito conectar directamente con un/a mentor/a experimentado/a que haya atravesado situaciones similares para recibir orientación 1 a 1'},
+          {icon:'💬',title:'Participar en círculos de apoyo (virtual)',desc:'Necesito participar en espacios grupales de contención emocional para compartir mis experiencias sin sentirme juzgado/a y dejar de llevar mi compromiso en soledad'},
+          {icon:'🧬',title:'Conectar con un/a terapeuta con enfoque antiespecista',desc:'Quiero recibir atención psicológica especializada para abordar la sensación de soledad e incomprensión en mi entorno'},
+          {icon:'📍',title:'Aislamiento regional o falta de red local',desc:'En mi ciudad o región no hay grupos activos y necesito encontrar encuentros presenciales o virtuales con otros activistas'},
+          {icon:'🌱',title:'Acompañamiento en la transición inicial al activismo',desc:'Soy nuevo/a en el movimiento y busco alguien con trayectoria que me introduzca a la comunidad de forma segura'}
+        ]
+      },
+      { cat:'TU SITUACIÓN', title:'¿QUÉ TIPO DE APOYO NECESITAS?', sub:'Selecciona la opción que mejor describe lo que estás buscando.',
+        options:[
+          {icon:'🤝',title:'Mentoría con un/a activista profesionalizado/a',desc:'Quiero hablar con un/a mentor/a que ya haya logrado esa transición'},
+          {icon:'🗺️',title:'Reorientación de carrera y plan de acción individual',desc:'Necesito un mentor que me ayude a definir mis objetivos profesionales dentro del movimiento y trazar metas claras a mediano plazo'},
+          {icon:'💼',title:'Transición de voluntariado a empleo remunerado',desc:'Quiero dar el paso de ser voluntario/a a conseguir un trabajo formal pagado dentro de una organización animalista'},
+          {icon:'💰',title:'Acceso a becas y financiamiento de proyectos',desc:'Necesito encontrar oportunidades de financiamiento o becas para ejecutar mis campañas, eventos o iniciativas'},
+          {icon:'🚀',title:'Desarrollo de habilidades de liderazgo y gestión',desc:'Busco capacitaciones para coordinar equipos, estructurar proyectos y asumir roles de mayor responsabilidad'}
+        ]
+      },
+      { cat:'TU SITUACIÓN', title:'¿QUÉ TIPO DE APOYO NECESITAS?', sub:'Selecciona la opción que mejor describe lo que estás buscando.',
+        options:[
+          {icon:'🎯',title:'Mentoría 1 a 1 en estrategias de Outreach y comunicación',desc:'Busco la guía de un/a mentor/a con amplia trayectoria en campo para que revise mi discurso y me dé retroalimentación directa'},
+          {icon:'🗣️',title:'Mentoría para la mejora del discurso (speech) y persuasión',desc:'Quiero conectar con un/a mentor/a que me enseñe a perfeccionar mi argumento antiespecista para comunicar con mayor claridad y convicción'},
+          {icon:'🛡️',title:'Mentoría en manejo de respuestas hostiles o agresivas',desc:'Busco la orientación de un/a mentor/a experimentado/a para aprender protocolos de calma ante comentarios agresivos en la calle'},
+          {icon:'👥',title:'Conectar con mentores o recursos para crear y/o gestionar grupos locales',desc:'Necesito ayuda de un/a mentor/a y herramientas para organizar desde cero un colectivo o grupo de activismo en mi zona'},
+          {icon:'💬',title:'Mentoría en técnicas de comunicación efectiva sin confrontación',desc:'Quiero que un/a mentor/a me guíe en dinámicas de diálogo persuasivo que faciliten conversaciones exitosas con el público no vegano'}
+        ]
+      },
+      { cat:'TU SITUACIÓN', title:'¿QUÉ TIPO DE APOYO NECESITAS?', sub:'Selecciona la opción que mejor describe lo que estás buscando.',
+        options:[
+          {icon:'⚡',title:'Mentoría para la resolución de conflictos organizacionales',desc:'Quiero conectar con un/a mentor/a para aprender a gestionar tensiones, desacuerdos estratégicos y problemas de equipo'},
+          {icon:'⚖️',title:'Mentoría para la navegación de dilemas éticos y laborales',desc:'Busco hablar con un/a mentor/a para alinear mis elecciones de trabajo y estilo de vida con mis principios antiespecistas'},
+          {icon:'🌍',title:'Mentoría sobre postura ideológica y estrategia',desc:'Deseo conectar con un/a mentor/a experimentado/a para orientarme frente a debates del movimiento (abolicionismo, ética pura, welfarismo)'},
+          {icon:'🏠',title:'Mentoría para afrontar conflictos familiares y sociales',desc:'Quiero la guía de un/a mentor/a que haya superado la incomprensión o burlas de su entorno cercano para gestionar mis fricciones familiares'},
+          {icon:'🔒',title:'Mentoría confidencial en mediación y ética sensible',desc:'Necesito una sesión privada con un/a mentor/a verificado/a para tratar dudas éticas o personales de alta sensibilidad con total confidencialidad'}
+        ]
+      }
+    ],
     result: {
       icon:'🌱',
       title:'ESTAMOS CONTIGO',
@@ -227,6 +281,13 @@ var T = {
           {icon:'🗣️',title:'Improve my Outreach impact',desc:'I want to connect better with non-vegans'},
           {icon:'⚡',title:'Internal conflicts or ethical dilemmas',desc:'I have questions about my choices and values'}
         ]
+      },
+      {
+        cat:'YOUR SITUATION',
+        title:'WHAT TYPE OF SUPPORT DO YOU NEED?',
+        sub:'Select the option that best describes what you are looking for.',
+        type:'sub_options',
+        key:'challenge_detail'
       },
       {
         cat:'FOCUS AREA',
@@ -284,6 +345,53 @@ var T = {
         placeholder:'Write here what you are experiencing...'
       }
     ],
+    subOptions: [
+      { cat:'YOUR SITUATION', title:'WHAT TYPE OF SUPPORT DO YOU NEED?', sub:'Select the option that best describes what you are looking for.',
+        options:[
+          {icon:'🤝',title:'1-on-1 mentorship with someone who overcame burnout',desc:'I want to speak with an experienced activist who has overcome emotional exhaustion and knows how to get through it'},
+          {icon:'🧬',title:'Connect with anti-speciesist therapists',desc:'Conventional therapy does not understand the emotional weight of activism — I need professionals trained in anti-speciesism'},
+          {icon:'💬',title:'Venting circles and safe spaces (virtual)',desc:'I need to participate in group emotional support spaces to share my experiences without feeling judged'},
+          {icon:'🛡️',title:'Burnout prevention and acute exhaustion',desc:'I am looking for workshops and strategies to identify signs of emotional collapse early and prevent burnout in my organization'},
+          {icon:'🌿',title:'Self-care tools for daily stress',desc:'I am looking for practical guides and exercises to self-regulate the anxiety and emotional burden caused by activism'}
+        ]
+      },
+      { cat:'YOUR SITUATION', title:'WHAT TYPE OF SUPPORT DO YOU NEED?', sub:'Select the option that best describes what you are looking for.',
+        options:[
+          {icon:'🤝',title:'Connect with a human mentor',desc:'I need to connect directly with an experienced mentor who has faced similar situations to receive 1-on-1 guidance'},
+          {icon:'💬',title:'Join support circles (virtual)',desc:'I need group emotional support spaces to share my experiences without feeling judged and stop carrying my commitment alone'},
+          {icon:'🧬',title:'Connect with an anti-speciesist therapist',desc:'I want specialized psychological care to address feelings of loneliness and being misunderstood in my environment'},
+          {icon:'📍',title:'Regional isolation or lack of local network',desc:'There are no active groups in my city or region and I need to find in-person or virtual meetups with other activists'},
+          {icon:'🌱',title:'Support through my initial transition into activism',desc:'I am new to the movement and looking for someone experienced to introduce me to the community safely'}
+        ]
+      },
+      { cat:'YOUR SITUATION', title:'WHAT TYPE OF SUPPORT DO YOU NEED?', sub:'Select the option that best describes what you are looking for.',
+        options:[
+          {icon:'🤝',title:'Mentorship with a professionalized activist',desc:'I want to speak with a mentor who has already made that transition'},
+          {icon:'🗺️',title:'Career redirection and individual action plan',desc:'I need a mentor to help me define my professional goals within the movement and set clear medium-term milestones'},
+          {icon:'💼',title:'Transition from volunteering to paid employment',desc:'I want to move from volunteering to getting formal paid work within an animal rights organization'},
+          {icon:'💰',title:'Access to grants and project funding',desc:'I need to find funding opportunities or grants to run my campaigns, events or initiatives'},
+          {icon:'🚀',title:'Leadership and management skills development',desc:'I am looking for training to coordinate teams, structure projects and take on greater responsibility'}
+        ]
+      },
+      { cat:'YOUR SITUATION', title:'WHAT TYPE OF SUPPORT DO YOU NEED?', sub:'Select the option that best describes what you are looking for.',
+        options:[
+          {icon:'🎯',title:'1-on-1 mentorship in Outreach and communication strategies',desc:'I am looking for guidance from a mentor with extensive field experience to review my pitch and give me direct feedback'},
+          {icon:'🗣️',title:'Mentorship for improving speech and persuasion',desc:'I want to connect with a mentor who can teach me to refine my anti-speciesist argument to communicate with greater clarity and conviction'},
+          {icon:'🛡️',title:'Mentorship on handling hostile or aggressive responses',desc:'I am seeking guidance from an experienced mentor to learn calm protocols for aggressive comments in the street'},
+          {icon:'👥',title:'Connect with mentors or resources to create and/or manage local groups',desc:'I need help from a mentor and tools to organize a collective or activism group in my area from scratch'},
+          {icon:'💬',title:'Mentorship in effective communication without confrontation',desc:'I want a mentor to guide me in persuasive dialogue dynamics that facilitate successful conversations with non-vegan audiences'}
+        ]
+      },
+      { cat:'YOUR SITUATION', title:'WHAT TYPE OF SUPPORT DO YOU NEED?', sub:'Select the option that best describes what you are looking for.',
+        options:[
+          {icon:'⚡',title:'Mentorship for resolving organizational conflicts',desc:'I want to connect with a mentor to learn how to manage tensions, strategic disagreements and team issues'},
+          {icon:'⚖️',title:'Mentorship for navigating ethical and work dilemmas',desc:'I want to speak with a mentor to align my work and lifestyle choices with my anti-speciesist principles'},
+          {icon:'🌍',title:'Mentorship on ideological stance and strategy',desc:'I want to connect with an experienced mentor to get guidance on movement debates (abolitionism, pure ethics, welfarism)'},
+          {icon:'🏠',title:'Mentorship for handling family and social conflicts',desc:'I want guidance from a mentor who has overcome misunderstanding or mockery from close people to manage my family tensions'},
+          {icon:'🔒',title:'Confidential mentorship in mediation and sensitive ethics',desc:'I need a private session with a verified mentor to address ethical or personal questions of high sensitivity with full confidentiality'}
+        ]
+      }
+    ],
     result: {
       icon:'🌱',
       title:"WE'RE WITH YOU",
@@ -332,27 +440,34 @@ function renderStep(){
   var qdata = qs[step];
   var screen = document.getElementById('screen');
 
-  var html = '<div class="card">'
-    +'<div class="q-cat">'+qdata.cat+'</div>'
-    +'<h1 class="q-title">'+qdata.title+'</h1>'
-    +'<p class="q-sub">'+qdata.sub+'</p>';
+  // Resolve dynamic data for sub_options type
+  var rd = qdata;
+  if(qdata.type==='sub_options'){
+    var sub = c().subOptions[answers.challenge];
+    if(sub) rd = {cat:sub.cat,title:sub.title,sub:sub.sub,type:'options',key:qdata.key,options:sub.options};
+  }
 
-  if(qdata.type==='options'){
+  var html = '<div class="card">'
+    +'<div class="q-cat">'+rd.cat+'</div>'
+    +'<h1 class="q-title">'+rd.title+'</h1>'
+    +'<p class="q-sub">'+rd.sub+'</p>';
+
+  if(rd.type==='options'){
     html += '<div class="options">';
-    qdata.options.forEach(function(opt,oi){
-      var sel = answers[qdata.key]===oi;
+    rd.options.forEach(function(opt,oi){
+      var sel = answers[rd.key]===oi;
       html += '<button class="option'+(sel?' selected':'')+'" onclick="selectOpt('+oi+')">'
         +'<div class="opt-icon">'+opt.icon+'</div>'
         +'<div><div class="opt-title">'+opt.title+'</div><div class="opt-desc">'+opt.desc+'</div></div>'
         +'</button>';
     });
     html += '</div>';
-  } else if(qdata.type==='name'){
+  } else if(rd.type==='name'){
     html += '<div class="name-fields">'
       +'<div><div class="field-label">'+(lang==='es'?'Nombre o apodo':'Name or nickname')+'</div>'
       +'<input class="field-input" type="text" id="inp-name" placeholder="'+(lang==='es'?'Tu nombre...':'Your name...')+'" value="'+(answers.name||'')+'" oninput="answers.name=this.value"></div>'
       +'</div>';
-  } else if(qdata.type==='free'){
+  } else if(rd.type==='free'){
     html += '<div class="free-wrap">'
       +'<textarea class="free-input" id="inp-story" placeholder="'+qdata.placeholder+'" oninput="answers.story=this.value">'+( answers.story||'')+'</textarea>'
       +'<div class="free-hint">'+qdata.hint+'</div>'
@@ -360,12 +475,11 @@ function renderStep(){
   }
 
   html += '<div class="btn-row">';
-  if(step>0) html += '<button class="btn-back" onclick="goBack()">'+c().back+'</button>';
-  else html += '<div></div>';
+  html += '<button class="btn-back" onclick="goBack()">'+c().back+'</button>';
 
   var isLast = step===qs.length-1;
   var canContinue = true;
-  if(qdata.type==='options' && answers[qdata.key]===undefined) canContinue=false;
+  if(rd.type==='options' && answers[rd.key]===undefined) canContinue=false;
   html += '<button class="btn-next" onclick="goNext()" '+(canContinue?'':'disabled')+'>'
     +(isLast?c().finish:c().next)+' '+c().next_arrow+'</button>';
   html += '</div></div>';
@@ -375,13 +489,16 @@ function renderStep(){
 
 function selectOpt(i){
   var key = q()[step].key;
+  if(key==='challenge'){ delete answers.challenge_detail; }
   answers[key] = i;
   renderStep();
 }
 
 function goNext(){
   var qdata = q()[step];
-  if(qdata.type==='options' && answers[qdata.key]===undefined) return;
+  var rdKey = qdata.key;
+  var rdType = qdata.type==='sub_options' ? 'options' : qdata.type;
+  if(rdType==='options' && answers[rdKey]===undefined) return;
   step++;
   renderStep();
   window.scrollTo(0,0);
@@ -389,6 +506,7 @@ function goNext(){
 
 function goBack(){
   if(step>0){ step--; renderStep(); window.scrollTo(0,0); }
+  else { window.location.href='index.html'; }
 }
 
 
