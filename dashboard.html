@@ -486,6 +486,7 @@ function renderSection(){
     // Mentor card in roadmap
     var mt = ct.mentor;
     var mt2rdw = ct.mentor2;
+    var _rdwMentor = (function(){try{return localStorage.getItem('hm_mentor')||'david';}catch(e){return 'david';}})();
     var rdwCatMap = {
       'Mentoría':'tag-mentoria','Mentorship':'tag-mentoria',
       'Outreach':'tag-outreach',
@@ -497,6 +498,7 @@ function renderSection(){
     };
     html += '<div style="margin-bottom:28px">';
     html += '<div style="font-size:12px;font-weight:700;color:#6F9BFF;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px">'+(lang==='es'?'MENTORES ASIGNADOS':'ASSIGNED MENTORS')+'</div>';
+    if(_rdwMentor !== 'henk'){
     html += '<div style="background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.08);border-radius:16px;overflow:hidden;max-width:680px;transition:.2s">';
     // header
     html += '<div style="display:flex;align-items:center;gap:14px;padding:20px 20px 16px">';
@@ -525,9 +527,10 @@ function renderSection(){
     html += '<a href="mailto:david@peta.org" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#6F9BFF;border-radius:14px;padding:16px 24px;font-size:18px;font-weight:800;color:#060d0a;text-decoration:none;letter-spacing:-.01em">'+mt.contactBtn+' →</a>';
     html += '</div>';
     html += '</div>';
+    }
 
     // ── Henk card in roadmap ──
-    if(mt2rdw){
+    if(mt2rdw && _rdwMentor === 'henk'){
     html += '<div style="background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.08);border-radius:16px;overflow:hidden;max-width:680px;transition:.2s;margin-top:14px">';
     // header
     html += '<div style="display:flex;align-items:center;gap:14px;padding:20px 20px 16px">';
@@ -599,11 +602,13 @@ function renderSection(){
   } else if(currentSection==='mentor'){
     var mt = ct.mentor;
     var mt2 = ct.mentor2;
+    var _assignedMentor = (function(){try{return localStorage.getItem('hm_mentor')||'david';}catch(e){return 'david';}})();
     var _greetName = (function(){ try{ var n=localStorage.getItem('hm_name'); return (n&&n.trim())?n:ct.userName; }catch(e){return ct.userName;} })();
     html += '<div class="page-header"><div class="page-cat">'+mt.cat+'</div><h1 class="page-h1">'+(lang==='es'?'HOLA,':'HELLO,')+' '+_greetName.toUpperCase()+'</h1></div>';
     html += '<div style="max-width:680px">';
 
     // ── David card ──
+    if(_assignedMentor !== 'henk'){
     html += '<div style="background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.08);border-radius:16px;overflow:hidden;max-width:680px;transition:.2s">';
     // header
     html += '<div style="display:flex;align-items:center;gap:14px;padding:20px 20px 16px">';
@@ -640,9 +645,10 @@ function renderSection(){
     html += '<a href="mailto:david@peta.org" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#6F9BFF;border-radius:14px;padding:16px 24px;font-size:18px;font-weight:800;color:#060d0a;text-decoration:none;letter-spacing:-.01em">'+mt.contactBtn+' →</a>';
     html += '</div>';
     html += '</div>';
+    }
 
     // ── Henk card ──
-    if(mt2){
+    if(mt2 && _assignedMentor === 'henk'){
     html += '<div style="background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.08);border-radius:16px;overflow:hidden;max-width:680px;transition:.2s;margin-top:14px">';
     // header
     html += '<div style="display:flex;align-items:center;gap:14px;padding:20px 20px 16px">';

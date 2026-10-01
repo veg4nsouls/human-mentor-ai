@@ -529,44 +529,47 @@ function goBack(){
 
 
 function renderMentorRec(){
-  // Map answers to mentor categories
-  var cat = null;
-  var area = answers.area;
-  var challenge = answers.challenge;
-  // area 2 = mentoría, challenge 3 = outreach, area 1 = profesional
-  if(area===2 || area===1 || challenge===3) cat = (area===1 ? 'profesional' : area===2 ? 'mentoria' : 'outreach');
-  var mentorHtml = lang==='es'
-    ? '<div style="margin-top:20px;padding:16px;background:rgba(111,155,255,.07);border:1px solid rgba(111,155,255,.18);border-radius:14px;text-align:left">'
-      +'<div style="font-size:17px;font-weight:700;color:#6F9BFF;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px">MENTOR RECOMENDADO PARA TI</div>'
-      +'<div style="display:flex;align-items:center;gap:12px">'
-      +'<div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,rgba(111,155,255,.3),rgba(130,80,200,.3));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#F6F3EE;border:1px solid rgba(111,155,255,.2)">DP</div>'
-      +'<div style="flex:1;min-width:0">'
-      +'<div style="font-size:18px;font-weight:700;color:#F6F3EE;margin-bottom:2px">David Perle</div>'
-      +'<div style="font-size:17px;color:rgba(246,243,238,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Senior Manager, División de Medios · PETA</div>'
-      +'</div></div>'
-      +'<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">'
-      +'<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(111,155,255,.12);color:#6F9BFF;border:1px solid rgba(111,155,255,.2)">Mentoría</span>'
-      +'<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(50,200,140,.1);color:rgba(80,210,150,.9);border:1px solid rgba(50,200,140,.2)">Outreach</span>'
-      +'<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(246,243,238,.06);color:rgba(246,243,238,.5);border:1px solid rgba(246,243,238,.1)">Online · 20 años</span>'
-      +'</div>'
-      +'<a href="mentors.html" style="display:block;margin-top:12px;text-align:center;padding:9px 16px;border:1px solid rgba(111,155,255,.35);border-radius:8px;font-size:14px;font-weight:700;color:#6F9BFF;background:none;text-decoration:none">Ver perfil completo →</a>'
-      +'</div>'
-    : '<div style="margin-top:20px;padding:16px;background:rgba(111,155,255,.07);border:1px solid rgba(111,155,255,.18);border-radius:14px;text-align:left">'
-      +'<div style="font-size:17px;font-weight:700;color:#6F9BFF;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px">RECOMMENDED MENTOR FOR YOU</div>'
-      +'<div style="display:flex;align-items:center;gap:12px">'
-      +'<div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,rgba(111,155,255,.3),rgba(130,80,200,.3));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#F6F3EE;border:1px solid rgba(111,155,255,.2)">DP</div>'
-      +'<div style="flex:1;min-width:0">'
-      +'<div style="font-size:18px;font-weight:700;color:#F6F3EE;margin-bottom:2px">David Perle</div>'
-      +'<div style="font-size:17px;color:rgba(246,243,238,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Senior Manager, Media Division · PETA</div>'
-      +'</div></div>'
-      +'<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">'
-      +'<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(111,155,255,.12);color:#6F9BFF;border:1px solid rgba(111,155,255,.2)">Mentorship</span>'
-      +'<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(50,200,140,.1);color:rgba(80,210,150,.9);border:1px solid rgba(50,200,140,.2)">Outreach</span>'
-      +'<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(246,243,238,.06);color:rgba(246,243,238,.5);border:1px solid rgba(246,243,238,.1)">Online · 20 yrs</span>'
-      +'</div>'
-      +'<a href="mentors.html" style="display:block;margin-top:12px;text-align:center;padding:9px 16px;border:1px solid rgba(111,155,255,.35);border-radius:8px;font-size:14px;font-weight:700;color:#6F9BFF;background:none;text-decoration:none">See full profile →</a>'
-      +'</div>';
-  return mentorHtml;
+  // challenge: 0=burnout 1=community 2=professionalize 3=outreach 4=ethical
+  var ch = answers.challenge;
+  var isHenk = (ch===0 || ch===1 || ch===4);
+  var mid = isHenk ? 'henk' : 'david';
+  try{ localStorage.setItem('hm_mentor', mid); }catch(e){}
+  var es = lang==='es';
+  var name    = isHenk ? 'Henk van der Wath' : 'David Perle';
+  var role    = isHenk ? 'Behavioral Systems Designer · Transilience' : 'Senior Media Officer · PETA';
+  var cats    = isHenk
+    ? (es ? ['Apoyo emocional','Mentória','Coaching'] : ['Emotional support','Mentorship','Coaching'])
+    : (es ? ['Activismo','Campañas','Outreach']       : ['Activism','Campaigns','Outreach']);
+  var tagMap  = {
+    'Apoyo emocional':'background:rgba(255,120,180,.1);color:rgba(255,140,190,.9);border:1px solid rgba(255,120,180,.2)',
+    'Emotional support':'background:rgba(255,120,180,.1);color:rgba(255,140,190,.9);border:1px solid rgba(255,120,180,.2)',
+    'Mentória':'background:rgba(111,155,255,.12);color:#6F9BFF;border:1px solid rgba(111,155,255,.2)',
+    'Mentorship':'background:rgba(111,155,255,.12);color:#6F9BFF;border:1px solid rgba(111,155,255,.2)',
+    'Coaching':'background:rgba(80,200,210,.1);color:rgba(90,210,220,.9);border:1px solid rgba(80,200,210,.2)',
+    'Activismo':'background:rgba(80,210,160,.1);color:rgba(90,220,170,.9);border:1px solid rgba(80,210,160,.2)',
+    'Activism':'background:rgba(80,210,160,.1);color:rgba(90,220,170,.9);border:1px solid rgba(80,210,160,.2)',
+    'Campañas':'background:rgba(255,140,80,.1);color:rgba(255,155,90,.9);border:1px solid rgba(255,140,80,.2)',
+    'Campaigns':'background:rgba(255,140,80,.1);color:rgba(255,155,90,.9);border:1px solid rgba(255,140,80,.2)',
+    'Outreach':'background:rgba(50,200,140,.1);color:rgba(80,210,150,.9);border:1px solid rgba(50,200,140,.2)'
+  };
+  var tagsHtml = '';
+  cats.forEach(function(cat){
+    var style = tagMap[cat] || 'background:rgba(246,243,238,.06);color:rgba(246,243,238,.5);border:1px solid rgba(246,243,238,.12)';
+    tagsHtml += '<span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;'+style+'">'+cat+'</span>';
+  });
+  var label  = es ? 'MENTOR RECOMENDADO PARA TI' : 'RECOMMENDED MENTOR FOR YOU';
+  var seeAll = es ? 'Ver todos los mentores →' : 'See all mentors →';
+  return '<div style="margin-top:20px;padding:16px;background:rgba(111,155,255,.07);border:1px solid rgba(111,155,255,.18);border-radius:14px;text-align:left">'
+    +'<div style="font-size:12px;font-weight:700;color:#6F9BFF;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px">'+label+'</div>'
+    +'<div style="display:flex;align-items:center;gap:12px">'
+    +'<div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,rgba(111,155,255,.3),rgba(130,80,200,.3));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px">🤝</div>'
+    +'<div style="flex:1;min-width:0">'
+    +'<div style="font-size:15px;font-weight:700;color:#F6F3EE;margin-bottom:2px">'+name+'</div>'
+    +'<div style="font-size:13px;color:rgba(246,243,238,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+role+'</div>'
+    +'</div></div>'
+    +'<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">'+tagsHtml+'</div>'
+    +'<a href="mentors.html" style="display:block;margin-top:12px;text-align:center;padding:9px 16px;border:1px solid rgba(111,155,255,.35);border-radius:8px;font-size:13px;font-weight:700;color:#6F9BFF;text-decoration:none">'+seeAll+'</a>'
+    +'</div>';
 }
 
 function renderResult(){
