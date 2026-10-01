@@ -261,7 +261,7 @@ var T = {
       title: 'DAVID PERLE',
       sub: 'Tu mentor asignado. Especialista en medios de comunicación y outreach con más de 20 años de experiencia en el movimiento de derechos animales.',
       role: 'Senior Manager, División de Medios · PETA',
-      categories: ['Activismo', 'Campañas'],
+      categories: ['Activismo', 'Campañas', 'Outreach', 'Mentoría'],
       meta: ['Online', '20 años de activismo', 'Inglés'],
       sessionLabel: 'PRÓXIMA SESIÓN',
       sessionText: 'Por confirmar — escríbele para agendar tu primera sesión',
@@ -386,7 +386,7 @@ var T = {
       title: 'DAVID PERLE',
       sub: 'Your assigned mentor. Media and outreach specialist with over 20 years of experience in the animal rights movement.',
       role: 'Senior Manager, Media Division · PETA',
-      categories: ['Activism', 'Campaigns'],
+      categories: ['Activism', 'Campaigns', 'Outreach', 'Mentorship'],
       meta: ['Online', '20 years of activism', 'English'],
       sessionLabel: 'NEXT SESSION',
       sessionText: 'To be confirmed — write to him to schedule your first session',
@@ -568,7 +568,8 @@ function renderSection(){
   } else if(currentSection==='mentor'){
     var mt = ct.mentor;
     var mt2 = ct.mentor2;
-    html += '<div class="page-header"><div class="page-cat">'+mt.cat+'</div><h1 class="page-h1">'+mt.title+'</h1></div>';
+    var _greetName = (function(){ try{ var n=localStorage.getItem('hm_name'); return (n&&n.trim())?n:ct.userName; }catch(e){return ct.userName;} })();
+    html += '<div class="page-header"><div class="page-cat">'+mt.cat+'</div><h1 class="page-h1">'+(lang==='es'?'HOLA,':'HELLO,')+' '+_greetName.toUpperCase()+'</h1></div>';
     html += '<div style="max-width:680px">';
 
     // ── David card ──
