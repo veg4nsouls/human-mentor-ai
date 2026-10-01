@@ -358,6 +358,99 @@ document.addEventListener('click', function(e){
   loop();
 })();
 
+
+// ─── Efecto agua / water light effect ───────────────────────────────────────
+(function(){
+  var cvs = document.createElement('canvas');
+  cvs.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:2;mix-blend-mode:screen';
+  cvs.setAttribute('aria-hidden','true');
+  document.body.insertBefore(cvs, document.body.firstChild);
+
+  var ctx = cvs.getContext('2d');
+  var W, H;
+  function resize(){ W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Cursor tracking (smooth lerp)
+  var tx = W/2, ty = H/2, gx = W/2, gy = H/2;
+  document.addEventListener('mousemove', function(e){ tx = e.clientX; ty = e.clientY; });
+
+  // Ripple pool
+  var ripples = [];
+  var lastRipple = 0;
+
+  function addRipple(x, y, alpha, speed){
+    ripples.push({ x:x, y:y, r:2, maxR:200, alpha:alpha||0.55, speed:speed||2.2 });
+  }
+
+  // Click: ripple burst
+  document.addEventListener('click', function(e){
+    addRipple(e.clientX, e.clientY, 0.55, 2.8);
+    addRipple(e.clientX, e.clientY, 0.3, 1.8);
+  });
+
+  // Mouse move: periodic gentle ripples
+  document.addEventListener('mousemove', function(e){
+    var now = Date.now();
+    if(now - lastRipple > 900){
+      addRipple(e.clientX, e.clientY, 0.18, 1.4);
+      lastRipple = now;
+    }
+  });
+
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+
+    // Lerp glow to cursor
+    gx += (tx - gx) * 0.055;
+    gy += (ty - gy) * 0.055;
+
+    // Soft cursor glow (layered radial gradients)
+    var g1 = ctx.createRadialGradient(gx, gy, 0, gx, gy, 320);
+    g1.addColorStop(0,   'rgba(111,155,255,0.10)');
+    g1.addColorStop(0.4, 'rgba(111,155,255,0.05)');
+    g1.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = g1;
+    ctx.fillRect(0, 0, W, H);
+
+    // Tight inner highlight
+    var g2 = ctx.createRadialGradient(gx, gy, 0, gx, gy, 90);
+    g2.addColorStop(0, 'rgba(180,210,255,0.08)');
+    g2.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g2;
+    ctx.fillRect(0, 0, W, H);
+
+    // Draw and age ripples
+    for(var i = ripples.length - 1; i >= 0; i--){
+      var rp = ripples[i];
+      rp.r += rp.speed;
+      rp.alpha -= rp.speed * 0.0028;
+      if(rp.alpha <= 0 || rp.r > rp.maxR){ ripples.splice(i,1); continue; }
+
+      // Outer ring
+      ctx.beginPath();
+      ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI*2);
+      ctx.strokeStyle = 'rgba(111,155,255,' + rp.alpha.toFixed(3) + ')';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
+      // Inner echo ring
+      if(rp.r > 40){
+        ctx.beginPath();
+        ctx.arc(rp.x, rp.y, rp.r * 0.6, 0, Math.PI*2);
+        ctx.strokeStyle = 'rgba(150,185,255,' + (rp.alpha * 0.38).toFixed(3) + ')';
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+// ─── fin efecto agua ─────────────────────────────────────────────────────────
+
 render();
 </script>
 </body>
