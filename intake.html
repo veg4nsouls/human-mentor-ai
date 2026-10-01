@@ -472,7 +472,7 @@ function renderStep(){
   } else if(rd.type==='name'){
     html += '<div class="name-fields">'
       +'<div><div class="field-label">'+(lang==='es'?'Nombre o apodo':'Name or nickname')+'</div>'
-      +'<input class="field-input" type="text" id="inp-name" placeholder="'+(lang==='es'?'Tu nombre...':'Your name...')+'" value="'+(answers.name||'')+'" oninput="answers.name=this.value;try{localStorage.setItem('hm_name',this.value);}catch(e){}"></div>'
+      +'<input class="field-input" type="text" id="inp-name" placeholder="'+(lang==='es'?'Tu nombre...':'Your name...')+'" value="'+(answers.name||'')+'" oninput="answers.name=this.value;saveNameToStorage(this.value)"></div>'
       +'</div>';
   } else if(rd.type==='free'){
     html += '<div class="free-wrap">'
@@ -596,6 +596,8 @@ function renderResult(){
 function restart(){
   step=0; answers={}; renderAll();
 }
+
+function saveNameToStorage(v){ try{ localStorage.setItem("hm_name", v); }catch(e){} }
 
 renderAll();
 </script>
