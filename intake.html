@@ -149,19 +149,6 @@ var T = {
         key:'challenge_detail'
       },
       {
-        cat:'ÁREA DE ENFOQUE',
-        title:'¿EN QUÉ ÁREA NECESITAS MÁS APOYO?',
-        sub:'Selecciona la que más resuene contigo ahora mismo.',
-        type:'options',
-        key:'area',
-        options:[
-          {icon:'💚',title:'Salud mental y bienestar emocional',desc:'Terapia, grupos de contención, autocuidado'},
-          {icon:'🚀',title:'Desarrollo profesional',desc:'Carrera, financiamiento y liderazgo'},
-          {icon:'🌱',title:'Estrategia y mentoría de activismo',desc:'Orientación personalizada y hoja de ruta'},
-          {icon:'👥',title:'Comunidad y organización local',desc:'Conexión con activistas de mi región'}
-        ]
-      },
-      {
         cat:'EXPERIENCIA',
         title:'¿CUÁNTO TIEMPO LLEVAS EN EL ACTIVISMO?',
         sub:'Esto nos ayuda a entender tu trayectoria.',
@@ -185,6 +172,17 @@ var T = {
           {icon:'🗓️',title:'Dos veces por mes',desc:'Disponibilidad moderada'},
           {icon:'📆',title:'Una vez por mes',desc:'Mi tiempo es limitado'},
           {icon:'⚡',title:'Solo cuando pueda',desc:'Necesito máxima flexibilidad'}
+        ]
+      },
+      {
+        cat:'TU MENTORÍA',
+        title:'¿EN QUÉ IDIOMA PREFIERES HABLAR CON TU MENTOR/A?',
+        sub:'Puedes seleccionar uno o ambos idiomas.',
+        type:'multi_options',
+        key:'language',
+        options:[
+          {icon:'🇪🇸',title:'Español',desc:'Prefiero comunicarme en español'},
+          {icon:'🇺🇸',title:'Inglés',desc:'I prefer to communicate in English'}
         ]
       },
       {
@@ -290,19 +288,6 @@ var T = {
         key:'challenge_detail'
       },
       {
-        cat:'FOCUS AREA',
-        title:'WHERE DO YOU NEED THE MOST SUPPORT?',
-        sub:'Select the one that resonates most with you right now.',
-        type:'options',
-        key:'area',
-        options:[
-          {icon:'💚',title:'Mental health & emotional wellbeing',desc:'Therapy, support groups, self-care'},
-          {icon:'🚀',title:'Professional development',desc:'Career, funding and leadership'},
-          {icon:'🌱',title:'Activism strategy & mentorship',desc:'Personalized guidance and roadmap'},
-          {icon:'👥',title:'Community & local organizing',desc:'Connection with activists in my region'}
-        ]
-      },
-      {
         cat:'EXPERIENCE',
         title:'HOW LONG HAVE YOU BEEN AN ACTIVIST?',
         sub:'This helps us understand your journey.',
@@ -326,6 +311,17 @@ var T = {
           {icon:'🗓️',title:'Twice a month',desc:'Moderate availability'},
           {icon:'📆',title:'Once a month',desc:'My time is limited'},
           {icon:'⚡',title:'Whenever I can',desc:'I need maximum flexibility'}
+        ]
+      },
+      {
+        cat:'YOUR MENTORSHIP',
+        title:'WHAT LANGUAGE DO YOU PREFER WITH YOUR MENTOR?',
+        sub:'You can select one or both languages.',
+        type:'multi_options',
+        key:'language',
+        options:[
+          {icon:'🇪🇸',title:'Spanish',desc:'Prefiero comunicarme en español'},
+          {icon:'🇺🇸',title:'English',desc:'I prefer to communicate in English'}
         ]
       },
       {
@@ -462,6 +458,16 @@ function renderStep(){
         +'</button>';
     });
     html += '</div>';
+  } else if(rd.type==='multi_options'){
+    html += '<div class="options">';
+    rd.options.forEach(function(opt,oi){
+      var sel = answers[rd.key] && answers[rd.key].indexOf(oi)!==-1;
+      html += '<button class="option'+(sel?' selected':'')+'" onclick="selectMultiOpt('+oi+')">'
+        +'<div class="opt-icon">'+opt.icon+'</div>'
+        +'<div><div class="opt-title">'+opt.title+'</div><div class="opt-desc">'+opt.desc+'</div></div>'
+        +'</button>';
+    });
+    html += '</div>';
   } else if(rd.type==='name'){
     html += '<div class="name-fields">'
       +'<div><div class="field-label">'+(lang==='es'?'Nombre o apodo':'Name or nickname')+'</div>'
@@ -480,6 +486,7 @@ function renderStep(){
   var isLast = step===qs.length-1;
   var canContinue = true;
   if(rd.type==='options' && answers[rd.key]===undefined) canContinue=false;
+  if(rd.type==='multi_options' && (!answers[rd.key] || !answers[rd.key].length)) canContinue=false;
   html += '<button class="btn-next" onclick="goNext()" '+(canContinue?'':'disabled')+'>'
     +(isLast?c().finish:c().next)+' '+c().next_arrow+'</button>';
   html += '</div></div>';
@@ -494,11 +501,21 @@ function selectOpt(i){
   renderStep();
 }
 
+function selectMultiOpt(i){
+  var key = q()[step].key;
+  if(!answers[key]) answers[key] = [];
+  var idx = answers[key].indexOf(i);
+  if(idx===-1){ answers[key].push(i); }
+  else { answers[key].splice(idx,1); }
+  renderStep();
+}
+
 function goNext(){
   var qdata = q()[step];
   var rdKey = qdata.key;
   var rdType = qdata.type==='sub_options' ? 'options' : qdata.type;
   if(rdType==='options' && answers[rdKey]===undefined) return;
+  if(rdType==='multi_options' && (!answers[rdKey] || !answers[rdKey].length)) return;
   step++;
   renderStep();
   window.scrollTo(0,0);
