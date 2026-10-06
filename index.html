@@ -81,7 +81,7 @@ h1.hero-h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(56px,8vw,10
   transition:background .15s;
 }
 .hbg-btn:hover{background:rgba(246,243,238,.08)}
-@media(max-width:860px){.nav-links{display:none}.nav-cta{display:none}.hbg-btn{display:flex}}
+@media(max-width:860px){.nav-links{display:none}.hbg-btn{display:flex}}
 /* Overlay */
 .mob-overlay{
   display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);
@@ -168,7 +168,6 @@ h1.hero-h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(56px,8vw,10
       <div class="lang-tab inactive" id="tab-en">EN</div>
     </button>
     <a href="#" class="nav-signin" id="lbl-signin">Iniciar sesión</a>
-    <a href="intake.html" class="nav-cta" id="lbl-navcta">Encontrar mentor →</a>
   </div>
 </nav>
 
@@ -517,13 +516,12 @@ render();
     <span style="font-size:13px;font-weight:700;letter-spacing:1px;color:rgba(246,243,238,.4);text-transform:uppercase">Menú</span>
     <button class="mob-drawer-close" onclick="closeMobMenu()">✕</button>
   </div>
-  <button class="mob-drawer-item" onclick="toggleMenu(0);closeMobMenu()" id="md-nl0">Apoyo emocional</button>
-  <button class="mob-drawer-item" onclick="toggleMenu(1);closeMobMenu()" id="md-nl1">Mentoría</button>
-  <button class="mob-drawer-item" onclick="toggleMenu(2);closeMobMenu()" id="md-nl2">Desarrollo profesional</button>
-  <button class="mob-drawer-item" onclick="toggleMenu(3);closeMobMenu()" id="md-nl3">Outreach</button>
+  <button class="mob-drawer-item" onclick="closeMobMenu();openSub(0)" id="md-nl0">Apoyo emocional</button>
+  <button class="mob-drawer-item" onclick="closeMobMenu();openSub(1)" id="md-nl1">Mentoría</button>
+  <button class="mob-drawer-item" onclick="closeMobMenu();openSub(2)" id="md-nl2">Desarrollo profesional</button>
+  <button class="mob-drawer-item" onclick="closeMobMenu();openSub(3)" id="md-nl3">Outreach</button>
   <div class="mob-drawer-divider"></div>
   <a href="#" class="mob-drawer-item" id="md-signin">Iniciar sesión</a>
-  <a href="intake.html" class="mob-drawer-item primary" id="md-cta">Encontrar mentor →</a>
 </div>
 <script>
 function openMobMenu(){
