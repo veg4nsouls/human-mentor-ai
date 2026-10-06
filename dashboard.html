@@ -162,7 +162,7 @@ header{height:60px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(24
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   flex:1;border:none;background:transparent;
   color:rgba(246,243,238,.4);cursor:pointer;padding:0;
-  font-family:inherit;transition:color .18s;
+  font-family:inherit;transition:color .18s;text-decoration:none;
 }
 .mn-item.active{color:#6F9BFF}
 .mn-item svg{flex-shrink:0}
@@ -182,12 +182,12 @@ header{height:60px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(24
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 4.5h14M2 9h14M2 13.5h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
   </button>
   <div class="header-sep"></div>
-  <span class="header-title" id="hdr-title">Mi hoja de ruta</span>
+  <span class="header-title" id="hdr-title">Recursos</span>
   <div class="header-right">
-    <button class="lang-toggle" onclick="toggleLang()">
+    <div class="lang-toggle">
       <button class="lang-tab active" id="tab-es" onclick="setLang('es')">ES</button>
       <button class="lang-tab inactive" id="tab-en" onclick="setLang('en')">EN</button>
-    </button>
+    </div>
     <div class="user-chip">
       <div class="user-avatar">A</div>
       <span class="user-name" id="user-name">Activista</span>
@@ -202,10 +202,7 @@ header{height:60px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(24
   <div class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-label" id="sb-menu">Menú</div>
-      <button class="side-item active" onclick="showSection('roadmap')">
-        <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M1 7h8M1 11h5" stroke="#6F9BFF" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        
-      </button>
+
       <button class="side-item" onclick="showSection('resources')">
         <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><rect x="8" y="2" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><rect x="2" y="8" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><rect x="8" y="8" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/></svg></div>
         <span id="sb-resources">Recursos</span>
@@ -245,7 +242,7 @@ header{height:60px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(24
 
 <script>
 var lang = (function(){ try{ return localStorage.getItem('hm_lang')||'es'; }catch(e){ return 'es'; } })();
-var currentSection = 'roadmap';
+var currentSection = 'resources';
 
 var T = {
   es: {
@@ -513,10 +510,10 @@ function renderAll(){
   var ct = c();
   document.getElementById('tab-es').className = 'lang-tab'+(lang==='es'?' active':' inactive');
   document.getElementById('tab-en').className = 'lang-tab'+(lang==='en'?' active':' inactive');
-  document.getElementById('hdr-title').textContent = ct.hdrTitle;
+  var _hdrMap = {resources:ct.sbResources,community:ct.sbCommunity,mentor:ct.sbMentor,messages:ct.sbMessages};
+  document.getElementById('hdr-title').textContent = _hdrMap[currentSection]||ct.sbResources;
   document.getElementById('user-name').textContent = ct.userName;
   document.getElementById('sb-menu').textContent = ct.sbMenu;
-  var _sbRd=document.getElementById('sb-roadmap'); if(_sbRd)_sbRd.textContent=ct.sbRoadmap;
   document.getElementById('sb-resources').textContent = ct.sbResources;
   document.getElementById('sb-community').textContent = ct.sbCommunity;
   document.getElementById('sb-support').textContent = ct.sbSupport;
@@ -537,12 +534,14 @@ function renderAll(){
 
 function showSection(s){
   currentSection = s;
-  var names = ['roadmap','resources','community','mentor','messages'];
+  var names = ['resources','community','mentor','messages'];
   document.querySelectorAll('.side-item').forEach(function(el,i){
     el.className = 'side-item'+(names[i]===s?' active':'');
   });
-  document.querySelectorAll('.mn-item').forEach(function(el,i){
-    el.className = 'mn-item'+(names[i]===s?' active':'');
+  var _mnIds = {resources:'mn-resources-btn',community:'mn-community-btn',mentor:'mn-mentor-btn',messages:'mn-messages-btn'};
+  ['resources','community','mentor','messages'].forEach(function(sec){
+    var el=document.getElementById(_mnIds[sec]);
+    if(el) el.className='mn-item'+(sec===s?' active':'');
   });
   renderSection();
   // Scroll content to top
@@ -792,9 +791,9 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDashMen
 </script>
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mobile-nav" aria-label="Navegación">
-  <button class="mn-item active" onclick="showSection('roadmap')" id="mn-roadmap-btn">
-    <svg width="24" height="24" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M1 7h8M1 11h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-  </button>
+  <a class="mn-item" href="index.html" id="mn-home-btn" aria-label="Inicio">
+    <svg width="24" height="24" viewBox="0 0 20 20" fill="none"><path d="M3 9.5L10 3l7 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="6" y="10" width="8" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="8" y="13" width="4" height="4" rx=".5" stroke="currentColor" stroke-width="1.3"/></svg>
+  </a>
   <button class="mn-item" onclick="showSection('resources')" id="mn-resources-btn">
     <svg width="24" height="24" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="2" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/></svg>
   </button>
