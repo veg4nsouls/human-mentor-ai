@@ -160,13 +160,12 @@ header{height:60px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(24
 }
 .mn-item{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:4px;flex:1;border:none;background:transparent;
+  flex:1;border:none;background:transparent;
   color:rgba(246,243,238,.4);cursor:pointer;padding:0;
   font-family:inherit;transition:color .18s;
 }
 .mn-item.active{color:#6F9BFF}
 .mn-item svg{flex-shrink:0}
-.mn-label{font-size:10px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -523,12 +522,7 @@ function renderAll(){
   document.getElementById('sb-support').textContent = ct.sbSupport;
   document.getElementById('sb-mentor').textContent = ct.sbMentor;
   document.getElementById('sb-messages').textContent = ct.sbMessages;
-  // Mobile nav labels (bottom bar)
-  var _mnRd = document.getElementById('mn-roadmap'); if(_mnRd) _mnRd.textContent = ct.sbRoadmap;
-  var _mnRs = document.getElementById('mn-resources'); if(_mnRs) _mnRs.textContent = ct.sbResources;
-  var _mnCm = document.getElementById('mn-community'); if(_mnCm) _mnCm.textContent = ct.sbCommunity;
-  var _mnMt = document.getElementById('mn-mentor'); if(_mnMt) _mnMt.textContent = ct.sbMentor;
-  var _mnMs = document.getElementById('mn-messages'); if(_mnMs) _mnMs.textContent = ct.sbMessages;
+  // Mobile nav (icon-only, no labels)
   // Drawer labels
   var _ddMenu=document.getElementById('ddr-menu'); if(_ddMenu) _ddMenu.textContent=ct.sbMenu;
   var _ddSup=document.getElementById('ddr-support'); if(_ddSup) _ddSup.textContent=ct.sbSupport;
@@ -803,24 +797,19 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDashMen
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mobile-nav" aria-label="Navegación">
   <button class="mn-item active" onclick="showSection('roadmap')" id="mn-roadmap-btn">
-    <svg width="22" height="22" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M1 7h8M1 11h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-    <span class="mn-label" id="mn-roadmap">Hoja de ruta</span>
+    <svg width="24" height="24" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M1 7h8M1 11h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
   </button>
   <button class="mn-item" onclick="showSection('resources')" id="mn-resources-btn">
-    <svg width="22" height="22" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="2" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/></svg>
-    <span class="mn-label" id="mn-resources">Recursos</span>
+    <svg width="24" height="24" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="2" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/></svg>
   </button>
   <button class="mn-item" onclick="showSection('community')" id="mn-community-btn">
-    <svg width="22" height="22" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M2 12c0-2.21 2.24-4 5-4s5 1.79 5 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
-    <span class="mn-label" id="mn-community">Comunidad</span>
+    <svg width="24" height="24" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M2 12c0-2.21 2.24-4 5-4s5 1.79 5 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
   </button>
   <button class="mn-item" onclick="showSection('mentor')" id="mn-mentor-btn">
-    <svg width="22" height="22" viewBox="0 0 14 14" fill="none"><path d="M7 2a5 5 0 100 10A5 5 0 007 2zm0 3v2.5L8.5 9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span class="mn-label" id="mn-mentor">Mi mentor/a</span>
+    <svg width="24" height="24" viewBox="0 0 14 14" fill="none"><path d="M7 2a5 5 0 100 10A5 5 0 007 2zm0 3v2.5L8.5 9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
   <button class="mn-item" onclick="showSection('messages')" id="mn-messages-btn">
-    <svg width="22" height="22" viewBox="0 0 14 14" fill="none"><path d="M2 3h10a1 1 0 011 1v6a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25"/><path d="M1 4l6 4 6-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
-    <span class="mn-label" id="mn-messages">Mensajes</span>
+    <svg width="24" height="24" viewBox="0 0 14 14" fill="none"><path d="M2 3h10a1 1 0 011 1v6a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25"/><path d="M1 4l6 4 6-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
   </button>
 </nav>
 </body>
