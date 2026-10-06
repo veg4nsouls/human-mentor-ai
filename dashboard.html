@@ -645,6 +645,15 @@ function renderSection(){
     var _greetName = (function(){ try{ var n=localStorage.getItem('hm_name'); return (n&&n.trim())?n:ct.userName; }catch(e){return ct.userName;} })();
     html += '<div class="page-header"><div class="page-cat">'+mt.cat+'</div><h1 class="page-h1">'+(lang==='es'?'HOLA,':'HELLO,')+' '+_greetName.toUpperCase()+'</h1></div>';
     html += '<div style="max-width:680px">';
+    var catClassMap = {
+      'Mentoría':'tag-mentoria','Mentorship':'tag-mentoria',
+      'Outreach':'tag-outreach',
+      'Apoyo emocional':'tag-emocional','Emotional support':'tag-emocional',
+      'Desarrollo profesional':'tag-profesional','Professional development':'tag-profesional',
+      'Coaching':'tag-coaching',
+      'Activismo':'tag-activismo','Activism':'tag-activismo',
+      'Campañas':'tag-campanas','Campaigns':'tag-campanas'
+    };
 
     // ── David card ──
     if(_assignedMentor !== 'henk'){
@@ -659,15 +668,6 @@ function renderSection(){
     html += '</div></div>';
     // tags
     html += '<div style="display:flex;flex-wrap:wrap;gap:5px;padding:0 20px 14px">';
-    var catClassMap = {
-      'Mentoría':'tag-mentoria','Mentorship':'tag-mentoria',
-      'Outreach':'tag-outreach',
-      'Apoyo emocional':'tag-emocional','Emotional support':'tag-emocional',
-      'Desarrollo profesional':'tag-profesional','Professional development':'tag-profesional',
-      'Coaching':'tag-coaching',
-      'Activismo':'tag-activismo','Activism':'tag-activismo',
-      'Campañas':'tag-campanas','Campaigns':'tag-campanas'
-    };
     mt.categories.forEach(function(cat){ var cls=catClassMap[cat]||'tag-neutral'; html += '<span class="tag '+cls+'">'+cat+'</span>'; });
     html += '</div>';
     // body
