@@ -19,10 +19,10 @@ header{height:60px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(24
 .header-sep{width:1px;height:24px;background:rgba(246,243,238,.08);flex-shrink:0}
 .header-title{font-size:13px;font-weight:600;color:rgba(246,243,238,.6)}
 .header-right{margin-left:auto;display:flex;align-items:center;gap:14px}
-.lang-toggle{display:flex;align-items:center;background:none;border:1px solid rgba(246,243,238,.15);border-radius:20px;padding:2px;gap:0;flex-shrink:0}
-.lang-tab{padding:3px 10px;border-radius:16px;font-size:10px;font-weight:700;letter-spacing:.06em;transition:.15s;border:none;cursor:pointer}
-.lang-tab.active{background:#6F9BFF;color:#060d0a}
-.lang-tab.inactive{background:none;color:rgba(246,243,238,.5)}
+.lang-toggle{display:flex;align-items:center;background:rgba(246,243,238,.06);border-radius:20px;padding:2px;gap:0;border:none}
+.lang-tab{padding:4px 12px;border-radius:16px;font-size:11px;font-weight:700;letter-spacing:.08em;transition:background .18s,color .18s;border:none;cursor:pointer;font-family:inherit;background:transparent;color:rgba(246,243,238,.4)}
+.lang-tab.active{background:#6F9BFF;color:#0D0E14}
+.lang-tab.inactive{background:transparent;color:rgba(246,243,238,.38)}
 .user-chip{display:flex;align-items:center;gap:8px;background:rgba(246,243,238,.04);border:1px solid rgba(246,243,238,.08);border-radius:20px;padding:5px 12px 5px 5px}
 .user-avatar{width:24px;height:24px;background:linear-gradient(135deg,#6F9BFF,rgba(130,80,200,.8));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
 .user-name{font-size:13px;font-weight:600;color:rgba(246,243,238,.8)}
@@ -516,7 +516,7 @@ function renderAll(){
   document.getElementById('hdr-title').textContent = ct.hdrTitle;
   document.getElementById('user-name').textContent = ct.userName;
   document.getElementById('sb-menu').textContent = ct.sbMenu;
-  document.getElementById('sb-roadmap').textContent = ct.sbRoadmap;
+  var _sbRd=document.getElementById('sb-roadmap'); if(_sbRd)_sbRd.textContent=ct.sbRoadmap;
   document.getElementById('sb-resources').textContent = ct.sbResources;
   document.getElementById('sb-community').textContent = ct.sbCommunity;
   document.getElementById('sb-support').textContent = ct.sbSupport;
