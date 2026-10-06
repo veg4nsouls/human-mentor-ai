@@ -204,7 +204,7 @@ header{height:60px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(24
       <div class="sidebar-label" id="sb-menu">Menú</div>
       <button class="side-item active" onclick="showSection('roadmap')">
         <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M1 7h8M1 11h5" stroke="#6F9BFF" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <span id="sb-roadmap">Hoja de ruta</span>
+        
       </button>
       <button class="side-item" onclick="showSection('resources')">
         <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><rect x="8" y="2" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><rect x="2" y="8" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><rect x="8" y="8" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/></svg></div>
@@ -526,7 +526,6 @@ function renderAll(){
   // Drawer labels
   var _ddMenu=document.getElementById('ddr-menu'); if(_ddMenu) _ddMenu.textContent=ct.sbMenu;
   var _ddSup=document.getElementById('ddr-support'); if(_ddSup) _ddSup.textContent=ct.sbSupport;
-  var _ddRd=document.getElementById('ddr-roadmap'); if(_ddRd) _ddRd.textContent=ct.sbRoadmap;
   var _ddRs=document.getElementById('ddr-resources'); if(_ddRs) _ddRs.textContent=ct.sbResources;
   var _ddCm=document.getElementById('ddr-community'); if(_ddCm) _ddCm.textContent=ct.sbCommunity;
   var _ddMt=document.getElementById('ddr-mentor'); if(_ddMt) _ddMt.textContent=ct.sbMentor;
@@ -757,10 +756,7 @@ renderAll();
   </div>
   <div style="padding:0 8px">
     <div class="sidebar-label" style="padding:8px 12px;font-size:10px;letter-spacing:1px;color:rgba(246,243,238,.3)" id="ddr-menu">Menú</div>
-    <button class="side-item" onclick="showSection('roadmap');closeDashMenu()">
-      <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M1 7h8M1 11h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-      <span id="ddr-roadmap">Hoja de ruta</span>
-    </button>
+    
     <button class="side-item" onclick="showSection('resources');closeDashMenu()">
       <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="2" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/></svg></div>
       <span id="ddr-resources">Recursos</span>

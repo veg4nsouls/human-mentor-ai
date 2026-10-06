@@ -174,10 +174,10 @@ h1.hero-h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(56px,8vw,10
     <button class="hbg-btn" onclick="openMobMenu()" aria-label="Menú">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
     </button>
-    <button class="lang-toggle" onclick="toggleLang()">
-      <div class="lang-tab" id="tab-es">ES</div>
-      <div class="lang-tab inactive" id="tab-en">EN</div>
-    </button>
+    <div class="lang-toggle">
+      <button class="lang-tab active" id="tab-es" onclick="setLang('es')">ES</button>
+      <button class="lang-tab inactive" id="tab-en" onclick="setLang('en')">EN</button>
+    </div>
     <a href="#" class="nav-signin" id="lbl-signin">Iniciar sesión</a>
   </div>
 </nav>
@@ -326,8 +326,10 @@ function render() {
   document.documentElement.lang = lang;
   // Nav labels
   for(var i=0;i<4;i++) document.getElementById('nl'+i).textContent = c.nav[i];
+  // Mobile drawer labels
+  for(var i=0;i<4;i++){var _md=document.getElementById('md-nl'+i);if(_md)_md.textContent=c.nav[i];}
   document.getElementById('lbl-signin').textContent = c.signin;
-  document.getElementById('lbl-navcta').textContent = c.navcta;
+  var _nc=document.getElementById('lbl-navcta'); if(_nc)_nc.textContent=c.navcta;
   // Lang tabs
   document.getElementById('tab-es').className = 'lang-tab' + (lang==='es'?' active':' inactive');
   document.getElementById('tab-en').className = 'lang-tab' + (lang==='en'?' active':' inactive');
@@ -355,6 +357,11 @@ function renderDropdown(i){
   dd.innerHTML = html;
 }
 
+function setLang(l){
+  lang = l;
+  try{localStorage.setItem('hm_lang',lang);}catch(e){}
+  render();
+}
 function toggleLang(){
   lang = lang==='es'?'en':'es';
   try{localStorage.setItem('hm_lang',lang);}catch(e){}
