@@ -209,6 +209,10 @@ header{height:60px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(24
     <div class="sidebar-section">
       <div class="sidebar-label" id="sb-menu">Menú</div>
 
+      <button class="side-item" onclick="showSection('roadmap')" id="sb-roadmap-btn">
+        <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2h10v2H2zM2 6h7v2H2zM2 10h5v2H2z" stroke="rgba(246,243,238,.5)" stroke-width="1.1" stroke-linecap="round" fill="none"/></svg></div>
+        <span id="sb-roadmap">Resumen</span>
+      </button>
       <button class="side-item" onclick="showSection('resources')">
         <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><rect x="8" y="2" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><rect x="2" y="8" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/><rect x="8" y="8" width="4" height="4" rx="1" stroke="rgba(246,243,238,.5)" stroke-width="1.25"/></svg></div>
         <span id="sb-resources">Recursos</span>
@@ -255,7 +259,7 @@ var T = {
     hdrTitle: 'Mi hoja de ruta',
     userName: 'Activista',
     sbMenu: 'Menú',
-    sbRoadmap: 'Hoja de ruta',
+    sbRoadmap: 'Resumen',
     sbResources: 'Recursos',
     sbCommunity: 'Comunidad',
     sbSupport: 'Apoyo',
@@ -382,7 +386,7 @@ var T = {
     hdrTitle: 'My roadmap',
     userName: 'Activist',
     sbMenu: 'Menu',
-    sbRoadmap: 'Roadmap',
+    sbRoadmap: 'Overview',
     sbResources: 'Resources',
     sbCommunity: 'Community',
     sbSupport: 'Support',
@@ -516,10 +520,11 @@ function renderAll(){
   var ct = c();
   document.getElementById('tab-es').className = 'lang-tab'+(lang==='es'?' active':' inactive');
   document.getElementById('tab-en').className = 'lang-tab'+(lang==='en'?' active':' inactive');
-  var _hdrMap = {roadmap:'',resources:ct.sbResources,community:ct.sbCommunity,mentor:ct.sbMentor,messages:ct.sbMessages};
+  var _hdrMap = {roadmap:ct.sbRoadmap,resources:ct.sbResources,community:ct.sbCommunity,mentor:ct.sbMentor,messages:ct.sbMessages};
   document.getElementById('hdr-title').textContent = _hdrMap[currentSection]!==undefined?_hdrMap[currentSection]:ct.sbResources;
   // user-name element removed (icon only)
   document.getElementById('sb-menu').textContent = ct.sbMenu;
+  var _sbRdw=document.getElementById('sb-roadmap'); if(_sbRdw) _sbRdw.textContent=ct.sbRoadmap;
   document.getElementById('sb-resources').textContent = ct.sbResources;
   document.getElementById('sb-community').textContent = ct.sbCommunity;
   document.getElementById('sb-support').textContent = ct.sbSupport;
@@ -529,6 +534,7 @@ function renderAll(){
   // Drawer labels
   var _ddMenu=document.getElementById('ddr-menu'); if(_ddMenu) _ddMenu.textContent=ct.sbMenu;
   var _ddSup=document.getElementById('ddr-support'); if(_ddSup) _ddSup.textContent=ct.sbSupport;
+  var _ddRw=document.getElementById('ddr-roadmap'); if(_ddRw) _ddRw.textContent=ct.sbRoadmap;
   var _ddRs=document.getElementById('ddr-resources'); if(_ddRs) _ddRs.textContent=ct.sbResources;
   var _ddCm=document.getElementById('ddr-community'); if(_ddCm) _ddCm.textContent=ct.sbCommunity;
   var _ddMt=document.getElementById('ddr-mentor'); if(_ddMt) _ddMt.textContent=ct.sbMentor;
@@ -540,7 +546,7 @@ function renderAll(){
 
 function showSection(s){
   currentSection = s;
-  var names = ['resources','community','mentor','messages'];
+  var names = ['roadmap','resources','community','mentor','messages'];
   document.querySelectorAll('.side-item').forEach(function(el,i){
     el.className = 'side-item'+(names[i]===s?' active':'');
   });
@@ -836,6 +842,10 @@ function submitDashReg(){
   <div style="padding:0 8px">
     <div class="sidebar-label" style="padding:8px 12px;font-size:10px;letter-spacing:1px;color:rgba(246,243,238,.3)" id="ddr-menu">Menú</div>
     
+    <button class="side-item" onclick="showSection('roadmap');closeDashMenu()" id="ddr-roadmap-btn">
+      <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2h10v2H2zM2 6h7v2H2zM2 10h5v2H2z" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" fill="none"/></svg></div>
+      <span id="ddr-roadmap">Resumen</span>
+    </button>
     <button class="side-item" onclick="showSection('resources');closeDashMenu()">
       <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="2" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/></svg></div>
       <span id="ddr-resources">Recursos</span>
