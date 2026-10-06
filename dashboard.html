@@ -675,7 +675,8 @@ function renderSection(){
     html += '</div>';
     // footer
     html += '<div style="padding:14px 20px;border-top:1px solid rgba(246,243,238,.06);display:flex;flex-direction:column;gap:10px">';
-    html += '<a href="mailto:david@peta.org" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#6F9BFF;border-radius:14px;padding:16px 24px;font-size:18px;font-weight:800;color:#060d0a;text-decoration:none;letter-spacing:-.01em">'+mt.contactBtn+' →</a>';
+    html += '<button onclick="openContactFlow(\'david\')" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#6F9BFF;border:none;border-radius:14px;padding:16px 24px;font-size:18px;font-weight:800;color:#060d0a;cursor:pointer;font-family:inherit;letter-spacing:-.01em">'+mt.contactBtn+' →</button>';
+    html += '<a href="mentor-profile.html?mentor=david" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:transparent;border:1px solid rgba(246,243,238,.12);border-radius:14px;padding:12px 24px;font-size:14px;font-weight:600;color:rgba(246,243,238,.7);text-decoration:none;letter-spacing:-.01em">'+mt.profileBtn+' →</a>';
     html += '</div>';
     html += '</div>';
     }
@@ -706,7 +707,8 @@ function renderSection(){
     html += '</div>';
     // footer
     html += '<div style="padding:14px 20px;border-top:1px solid rgba(246,243,238,.06);display:flex;flex-direction:column;gap:10px">';
-    html += '<a href="mailto:henk@example.com" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#6F9BFF;border-radius:14px;padding:16px 24px;font-size:18px;font-weight:800;color:#060d0a;text-decoration:none;letter-spacing:-.01em">'+mt2.contactBtn+' →</a>';
+    html += '<button onclick="openContactFlow(\'henk\')" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#6F9BFF;border:none;border-radius:14px;padding:16px 24px;font-size:18px;font-weight:800;color:#060d0a;cursor:pointer;font-family:inherit;letter-spacing:-.01em">'+mt2.contactBtn+' →</button>';
+    html += '<a href="mentor-profile.html?mentor=henk" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:transparent;border:1px solid rgba(246,243,238,.12);border-radius:14px;padding:12px 24px;font-size:14px;font-weight:600;color:rgba(246,243,238,.7);text-decoration:none;letter-spacing:-.01em">'+mt2.profileBtn+' →</a>';
     html += '</div>';
     html += '</div>';
     }
@@ -748,7 +750,78 @@ function renderSection(){
 }
 
 renderAll();
+
+// ── Contact flow with registration gate ──
+var _pendingMentorContact = null;
+var _MENTOR_EMAILS = { david: 'david@peta.org', henk: 'henk@transilience.org' };
+
+function openContactFlow(mentorId){
+  var registered = false;
+  try{ var n = localStorage.getItem('hm_name'); registered = !!(n && n.trim()); }catch(e){}
+  if(registered){
+    try{ localStorage.setItem('hm_mentor', mentorId); }catch(e){}
+    window.location.href = 'mailto:' + (_MENTOR_EMAILS[mentorId]||'');
+  } else {
+    _pendingMentorContact = mentorId;
+    // Update modal text for current lang
+    var isES = lang === 'es';
+    var _t = document.getElementById('dm-reg-title');
+    var _s = document.getElementById('dm-reg-sub');
+    var _ln = document.getElementById('dm-lbl-name');
+    var _le = document.getElementById('dm-lbl-email');
+    var _b = document.getElementById('dm-reg-btn');
+    if(_t) _t.textContent = isES ? 'Regístrate para continuar' : 'Register to continue';
+    if(_s) _s.textContent = isES ? 'Crea tu perfil para contactar a tu mentor. Tu selección quedará guardada en tu sesión.' : 'Create your profile to contact your mentor. Your selection will be saved to your session.';
+    if(_ln) _ln.textContent = isES ? 'Tu nombre' : 'Your name';
+    if(_le) _le.textContent = isES ? 'Correo electrónico' : 'Email';
+    if(_b) _b.textContent = isES ? 'Guardar y contactar →' : 'Save and contact →';
+    var overlay = document.getElementById('dm-reg-overlay');
+    if(overlay){ overlay.style.display='flex'; }
+    var ni = document.getElementById('dm-reg-name');
+    if(ni) setTimeout(function(){ ni.focus(); }, 80);
+  }
+}
+
+function submitDashReg(){
+  var nameEl = document.getElementById('dm-reg-name');
+  var emailEl = document.getElementById('dm-reg-email');
+  var name = nameEl ? nameEl.value.trim() : '';
+  var email = emailEl ? emailEl.value.trim() : '';
+  if(!name){
+    if(nameEl){ nameEl.style.border='1px solid rgba(255,100,100,.5)'; nameEl.focus(); }
+    return;
+  }
+  try{
+    localStorage.setItem('hm_name', name);
+    if(email) localStorage.setItem('hm_email', email);
+    if(_pendingMentorContact) localStorage.setItem('hm_mentor', _pendingMentorContact);
+  }catch(e){}
+  var overlay = document.getElementById('dm-reg-overlay');
+  if(overlay) overlay.style.display='none';
+  if(_pendingMentorContact){
+    window.location.href = 'mailto:' + (_MENTOR_EMAILS[_pendingMentorContact]||'');
+  }
+}
 </script>
+<!-- Registration modal (contact gate) -->
+<div id="dm-reg-overlay" style="display:none;position:fixed;inset:0;background:rgba(13,14,20,.85);z-index:600;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:#23242F;border:1px solid rgba(246,243,238,.1);border-radius:20px 20px 0 0;padding:28px 24px 32px;width:100%;max-width:520px;position:relative">
+    <button onclick="document.getElementById('dm-reg-overlay').style.display='none'" style="position:absolute;top:14px;right:16px;background:transparent;border:none;color:rgba(246,243,238,.4);font-size:22px;cursor:pointer;line-height:1;padding:4px">×</button>
+    <div id="dm-reg-title" style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;margin-bottom:6px">Regístrate para continuar</div>
+    <div id="dm-reg-sub" style="font-size:13px;color:rgba(246,243,238,.5);margin-bottom:20px;line-height:1.5">Crea tu perfil para contactar a tu mentor. Tu selección quedará guardada en tu sesión.</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <label id="dm-lbl-name" style="font-size:12px;font-weight:600;color:rgba(246,243,238,.5);letter-spacing:.05em;text-transform:uppercase">Tu nombre</label>
+        <input id="dm-reg-name" type="text" placeholder="Ej. María García" autocomplete="name" style="background:rgba(246,243,238,.06);border:1px solid rgba(246,243,238,.12);border-radius:10px;padding:12px 14px;font-size:14px;color:#F6F3EE;font-family:inherit;outline:none">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <label id="dm-lbl-email" style="font-size:12px;font-weight:600;color:rgba(246,243,238,.5);letter-spacing:.05em;text-transform:uppercase">Correo electrónico</label>
+        <input id="dm-reg-email" type="email" placeholder="tu@correo.com" autocomplete="email" style="background:rgba(246,243,238,.06);border:1px solid rgba(246,243,238,.12);border-radius:10px;padding:12px 14px;font-size:14px;color:#F6F3EE;font-family:inherit;outline:none">
+      </div>
+    </div>
+    <button id="dm-reg-btn" onclick="submitDashReg()" style="width:100%;background:#6F9BFF;border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:800;color:#060d0a;cursor:pointer;font-family:inherit">Guardar y contactar →</button>
+  </div>
+</div>
 
 <!-- DASHBOARD SIDEBAR DRAWER (mobile) -->
 <div class="dash-overlay" id="dash-overlay" onclick="closeDashMenu()"></div>

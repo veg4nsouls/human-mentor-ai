@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Human Mentor AI — Perfil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Space Grotesk',sans-serif;background:#1D1E25;color:#F6F3EE;min-height:100vh;display:flex;flex-direction:column}
+
+/* ── Header ── */
+header{height:60px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(246,243,238,.07);display:flex;align-items:center;padding:0 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);gap:12px;flex-shrink:0}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0}
+.logo-box{width:26px;height:26px;background:#6F9BFF;border-radius:7px;display:flex;align-items:center;justify-content:center}
+.logo-name{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;letter-spacing:.04em;color:#F6F3EE}
+.back-btn{display:flex;align-items:center;gap:6px;background:transparent;border:none;color:rgba(246,243,238,.55);font-size:13px;font-weight:600;cursor:pointer;padding:6px 10px 6px 6px;border-radius:8px;transition:color .15s,background .15s;font-family:inherit;flex-shrink:0}
+.back-btn:hover{color:#F6F3EE;background:rgba(246,243,238,.06)}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.lang-toggle{display:flex;align-items:center;background:rgba(246,243,238,.06);border-radius:20px;padding:2px;gap:0;border:none}
+.lang-tab{padding:4px 12px;border-radius:16px;font-size:11px;font-weight:700;letter-spacing:.08em;transition:background .18s,color .18s;border:none;cursor:pointer;font-family:inherit;background:transparent;color:rgba(246,243,238,.4)}
+.lang-tab.active{background:#6F9BFF;color:#0D0E14}
+.user-icon{width:32px;height:32px;background:rgba(111,155,255,.15);border:1.5px solid rgba(111,155,255,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* ── Page ── */
+.page{flex:1;max-width:760px;width:100%;margin:0 auto;padding:32px 24px 80px}
+
+/* ── Hero ── */
+.hero{display:flex;gap:24px;align-items:flex-start;margin-bottom:32px}
+.hero-photo{width:100px;height:100px;border-radius:16px;overflow:hidden;flex-shrink:0;border:1px solid rgba(111,155,255,.2)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-info{flex:1;min-width:0}
+.mentor-cat{font-size:11px;font-weight:700;letter-spacing:.12em;color:#6F9BFF;margin-bottom:6px}
+.mentor-name{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:800;line-height:1;margin-bottom:6px;letter-spacing:-.01em}
+.mentor-role{font-size:13px;color:rgba(246,243,238,.55);font-weight:500;margin-bottom:10px}
+.mentor-meta-row{display:flex;flex-wrap:wrap;gap:6px}
+.meta-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(246,243,238,.05);border:1px solid rgba(246,243,238,.08);border-radius:20px;padding:4px 10px;font-size:12px;color:rgba(246,243,238,.6)}
+
+/* ── Section ── */
+.section{background:rgba(246,243,238,.03);border:1px solid rgba(246,243,238,.07);border-radius:14px;padding:20px;margin-bottom:14px}
+.section-label{font-size:11px;font-weight:700;letter-spacing:.1em;color:rgba(246,243,238,.35);margin-bottom:10px;text-transform:uppercase}
+.section-text{font-size:14px;line-height:1.65;color:rgba(246,243,238,.8)}
+.tags-row{display:flex;flex-wrap:wrap;gap:7px}
+.tag{background:rgba(111,155,255,.1);border:1px solid rgba(111,155,255,.2);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:600;color:#6F9BFF}
+.stat-row{display:flex;gap:12px}
+.stat-box{flex:1;background:rgba(246,243,238,.04);border:1px solid rgba(246,243,238,.07);border-radius:10px;padding:14px;text-align:center}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:#6F9BFF;line-height:1}
+.stat-lbl{font-size:11px;color:rgba(246,243,238,.45);margin-top:3px}
+
+/* ── Contact CTA ── */
+.cta-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(18,19,25,.97);border-top:1px solid rgba(246,243,238,.07);padding:12px 20px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));backdrop-filter:blur(16px);display:flex;gap:10px;z-index:200}
+.btn-primary{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:#6F9BFF;border:none;border-radius:12px;padding:14px 20px;font-size:15px;font-weight:800;color:#060d0a;cursor:pointer;font-family:inherit;transition:opacity .15s;text-align:center}
+.btn-primary:hover{opacity:.88}
+.btn-secondary{display:flex;align-items:center;justify-content:center;background:rgba(246,243,238,.06);border:1px solid rgba(246,243,238,.12);border-radius:12px;padding:14px 18px;font-size:14px;font-weight:600;color:rgba(246,243,238,.6);cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s}
+.btn-secondary:hover{background:rgba(246,243,238,.1)}
+
+/* ── Registration modal ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(13,14,20,.85);z-index:500;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:#23242F;border:1px solid rgba(246,243,238,.1);border-radius:20px 20px 0 0;padding:28px 24px 32px;width:100%;max-width:520px}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;margin-bottom:6px}
+.modal-sub{font-size:13px;color:rgba(246,243,238,.5);margin-bottom:20px;line-height:1.5}
+.field-group{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12px;font-weight:600;color:rgba(246,243,238,.5);letter-spacing:.05em;text-transform:uppercase}
+.field input{background:rgba(246,243,238,.06);border:1px solid rgba(246,243,238,.12);border-radius:10px;padding:12px 14px;font-size:14px;color:#F6F3EE;font-family:inherit;outline:none;transition:border .15s}
+.field input:focus{border-color:rgba(111,155,255,.5)}
+.field input::placeholder{color:rgba(246,243,238,.25)}
+.modal-btn{width:100%;background:#6F9BFF;border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:800;color:#060d0a;cursor:pointer;font-family:inherit;transition:opacity .15s}
+.modal-btn:hover{opacity:.88}
+.modal-close{position:absolute;top:16px;right:16px;background:transparent;border:none;color:rgba(246,243,238,.4);font-size:22px;cursor:pointer;line-height:1;padding:4px}
+.modal-inner{position:relative}
+
+@media(max-width:560px){
+  .hero{gap:16px}
+  .hero-photo{width:72px;height:72px;border-radius:12px}
+  .mentor-name{font-size:28px}
+  .stat-row{gap:8px}
+  .modal{border-radius:16px 16px 0 0;padding:24px 20px 28px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <button class="back-btn" onclick="history.back()">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span id="back-label">Dashboard</span>
+  </button>
+  <div class="hdr-right">
+    <div class="lang-toggle">
+      <button class="lang-tab" id="tab-es" onclick="setLang('es')">ES</button>
+      <button class="lang-tab" id="tab-en" onclick="setLang('en')">EN</button>
+    </div>
+    <div class="user-icon">
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+        <circle cx="10" cy="7" r="3.5" stroke="#6F9BFF" stroke-width="1.6"/>
+        <path d="M3 18c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#6F9BFF" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<div class="page" id="page-content"></div>
+
+<!-- Fixed CTA bar -->
+<div class="cta-bar" id="cta-bar">
+  <button class="btn-secondary" onclick="history.back()" id="cta-back">← Volver</button>
+  <button class="btn-primary" onclick="openContactFlow()" id="cta-contact">Contactar →</button>
+</div>
+
+<!-- Registration modal -->
+<div class="modal-overlay" id="reg-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-inner">
+      <button class="modal-close" onclick="document.getElementById('reg-modal').classList.remove('open')">×</button>
+      <div class="modal-title" id="reg-title">Regístrate para continuar</div>
+      <div class="modal-sub" id="reg-sub">Crea tu perfil para contactar a tu mentor. Tu selección quedará guardada.</div>
+      <div class="field-group">
+        <div class="field">
+          <label id="lbl-name">Tu nombre</label>
+          <input type="text" id="reg-name" placeholder="Ej. María García" autocomplete="name">
+        </div>
+        <div class="field">
+          <label id="lbl-email">Tu correo electrónico</label>
+          <input type="email" id="reg-email" placeholder="tu@correo.com" autocomplete="email">
+        </div>
+      </div>
+      <button class="modal-btn" id="reg-btn" onclick="submitRegistration()">Guardar y contactar →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Data ──
+var MENTORS = {
+  david: {
+    es: {
+      cat: 'TU MENTOR/A',
+      name: 'DAVID PERLE',
+      role: 'Senior Media Officer · PETA',
+      location: 'Washington DC, EE.UU.',
+      specialty: 'Medios de comunicación y prensa',
+      bio: 'Más de 20 años en comunicaciones estratégicas para el movimiento de derechos animales. Como Senior Media Officer en PETA, David ha desarrollado campañas de prensa con impacto global, liderado crisis comunicacionales y entrenado a cientos de activistas en habilidades mediáticas.',
+      bioExtra: 'Su enfoque combina narrativa emocional con estrategia de medios, ayudando a organizaciones y personas a amplificar su mensaje en medios locales e internacionales.',
+      tags: ['Activismo', 'Campañas', 'Outreach', 'Mentoría', 'Medios'],
+      meta: ['Online', '20+ años', 'Inglés'],
+      stats: [{num:'20+', lbl:'Años de exp.'},{num:'PETA', lbl:'Organización'},{num:'100+', lbl:'Activistas formados'}],
+      sessionLabel: 'PRÓXIMA SESIÓN',
+      sessionText: 'Por confirmar — escríbele para agendar tu primera sesión',
+      bioLabel: 'Sobre David',
+      areasLabel: 'Áreas de especialidad',
+      statsLabel: 'Trayectoria',
+      sessionLabelUI: 'Sesiones',
+      contactBtn: 'Contactar a David',
+      backLabel: 'Dashboard',
+      email: 'david@peta.org'
+    },
+    en: {
+      cat: 'YOUR MENTOR',
+      name: 'DAVID PERLE',
+      role: 'Senior Media Officer · PETA',
+      location: 'Washington DC, USA',
+      specialty: 'Media & press relations',
+      bio: 'Over 20 years in strategic communications for the animal rights movement. As Senior Media Officer at PETA, David has developed press campaigns with global impact, led communication crises and trained hundreds of activists in media skills.',
+      bioExtra: 'His approach combines emotional storytelling with media strategy, helping organizations and individuals amplify their message in local and international media.',
+      tags: ['Activism', 'Campaigns', 'Outreach', 'Mentorship', 'Media'],
+      meta: ['Online', '20+ years', 'English'],
+      stats: [{num:'20+', lbl:'Years of exp.'},{num:'PETA', lbl:'Organization'},{num:'100+', lbl:'Activists trained'}],
+      sessionLabel: 'NEXT SESSION',
+      sessionText: 'To be confirmed — write to schedule your first session',
+      bioLabel: 'About David',
+      areasLabel: 'Areas of expertise',
+      statsLabel: 'Track record',
+      sessionLabelUI: 'Sessions',
+      contactBtn: 'Contact David',
+      backLabel: 'Dashboard',
+      email: 'david@peta.org'
+    },
+    email: 'david@peta.org',
+    photo:  + DAVID_PHOTO + 
+  },
+  henk: {
+    es: {
+      cat: 'TU MENTOR/A',
+      name: 'HENK VAN DER WATH',
+      role: 'Behavioral Systems Designer · Transilience',
+      location: 'El Cabo, Sudáfrica',
+      specialty: 'Diseño de sistemas conductuales',
+      bio: 'Más de 10 años diseñando sistemas conductuales que apoyan procesos de cambio sostenible. Henk facilita talleres, círculos de escucha y programas de acompañamiento en desarrollo profesional para activistas de todo el mundo.',
+      bioExtra: 'Su metodología integra psicología del comportamiento, facilitación sistémica y bienestar del activista, con especial atención a la sostenibilidad emocional a largo plazo.',
+      tags: ['Apoyo emocional', 'Mentoría', 'Desarrollo profesional', 'Coaching', 'Facilitación'],
+      meta: ['Online', '10+ años', 'Inglés / Afrikaans'],
+      stats: [{num:'10+', lbl:'Años de exp.'},{num:'Transilience', lbl:'Organización'},{num:'5+', lbl:'Países activos'}],
+      sessionLabel: 'PRÓXIMA SESIÓN',
+      sessionText: 'Por confirmar — escríbele para coordinar tu primera sesión',
+      bioLabel: 'Sobre Henk',
+      areasLabel: 'Áreas de especialidad',
+      statsLabel: 'Trayectoria',
+      sessionLabelUI: 'Sesiones',
+      contactBtn: 'Contactar a Henk',
+      backLabel: 'Dashboard',
+      email: 'henk@transilience.org'
+    },
+    en: {
+      cat: 'YOUR MENTOR',
+      name: 'HENK VAN DER WATH',
+      role: 'Behavioral Systems Designer · Transilience',
+      location: 'Cape Town, South Africa',
+      specialty: 'Behavioral systems design',
+      bio: 'Over 10 years designing behavioral systems that support sustainable change processes. Henk facilitates workshops, listening circles and professional development programs for activists worldwide.',
+      bioExtra: 'His methodology integrates behavioral psychology, systemic facilitation and activist well-being, with special attention to long-term emotional sustainability.',
+      tags: ['Emotional support', 'Mentorship', 'Professional development', 'Coaching', 'Facilitation'],
+      meta: ['Online', '10+ years', 'English / Afrikaans'],
+      stats: [{num:'10+', lbl:'Years of exp.'},{num:'Transilience', lbl:'Organization'},{num:'5+', lbl:'Active countries'}],
+      sessionLabel: 'NEXT SESSION',
+      sessionText: 'To be confirmed — write to coordinate your first session',
+      bioLabel: 'About Henk',
+      areasLabel: 'Areas of expertise',
+      statsLabel: 'Track record',
+      sessionLabelUI: 'Sessions',
+      contactBtn: 'Contact Henk',
+      backLabel: 'Dashboard',
+      email: 'henk@transilience.org'
+    },
+    email: 'henk@transilience.org',
+    photo:  + HENK_PHOTO + 
+  }
+};
+
+var REG_TEXT = {
+  es: {
+    title: 'Regístrate para continuar',
+    sub: 'Crea tu perfil para contactar a tu mentor. Tu selección quedará guardada en tu sesión.',
+    nameLbl: 'Tu nombre',
+    emailLbl: 'Tu correo electrónico',
+    namePh: 'Ej. María García',
+    emailPh: 'tu@correo.com',
+    btn: 'Guardar y contactar →',
+    back: '← Volver',
+  },
+  en: {
+    title: 'Register to continue',
+    sub: 'Create your profile to contact your mentor. Your selection will be saved to your session.',
+    nameLbl: 'Your name',
+    emailLbl: 'Your email',
+    namePh: 'E.g. María García',
+    emailPh: 'your@email.com',
+    btn: 'Save and contact →',
+    back: '← Back',
+  }
+};
+
+// ── State ──
+var lang = (function(){ try{ return localStorage.getItem('hm_lang')||'es'; }catch(e){ return 'es'; } })();
+var mentorId = (function(){
+  var p = new URLSearchParams(window.location.search);
+  var m = p.get('mentor');
+  return (m==='henk') ? 'henk' : 'david';
+})();
+
+function setLang(l){
+  lang = l;
+  try{ localStorage.setItem('hm_lang', l); }catch(e){}
+  renderAll();
+}
+
+function renderAll(){
+  var mentor = MENTORS[mentorId];
+  var ct = mentor[lang];
+
+  // Lang tabs
+  document.getElementById('tab-es').className = 'lang-tab' + (lang==='es'?' active':'');
+  document.getElementById('tab-en').className = 'lang-tab' + (lang==='en'?' active':'');
+
+  // Back label
+  document.getElementById('back-label').textContent = ct.backLabel;
+  document.getElementById('cta-back').textContent = '← ' + ct.backLabel;
+  document.getElementById('cta-contact').textContent = ct.contactBtn + ' →';
+
+  // Modal text
+  var rt = REG_TEXT[lang];
+  document.getElementById('reg-title').textContent = rt.title;
+  document.getElementById('reg-sub').textContent = rt.sub;
+  document.getElementById('lbl-name').textContent = rt.nameLbl;
+  document.getElementById('lbl-email').textContent = rt.emailLbl;
+  document.getElementById('reg-name').placeholder = rt.namePh;
+  document.getElementById('reg-email').placeholder = rt.emailPh;
+  document.getElementById('reg-btn').textContent = rt.btn;
+  document.getElementById('cta-back').textContent = rt.back;
+
+  // Page content
+  var html = '';
+  // Hero
+  html += '<div class="hero">';
+  html += '<div class="hero-photo"><img src="'+mentor.photo+'" alt="'+ct.name+'" style="object-fit:cover;object-position:center top"></div>';
+  html += '<div class="hero-info">';
+  html += '<div class="mentor-cat">'+ct.cat+'</div>';
+  html += '<div class="mentor-name">'+ct.name+'</div>';
+  html += '<div class="mentor-role">'+ct.role+'</div>';
+  html += '<div class="mentor-meta-row">';
+  ct.meta.forEach(function(m){
+    html += '<span class="meta-pill"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2" opacity=".5"/></svg>'+m+'</span>';
+  });
+  html += '</div>';
+  html += '</div>';
+  html += '</div>';
+
+  // Stats
+  html += '<div class="stat-row" style="margin-bottom:14px">';
+  ct.stats.forEach(function(s){
+    html += '<div class="stat-box"><div class="stat-num">'+s.num+'</div><div class="stat-lbl">'+s.lbl+'</div></div>';
+  });
+  html += '</div>';
+
+  // Bio
+  html += '<div class="section">';
+  html += '<div class="section-label">'+ct.bioLabel+'</div>';
+  html += '<div class="section-text">'+ct.bio+'</div>';
+  html += '<div class="section-text" style="margin-top:12px;color:rgba(246,243,238,.6)">'+ct.bioExtra+'</div>';
+  html += '</div>';
+
+  // Tags
+  html += '<div class="section">';
+  html += '<div class="section-label">'+ct.areasLabel+'</div>';
+  html += '<div class="tags-row">';
+  ct.tags.forEach(function(t){ html += '<span class="tag">'+t+'</span>'; });
+  html += '</div></div>';
+
+  // Session
+  html += '<div class="section">';
+  html += '<div class="section-label">'+ct.sessionLabel+'</div>';
+  html += '<div class="section-text" style="color:rgba(246,243,238,.55);font-style:italic">'+ct.sessionText+'</div>';
+  html += '</div>';
+
+  document.getElementById('page-content').innerHTML = html;
+}
+
+// ── Contact flow ──
+function openContactFlow(){
+  var registered = false;
+  try{ var n = localStorage.getItem('hm_name'); registered = !!(n && n.trim()); }catch(e){}
+
+  if(registered){
+    // Save mentor choice and open mailto
+    try{ localStorage.setItem('hm_mentor', mentorId); }catch(e){}
+    window.location.href = 'mailto:' + MENTORS[mentorId].email;
+  } else {
+    // Show registration modal
+    document.getElementById('reg-modal').classList.add('open');
+    document.getElementById('reg-name').focus();
+  }
+}
+
+function submitRegistration(){
+  var nameEl = document.getElementById('reg-name');
+  var emailEl = document.getElementById('reg-email');
+  var name = nameEl ? nameEl.value.trim() : '';
+  var email = emailEl ? emailEl.value.trim() : '';
+  if(!name){ nameEl.focus(); nameEl.style.borderColor='rgba(255,100,100,.5)'; return; }
+  try{
+    localStorage.setItem('hm_name', name);
+    if(email) localStorage.setItem('hm_email', email);
+    localStorage.setItem('hm_mentor', mentorId);
+  }catch(e){}
+  document.getElementById('reg-modal').classList.remove('open');
+  window.location.href = 'mailto:' + MENTORS[mentorId].email;
+}
+
+function closeModal(e){
+  if(e.target === document.getElementById('reg-modal')){
+    document.getElementById('reg-modal').classList.remove('open');
+  }
+}
+
+renderAll();
+</script>
+</body>
+</html>
