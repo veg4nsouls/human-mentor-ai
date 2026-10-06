@@ -103,7 +103,70 @@ header{height:60px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(24
 .stat-num span{font-size:18px;font-weight:400;color:#6F9BFF;margin-left:2px}
 .stat-label{font-size:15px;color:rgba(246,243,238,.55)}
 
-@media(max-width:720px){.sidebar{display:none}.main{padding:20px 16px}}
+@media(max-width:720px){
+  .sidebar{display:none}
+  .main{padding:20px 16px 90px}
+  .mobile-nav{display:flex}
+  .dash-hbg{display:flex}
+}
+.dash-hbg{
+  display:none;
+  align-items:center;justify-content:center;
+  width:36px;height:36px;border:none;background:transparent;
+  cursor:pointer;padding:0;color:rgba(246,243,238,.75);border-radius:8px;
+  transition:background .15s;flex-shrink:0;
+}
+.dash-hbg:hover{background:rgba(246,243,238,.08)}
+/* Dashboard sidebar drawer overlay */
+.dash-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+  z-index:900;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+}
+.dash-overlay.open{display:block}
+.dash-drawer{
+  position:fixed;top:0;left:0;bottom:0;width:240px;max-width:85vw;
+  background:#12131a;border-right:1px solid rgba(246,243,238,.08);
+  z-index:901;transform:translateX(-100%);
+  transition:transform .25s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;padding:0 0 32px;overflow-y:auto;
+}
+.dash-drawer.open{transform:translateX(0)}
+.dash-drawer-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 16px;border-bottom:1px solid rgba(246,243,238,.07);margin-bottom:8px;
+}
+.dash-drawer-close{
+  width:32px;height:32px;border:none;background:transparent;
+  color:rgba(246,243,238,.4);cursor:pointer;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.dash-drawer-close:hover{background:rgba(246,243,238,.08)}
+.dash-drawer .side-item{
+  width:100%;text-align:left;margin:1px 8px;width:calc(100% - 16px);
+}
+.mobile-nav{
+  display:none;
+  position:fixed;
+  bottom:0;left:0;right:0;
+  height:64px;
+  background:rgba(18,19,25,.97);
+  border-top:1px solid rgba(246,243,238,.08);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  z-index:1000;
+  justify-content:space-around;
+  align-items:stretch;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.mn-item{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;flex:1;border:none;background:transparent;
+  color:rgba(246,243,238,.4);cursor:pointer;padding:0;
+  font-family:inherit;transition:color .18s;
+}
+.mn-item.active{color:#6F9BFF}
+.mn-item svg{flex-shrink:0}
+.mn-label{font-size:10px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -116,6 +179,9 @@ header{height:60px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(24
     </div>
     <span class="logo-name">HUMAN MENTOR</span>
   </a>
+  <button class="dash-hbg" onclick="openDashMenu()" aria-label="Menú">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 4.5h14M2 9h14M2 13.5h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </button>
   <div class="header-sep"></div>
   <span class="header-title" id="hdr-title">Mi hoja de ruta</span>
   <div class="header-right">
@@ -457,6 +523,20 @@ function renderAll(){
   document.getElementById('sb-support').textContent = ct.sbSupport;
   document.getElementById('sb-mentor').textContent = ct.sbMentor;
   document.getElementById('sb-messages').textContent = ct.sbMessages;
+  // Mobile nav labels (bottom bar)
+  var _mnRd = document.getElementById('mn-roadmap'); if(_mnRd) _mnRd.textContent = ct.sbRoadmap;
+  var _mnRs = document.getElementById('mn-resources'); if(_mnRs) _mnRs.textContent = ct.sbResources;
+  var _mnCm = document.getElementById('mn-community'); if(_mnCm) _mnCm.textContent = ct.sbCommunity;
+  var _mnMt = document.getElementById('mn-mentor'); if(_mnMt) _mnMt.textContent = ct.sbMentor;
+  var _mnMs = document.getElementById('mn-messages'); if(_mnMs) _mnMs.textContent = ct.sbMessages;
+  // Drawer labels
+  var _ddMenu=document.getElementById('ddr-menu'); if(_ddMenu) _ddMenu.textContent=ct.sbMenu;
+  var _ddSup=document.getElementById('ddr-support'); if(_ddSup) _ddSup.textContent=ct.sbSupport;
+  var _ddRd=document.getElementById('ddr-roadmap'); if(_ddRd) _ddRd.textContent=ct.sbRoadmap;
+  var _ddRs=document.getElementById('ddr-resources'); if(_ddRs) _ddRs.textContent=ct.sbResources;
+  var _ddCm=document.getElementById('ddr-community'); if(_ddCm) _ddCm.textContent=ct.sbCommunity;
+  var _ddMt=document.getElementById('ddr-mentor'); if(_ddMt) _ddMt.textContent=ct.sbMentor;
+  var _ddMs=document.getElementById('ddr-messages'); if(_ddMs) _ddMs.textContent=ct.sbMessages;
   document.getElementById('prog-label').textContent = ct.progLabel;
   document.getElementById('prog-done').textContent = ct.progDone;
   renderSection();
@@ -468,7 +548,13 @@ function showSection(s){
   document.querySelectorAll('.side-item').forEach(function(el,i){
     el.className = 'side-item'+(names[i]===s?' active':'');
   });
+  document.querySelectorAll('.mn-item').forEach(function(el,i){
+    el.className = 'mn-item'+(names[i]===s?' active':'');
+  });
   renderSection();
+  // Scroll content to top
+  var mainEl = document.querySelector('.main');
+  if(mainEl) mainEl.scrollTop = 0;
 }
 
 function renderSection(){
@@ -664,5 +750,78 @@ function renderSection(){
 
 renderAll();
 </script>
+
+<!-- DASHBOARD SIDEBAR DRAWER (mobile) -->
+<div class="dash-overlay" id="dash-overlay" onclick="closeDashMenu()"></div>
+<div class="dash-drawer" id="dash-drawer">
+  <div class="dash-drawer-top">
+    <div class="logo" style="pointer-events:none">
+      <div class="logo-box"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1L1 8h7L4.5 1Z" fill="#F6F3EE" opacity=".8"/></svg></div>
+      <span class="logo-name" style="font-size:12px">HUMAN MENTOR</span>
+    </div>
+    <button class="dash-drawer-close" onclick="closeDashMenu()">✕</button>
+  </div>
+  <div style="padding:0 8px">
+    <div class="sidebar-label" style="padding:8px 12px;font-size:10px;letter-spacing:1px;color:rgba(246,243,238,.3)" id="ddr-menu">Menú</div>
+    <button class="side-item" onclick="showSection('roadmap');closeDashMenu()">
+      <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M1 7h8M1 11h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <span id="ddr-roadmap">Hoja de ruta</span>
+    </button>
+    <button class="side-item" onclick="showSection('resources');closeDashMenu()">
+      <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="2" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/></svg></div>
+      <span id="ddr-resources">Recursos</span>
+    </button>
+    <button class="side-item" onclick="showSection('community');closeDashMenu()">
+      <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M2 12c0-2.21 2.24-4 5-4s5 1.79 5 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg></div>
+      <span id="ddr-community">Comunidad</span>
+    </button>
+    <div style="height:1px;background:rgba(246,243,238,.07);margin:8px 0 8px"></div>
+    <div class="sidebar-label" style="padding:4px 12px;font-size:10px;letter-spacing:1px;color:rgba(246,243,238,.3)" id="ddr-support">Apoyo</div>
+    <button class="side-item" onclick="showSection('mentor');closeDashMenu()">
+      <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2a5 5 0 100 10A5 5 0 007 2zm0 3v2.5L8.5 9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span id="ddr-mentor">Mi mentor/a</span>
+    </button>
+    <button class="side-item" onclick="showSection('messages');closeDashMenu()">
+      <div class="side-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3h10a1 1 0 011 1v6a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25"/><path d="M1 4l6 4 6-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg></div>
+      <span id="ddr-messages">Mensajes</span>
+    </button>
+  </div>
+</div>
+<script>
+function openDashMenu(){
+  document.getElementById('dash-overlay').classList.add('open');
+  document.getElementById('dash-drawer').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDashMenu(){
+  document.getElementById('dash-overlay').classList.remove('open');
+  document.getElementById('dash-drawer').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDashMenu();});
+</script>
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav" aria-label="Navegación">
+  <button class="mn-item active" onclick="showSection('roadmap')" id="mn-roadmap-btn">
+    <svg width="22" height="22" viewBox="0 0 14 14" fill="none"><path d="M1 3h12M1 7h8M1 11h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <span class="mn-label" id="mn-roadmap">Hoja de ruta</span>
+  </button>
+  <button class="mn-item" onclick="showSection('resources')" id="mn-resources-btn">
+    <svg width="22" height="22" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="2" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="2" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/><rect x="8" y="8" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.25"/></svg>
+    <span class="mn-label" id="mn-resources">Recursos</span>
+  </button>
+  <button class="mn-item" onclick="showSection('community')" id="mn-community-btn">
+    <svg width="22" height="22" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="2.5" stroke="currentColor" stroke-width="1.25"/><path d="M2 12c0-2.21 2.24-4 5-4s5 1.79 5 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+    <span class="mn-label" id="mn-community">Comunidad</span>
+  </button>
+  <button class="mn-item" onclick="showSection('mentor')" id="mn-mentor-btn">
+    <svg width="22" height="22" viewBox="0 0 14 14" fill="none"><path d="M7 2a5 5 0 100 10A5 5 0 007 2zm0 3v2.5L8.5 9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="mn-label" id="mn-mentor">Mi mentor/a</span>
+  </button>
+  <button class="mn-item" onclick="showSection('messages')" id="mn-messages-btn">
+    <svg width="22" height="22" viewBox="0 0 14 14" fill="none"><path d="M2 3h10a1 1 0 011 1v6a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25"/><path d="M1 4l6 4 6-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+    <span class="mn-label" id="mn-messages">Mensajes</span>
+  </button>
+</nav>
 </body>
 </html>
