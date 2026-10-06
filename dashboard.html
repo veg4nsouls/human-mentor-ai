@@ -106,8 +106,10 @@ header{height:60px;background:rgba(18,19,25,.97);border-bottom:1px solid rgba(24
 .dash-hbg{display:none}
 .mobile-nav{display:none}
 @media(max-width:720px){
+  body{overflow-y:auto;height:auto}
+  .layout{display:block;min-height:0;overflow:visible}
   .sidebar{display:none}
-  .main{padding:20px 16px 90px}
+  .main{overflow-y:visible;height:auto;min-height:calc(100vh - 60px);padding:20px 16px 90px}
   .mobile-nav{display:flex}
   .dash-hbg{display:flex}
 }
@@ -545,6 +547,7 @@ function showSection(s){
   });
   renderSection();
   // Scroll content to top
+  try{window.scrollTo(0,0);}catch(e){}
   var mainEl = document.querySelector('.main');
   if(mainEl) mainEl.scrollTop = 0;
 }
