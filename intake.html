@@ -531,15 +531,19 @@ function goBack(){
 function renderMentorRec(){
   // challenge: 0=burnout 1=community 2=professionalize 3=outreach 4=ethical
   var ch = answers.challenge;
+  var langs = answers.language || [];
+  var spanishOnly = langs.indexOf(0) >= 0 && langs.indexOf(1) < 0;
   var isHenk = (ch===0 || ch===1 || ch===4);
-  var mid = isHenk ? 'henk' : 'david';
+  var mid = spanishOnly ? 'mauro' : (isHenk ? 'henk' : 'david');
   try{ localStorage.setItem('hm_mentor', mid); }catch(e){}
   var es = lang==='es';
-  var name    = isHenk ? 'Henk van der Wath' : 'David Perle';
-  var role    = isHenk ? 'Behavioral Systems Designer · Transilience' : 'Senior Media Officer · PETA';
-  var cats    = isHenk
-    ? (es ? ['Apoyo emocional','Mentória','Coaching'] : ['Emotional support','Mentorship','Coaching'])
-    : (es ? ['Activismo','Campañas','Outreach']       : ['Activism','Campaigns','Outreach']);
+  var name    = spanishOnly ? 'Mauro García Rodríguez' : (isHenk ? 'Henk van der Wath' : 'David Perle');
+  var role    = spanishOnly ? 'Psicólogo clínico · psicologovegano.com' : (isHenk ? 'Behavioral Systems Designer · Transilience' : 'Senior Media Officer · PETA');
+  var cats    = spanishOnly
+    ? ['Apoyo emocional', 'Psicología', 'Coaching', 'Activismo']
+    : (isHenk
+      ? (es ? ['Apoyo emocional','Mentoría','Coaching'] : ['Emotional support','Mentorship','Coaching'])
+      : (es ? ['Activismo','Campañas','Outreach'] : ['Activism','Campaigns','Outreach']));
   var tagMap  = {
     'Apoyo emocional':'background:rgba(255,120,180,.1);color:rgba(255,140,190,.9);border:1px solid rgba(255,120,180,.2)',
     'Emotional support':'background:rgba(255,120,180,.1);color:rgba(255,140,190,.9);border:1px solid rgba(255,120,180,.2)',
@@ -550,7 +554,8 @@ function renderMentorRec(){
     'Activism':'background:rgba(80,210,160,.1);color:rgba(90,220,170,.9);border:1px solid rgba(80,210,160,.2)',
     'Campañas':'background:rgba(255,140,80,.1);color:rgba(255,155,90,.9);border:1px solid rgba(255,140,80,.2)',
     'Campaigns':'background:rgba(255,140,80,.1);color:rgba(255,155,90,.9);border:1px solid rgba(255,140,80,.2)',
-    'Outreach':'background:rgba(50,200,140,.1);color:rgba(80,210,150,.9);border:1px solid rgba(50,200,140,.2)'
+    'Outreach':'background:rgba(50,200,140,.1);color:rgba(80,210,150,.9);border:1px solid rgba(50,200,140,.2)',
+    'Psicología':'background:rgba(180,130,255,.1);color:rgba(190,145,255,.9);border:1px solid rgba(180,130,255,.2)'
   };
   var tagsHtml = '';
   cats.forEach(function(cat){
