@@ -534,12 +534,14 @@ function renderMentorRec(){
   var langs = answers.language || [];
   var spanishOnly = langs.indexOf(0) >= 0 && langs.indexOf(1) < 0;
   var isHenk = (ch===0 || ch===1 || ch===4);
-  var mid = spanishOnly ? 'mauro' : (isHenk ? 'henk' : 'david');
+  // Mauro solo cuando Spanish-only Y el challenge no es de Henk
+  var isMauro = spanishOnly && !isHenk;
+  var mid = isHenk ? 'henk' : (isMauro ? 'mauro' : 'david');
   try{ localStorage.setItem('hm_mentor', mid); }catch(e){}
   var es = lang==='es';
-  var name    = spanishOnly ? 'Mauro García Rodríguez' : (isHenk ? 'Henk van der Wath' : 'David Perle');
-  var role    = spanishOnly ? 'Psicólogo clínico · psicologovegano.com' : (isHenk ? 'Behavioral Systems Designer · Transilience' : 'Senior Media Officer · PETA');
-  var cats    = spanishOnly
+  var name    = isMauro ? 'Mauro García Rodríguez' : (isHenk ? 'Henk van der Wath' : 'David Perle');
+  var role    = isMauro ? 'Psicólogo clínico · psicologovegano.com' : (isHenk ? 'Behavioral Systems Designer · Transilience' : 'Senior Media Officer · PETA');
+  var cats    = isMauro
     ? ['Apoyo emocional', 'Psicología', 'Coaching', 'Activismo']
     : (isHenk
       ? (es ? ['Apoyo emocional','Mentoría','Coaching'] : ['Emotional support','Mentorship','Coaching'])
