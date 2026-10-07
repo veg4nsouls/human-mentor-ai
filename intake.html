@@ -533,10 +533,11 @@ function renderMentorRec(){
   var ch = answers.challenge;
   var langs = answers.language || [];
   var spanishOnly = langs.indexOf(0) >= 0 && langs.indexOf(1) < 0;
-  var isHenk = (ch===0 || ch===1 || ch===4);
-  // Mauro solo cuando Spanish-only Y el challenge no es de Henk
-  var isMauro = spanishOnly && !isHenk;
-  var mid = isHenk ? 'henk' : (isMauro ? 'mauro' : 'david');
+  // Para Spanish-only: burnout(0) y community(1) → Mauro; ethical(4) → Henk
+  // Para otros idiomas: burnout/community/ethical → Henk
+  var isMauro = spanishOnly && (ch===0 || ch===1);
+  var isHenk  = isMauro ? false : (ch===0 || ch===1 || ch===4);
+  var mid = isMauro ? 'mauro' : (isHenk ? 'henk' : 'david');
   try{ localStorage.setItem('hm_mentor', mid); }catch(e){}
   var es = lang==='es';
   var name    = isMauro ? 'Mauro García Rodríguez' : (isHenk ? 'Henk van der Wath' : 'David Perle');
