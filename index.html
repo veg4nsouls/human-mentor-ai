@@ -1017,8 +1017,8 @@ img.mentor-big-av {
      ============================================================ -->
 <div class="screen" id="s-mentor">
   <div class="mentor-detail-wrap">
-    <button class="mentor-back-btn" onclick="history.back(); go('directory',document.querySelectorAll('.nav-tab')[2])">
-      ← <span id="mentor-back-label">Volver a Mentores</span>
+    <button class="mentor-back-btn" onclick="go('dashboard',document.querySelectorAll('.nav-tab')[3])">
+      ← <span id="mentor-back-label">Volver a Mi Camino</span>
     </button>
     <div id="mentor-detail-content">
       <!-- Rendered by renderMentor() -->
@@ -1814,7 +1814,7 @@ function renderMentor() {
   const priceLabel = l === 'es' ? 'Precio' : 'Price';
 
   // Update back button
-  document.getElementById('mentor-back-label').textContent = l === 'es' ? 'Volver a Mentores' : 'Back to Mentors';
+  document.getElementById('mentor-back-label').textContent = l === 'es' ? 'Volver a Mi Camino' : 'Back to My Path';
 
   const priceBadgeClass = m.priceType === 'free' ? 'mentor-price-free-badge' : 'mentor-price-paid-badge';
   const priceIcon = m.priceType === 'free' ? '✓' : '💳';
