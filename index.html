@@ -149,6 +149,7 @@ nav {
 }
 .nav-tab:hover { background: var(--surface-subtle); color: var(--ink); }
 .nav-tab.active { background: var(--brand-subtle); color: var(--brand); font-weight: 600; }
+.nav-tab.active-home { background: none; color: var(--ink); font-weight: 400; }
 .nav-end {
   display: flex; align-items: center; gap: 8px; margin-left: auto;
 }
@@ -711,16 +712,16 @@ nav {
     <span class="logo-wordmark">Human Mentor</span>
   </div>
   <div class="nav-tabs">
-    <button class="nav-tab active" onclick="go('home',this)" data-i18n="nav-home">Inicio</button>
-    <button class="nav-tab" onclick="go('wizard',this)" data-i18n="nav-wizard">Diagnóstico</button>
-    <button class="nav-tab" onclick="go('directory',this)" data-i18n="nav-mentors">Mentores</button>
-    <button class="nav-tab" onclick="go('dashboard',this)" data-i18n="nav-journey">Mi Camino</button>
+    <button class="nav-tab active-home" onclick="go('home',this)" data-i18n="nav-home">Home</button>
+    <button class="nav-tab" onclick="go('wizard',this)" data-i18n="nav-wizard">Wellness Check</button>
+    <button class="nav-tab" onclick="go('directory',this)" data-i18n="nav-mentors">Mentors</button>
+    <button class="nav-tab" onclick="go('dashboard',this)" data-i18n="nav-journey">My Journey</button>
   </div>
   <div class="nav-end">
-    <button class="toggle-btn" onclick="toggleLang()" id="lang-btn">🌐 ES</button>
+    <button class="toggle-btn" onclick="toggleLang()" id="lang-btn">🌐 EN</button>
     <button class="toggle-btn" onclick="toggleTheme()" id="theme-btn">☾</button>
-    <button class="btn btn-ghost btn-sm" data-i18n="nav-login">Iniciar sesión</button>
-    <button class="btn btn-primary btn-sm" onclick="go('wizard',document.querySelector('.nav-tab:nth-child(2)'))" data-i18n="nav-start">Comenzar gratis</button>
+    <button class="btn btn-ghost btn-sm" data-i18n="nav-login">Log in</button>
+    <button class="btn btn-primary btn-sm" onclick="go('wizard',document.querySelector('.nav-tab:nth-child(2)'))" data-i18n="nav-start">Get started free</button>
   </div>
 </nav>
 
@@ -737,16 +738,10 @@ nav {
         <span class="hi">transformando</span><br>
         el mundo.
       </h1>
-      <p class="hero-desc" data-i18n="hero-desc">
-        Te conectamos con mentores del movimiento antiespecista y profesionales de la salud mental que entienden tu lucha y comprenden el agotamiento por compasión.
-      </p>
+      <p class="hero-desc" data-i18n="hero-desc">We connect you with mentors from the anti-speciesist movement and mental health professionals who understand your struggle and compassion fatigue.</p>
       <div class="hero-actions">
-        <button class="btn btn-primary btn-lg" onclick="go('wizard',document.querySelectorAll('.nav-tab')[1])" data-i18n="hero-cta">
-          Iniciar diagnóstico gratuito →
-        </button>
-        <button class="btn btn-secondary btn-lg" onclick="go('directory',document.querySelectorAll('.nav-tab')[2])" data-i18n="hero-sec">
-          Ver mentores
-        </button>
+        <button class="btn btn-primary btn-lg" onclick="go('wizard',document.querySelectorAll('.nav-tab')[1])" data-i18n="hero-cta">Start free wellness check →</button>
+        <button class="btn btn-secondary btn-lg" onclick="go('directory',document.querySelectorAll('.nav-tab')[2])" data-i18n="hero-sec">See mentors</button>
       </div>
       <!-- Social proof cluster -->    </div>
 
@@ -761,17 +756,17 @@ nav {
 <div class="screen" id="s-wizard">
   <div class="wizard-wrap">
     <div class="wiz-header">
-      <h2 data-i18n="wiz-title">Diagnóstico de bienestar</h2>
-      <p data-i18n="wiz-sub">5 preguntas para entenderte mejor y encontrar el apoyo ideal.</p>
+      <h2 data-i18n="wiz-title">Wellness Check</h2>
+      <p data-i18n="wiz-sub">5 questions to better understand you and find the right support.</p>
     </div>
     <div class="wiz-panel">
       <div class="wiz-bar"><div class="wiz-fill" id="wfill"></div></div>
       <div id="wiz-steps-wrap">
         <div class="wiz-body" id="wbody"></div>
         <div class="wiz-foot">
-          <button class="btn btn-ghost" id="wback" onclick="wPrev()" data-i18n="wiz-back">← Atrás</button>
+          <button class="btn btn-ghost" id="wback" onclick="wPrev()" data-i18n="wiz-back">← Back</button>
           <div class="wiz-count" id="wcnt"></div>
-          <button class="btn btn-primary" id="wnext" onclick="wNext()" data-i18n="wiz-next">Continuar →</button>
+          <button class="btn btn-primary" id="wnext" onclick="wNext()" data-i18n="wiz-next">Continue →</button>
         </div>
       </div>
       <div class="wiz-result" id="wresult">
@@ -781,7 +776,7 @@ nav {
             <polyline points="7,11 10,14 15,9"/>
           </svg>
         </div>
-        <div class="result-title" data-i18n="result-title">Tenemos tu mentor ideal</div>
+        <div class="result-title" data-i18n="result-title">We found your ideal mentor</div>
         <p class="result-desc" id="result-desc-el">
           Basándonos en tus respuestas, identificamos <strong>agotamiento por compasión</strong> como tu área prioritaria. Te conectamos con un mentor con experiencia directa.
         </p>
@@ -790,7 +785,7 @@ nav {
           <img src="" alt="" id="rm-avatar-el" class="rm-av" style="display:none">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" alt="David Perle" id="rm-avatar-el" class="rm-av" style="object-fit:cover;border-radius:50%;width:80px;height:80px;flex-shrink:0;">
         </div>
         <div style="margin-top:12px;">
-          <button class="btn btn-ghost btn-full btn-sm" onclick="go('dashboard',document.querySelectorAll('.nav-tab')[3])" data-i18n="result-dash">Ir a mi panel</button>
+          <button class="btn btn-ghost btn-full btn-sm" onclick="go('dashboard',document.querySelectorAll('.nav-tab')[3])" data-i18n="result-dash">Go to my dashboard</button>
         </div>
       </div>
     </div>
@@ -803,20 +798,20 @@ nav {
 <div class="screen" id="s-directory">
   <div class="dir-wrap">
     <div class="dir-head">
-      <h1 data-i18n="dir-title">Encuentra tu mentor</h1>
-      <p data-i18n="dir-sub">Profesionales y pares que entienden el activismo desde adentro.</p>
+      <h1 data-i18n="dir-title">Find your mentor</h1>
+      <p data-i18n="dir-sub">Professionals and peers who understand activism from the inside.</p>
     </div>
     <div class="filter-bar">
       <span class="fchip on" onclick="tFilter(this)">
         <svg class="fchip-check" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5,10 11,3.5"></polyline></svg>
-        <span data-i18n="filter-all">Todos</span>
+        <span data-i18n="filter-all">All</span>
       </span>
       <span class="fchip" onclick="tFilter(this)"><span data-i18n="filter-peers">Peer Mentors</span></span>
-      <span class="fchip" onclick="tFilter(this)"><span data-i18n="filter-therapists">Terapeutas</span></span>
-      <span class="fchip" onclick="tFilter(this)"><span data-i18n="filter-free">Gratuito</span></span>
+      <span class="fchip" onclick="tFilter(this)"><span data-i18n="filter-therapists">Therapists</span></span>
+      <span class="fchip" onclick="tFilter(this)"><span data-i18n="filter-free">Free</span></span>
       <span class="fchip" onclick="tFilter(this)"><span data-i18n="filter-burnout">Burnout</span></span>
       <span class="fchip" onclick="tFilter(this)"><span data-i18n="filter-outreach">Outreach</span></span>
-      <span class="fchip" onclick="tFilter(this)"><span data-i18n="filter-available">Disponibles hoy</span></span>
+      <span class="fchip" onclick="tFilter(this)"><span data-i18n="filter-available">Available today</span></span>
     </div>
     <div class="mentor-grid">
       <!-- Card 1 — David Perle (más grande por grid-column: span 2) -->
@@ -827,23 +822,23 @@ nav {
           </div>
           <div style="flex:1">
             <div class="mcard-name" data-i18n="m1-name">David Perle</div>
-            <div class="mcard-role" data-i18n="m1-role">Especialista en Outreach</div>
-            <div class="mcard-location" data-i18n="m1-location">Washington DC, EE.UU.</div>
+            <div class="mcard-role" data-i18n="m1-role">Outreach Specialist</div>
+            <div class="mcard-location" data-i18n="m1-location">Washington DC, USA</div>
           </div>
         </div>
-        <p class="mcard-bio" data-i18n="m1-bio">Más de 5 años en outreach callejero trabajando con PETA. Especialista en speech persuasivo, manejo de respuestas hostiles y comunicación no confrontacional.</p>
+        <p class="mcard-bio" data-i18n="m1-bio">5+ years of street outreach working with PETA. Specialist in persuasive speech, handling hostile responses, and non-confrontational communication.</p>
         <div class="chips">
           <span class="chip chip-brand" data-i18n="m1-tag1">Outreach</span>
-          <span class="chip chip-accent" data-i18n="m1-tag2">Comunicación</span>
+          <span class="chip chip-accent" data-i18n="m1-tag2">Communication</span>
           <span class="chip chip-subtle" data-i18n="m1-tag3">PETA</span>
-          <span class="chip chip-subtle" data-i18n="m1-badge">Sesiones gratuitas</span>
+          <span class="chip chip-subtle" data-i18n="m1-badge">Free sessions</span>
         </div>
         <div class="mcard-foot">
           <div>
             <div style="font-size:13px;font-weight:700;color:var(--ink);margin-top:2px;" data-i18n="m1-price">USD $45 / 45 min</div>
-            <div style="font-size:11px;color:var(--brand);margin-top:2px;" data-i18n="free-intro">✦ Llamada introductoria gratuita · 20 min</div>
+            <div style="font-size:11px;color:var(--brand);margin-top:2px;" data-i18n="free-intro">✦ Free introductory call · 20 min</div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="showMentor('david')" data-i18n="m1-profile">Ver perfil</button>
+          <button class="btn btn-primary btn-sm" onclick="showMentor('david')" data-i18n="m1-profile">View profile</button>
         </div>
       </div>
 
@@ -855,23 +850,23 @@ nav {
           </div>
           <div style="flex:1">
             <div class="mcard-name" data-i18n="m2-name">Lic. Mauro García Rodriguez</div>
-            <div class="mcard-role" data-i18n="m2-role">Terapeuta antiespecista</div>
+            <div class="mcard-role" data-i18n="m2-role">Anti-speciesist Therapist</div>
             <div class="mcard-location" data-i18n="m2-location">Entre Ríos, Argentina</div>
           </div>
         </div>
-        <p class="mcard-bio" data-i18n="m2-bio">Licenciado en psicología con formación clínica especializada. Ofrece atención terapéutica para activistas: herramientas de autocuidado, prevención del burnout y acompañamiento emocional.</p>
+        <p class="mcard-bio" data-i18n="m2-bio">Licensed psychologist with specialized clinical training. Offers therapeutic care for activists: self-care tools, burnout prevention, and emotional support.</p>
         <div class="chips">
           <span class="chip chip-accent" data-i18n="m2-tag1">Burnout</span>
-          <span class="chip chip-subtle" data-i18n="m2-tag2">Autocuidado</span>
-          <span class="chip chip-brand" data-i18n="m2-tag3">Terapia</span>
-          <span class="badge b-accent" style="margin:0;padding:3px 8px;font-size:11px;align-self:center;"><span class="bdot"></span><span data-i18n="m2-badge">Terapeuta</span></span>
+          <span class="chip chip-subtle" data-i18n="m2-tag2">Self-care</span>
+          <span class="chip chip-brand" data-i18n="m2-tag3">Therapy</span>
+          <span class="badge b-accent" style="margin:0;padding:3px 8px;font-size:11px;align-self:center;"><span class="bdot"></span><span data-i18n="m2-badge">Anti-speciesist therapist</span></span>
         </div>
         <div class="mcard-foot">
           <div>
             <div style="font-size:13px;font-weight:700;color:var(--ink);margin-top:2px;" data-i18n="m2-price">USD $40 / 45 min</div>
-            <div style="font-size:11px;color:var(--brand);margin-top:2px;" data-i18n="free-intro">✦ Llamada introductoria gratuita · 20 min</div>
+            <div style="font-size:11px;color:var(--brand);margin-top:2px;" data-i18n="free-intro">✦ Free introductory call · 20 min</div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="showMentor('mauro')" data-i18n="m2-profile">Ver perfil</button>
+          <button class="btn btn-primary btn-sm" onclick="showMentor('mauro')" data-i18n="m2-profile">View profile</button>
         </div>
       </div>
 
@@ -884,10 +879,10 @@ nav {
           <div style="flex:1">
             <div class="mcard-name" data-i18n="m3-name">Henk van der Wath</div>
             <div class="mcard-role" data-i18n="m3-role">Coach · Positive Intelligence</div>
-            <div class="mcard-location" data-i18n="m3-location">Ciudad de El Cabo, Sudáfrica</div>
+            <div class="mcard-location" data-i18n="m3-location">Cape Town, South Africa</div>
           </div>
         </div>
-        <p class="mcard-bio" data-i18n="m3-bio">Coach y fundador de Transilience. Ayuda a personas con propósito a construir una vida donde sus objetivos cobran vida de forma significativa y sostenible, sin agotarse.</p>
+        <p class="mcard-bio" data-i18n="m3-bio">Coach and founder of Transilience. Helps purpose-driven people make their wins add up and their progress feel like play, rather than constant striving.</p>
         <div class="chips">
           <span class="chip chip-subtle" data-i18n="m3-tag1">Coaching</span>
           <span class="chip chip-subtle" data-i18n="m3-tag2">Mindfulness</span>
@@ -898,9 +893,9 @@ nav {
         <div class="mcard-foot">
           <div>
             <div style="font-size:13px;font-weight:700;color:var(--ink);margin-top:2px;" data-i18n="m3-price">USD $45 / 30 min</div>
-            <div style="font-size:11px;color:var(--brand);margin-top:2px;" data-i18n="free-intro">✦ Llamada introductoria gratuita · 20 min</div>
+            <div style="font-size:11px;color:var(--brand);margin-top:2px;" data-i18n="free-intro">✦ Free introductory call · 20 min</div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="showMentor('henk')" data-i18n="m3-profile">Ver perfil</button>
+          <button class="btn btn-primary btn-sm" onclick="showMentor('henk')" data-i18n="m3-profile">View profile</button>
         </div>
       </div>
     </div>
@@ -942,35 +937,35 @@ nav {
   <div class="dash-wrap">
     <div class="dash-head">
       <div>
-        <div class="dash-greeting" data-i18n="dash-greet">Bienvenido/a</div>
-        <div class="dash-sub" data-i18n="dash-sub">Semana 6 de tu camino · Vas muy bien.</div>
+        <div class="dash-greeting" data-i18n="dash-greet">Welcome</div>
+        <div class="dash-sub" data-i18n="dash-sub">Week 6 of your journey · Keep it up.</div>
       </div>
       <div class="wb-pill">
         <div class="wb-dot"></div>
-        <span data-i18n="wb-status">Bienestar: estable esta semana</span>
+        <span data-i18n="wb-status">Wellbeing: stable this week</span>
       </div>
     </div>
 
     <div class="stat-row">
       <div class="stat-tile">
-        <div class="st-label" data-i18n="stat1-label">Sesiones completadas</div>
+        <div class="st-label" data-i18n="stat1-label">Sessions completed</div>
         <div class="st-val">8</div>
-        <div class="st-delta" data-i18n="stat1-delta">↑ 2 este mes</div>
+        <div class="st-delta" data-i18n="stat1-delta">↑ 2 this month</div>
       </div>
       <div class="stat-tile">
-        <div class="st-label" data-i18n="stat2-label">Energía promedio</div>
+        <div class="st-label" data-i18n="stat2-label">Average energy</div>
         <div class="st-val">74</div>
-        <div class="st-delta" data-i18n="stat2-delta">↑ 12 pts vs inicio</div>
+        <div class="st-delta" data-i18n="stat2-delta">↑ 12 pts vs start</div>
       </div>
       <div class="stat-tile">
-        <div class="st-label" data-i18n="stat3-label">Objetivos activos</div>
+        <div class="st-label" data-i18n="stat3-label">Active goals</div>
         <div class="st-val">3</div>
-        <div class="st-delta" data-i18n="stat3-delta">2 en progreso</div>
+        <div class="st-delta" data-i18n="stat3-delta">2 in progress</div>
       </div>
       <div class="stat-tile">
-        <div class="st-label" data-i18n="stat4-label">Próxima sesión</div>
-        <div class="st-val" data-i18n="stat4-val">Hoy</div>
-        <div class="st-delta" data-i18n="stat4-delta">con David Perle</div>
+        <div class="st-label" data-i18n="stat4-label">Next session</div>
+        <div class="st-val" data-i18n="stat4-val">Today</div>
+        <div class="st-delta" data-i18n="stat4-delta">with David Perle</div>
       </div>
     </div>
 
@@ -978,48 +973,48 @@ nav {
       <div>
         <div class="dcard" style="margin-bottom:20px">
           <div class="dcard-title">
-            <span data-i18n="rm-title">Tu hoja de ruta</span>
-            <span class="dcard-link" data-i18n="rm-link">Ver completa →</span>
+            <span data-i18n="rm-title">Your roadmap</span>
+            <span class="dcard-link" data-i18n="rm-link">See full →</span>
           </div>
           <div class="roadmap">
             <div class="rm-item done">
               <div class="rm-spine"><div class="rm-node rn-done">✓</div></div>
               <div class="rm-content">
-                <div class="rm-ctitle" data-i18n="rm1-title">Diagnóstico inicial completado</div>
-                <div class="rm-cdesc" data-i18n="rm1-desc">Identificaste agotamiento por compasión como área prioritaria.</div>
-                <span class="rm-tag rt-done" data-i18n="rm1-tag">Completado</span>
+                <div class="rm-ctitle" data-i18n="rm1-title">Initial wellness check completed</div>
+                <div class="rm-cdesc" data-i18n="rm1-desc">You identified compassion fatigue as your priority area.</div>
+                <span class="rm-tag rt-done" data-i18n="rm1-tag">Completed</span>
               </div>
             </div>
             <div class="rm-item done">
               <div class="rm-spine"><div class="rm-node rn-done">✓</div></div>
               <div class="rm-content">
-                <div class="rm-ctitle" data-i18n="rm2-title">Primera sesión con David Perle</div>
-                <div class="rm-cdesc" data-i18n="rm2-desc">Estableciste estrategias de outreach y comunicación no confrontacional.</div>
-                <span class="rm-tag rt-done" data-i18n="rm2-tag">Completado</span>
+                <div class="rm-ctitle" data-i18n="rm2-title">First session with David Perle</div>
+                <div class="rm-cdesc" data-i18n="rm2-desc">You established outreach strategies and non-confrontational communication tools.</div>
+                <span class="rm-tag rt-done" data-i18n="rm2-tag">Completed</span>
               </div>
             </div>
             <div class="rm-item active">
               <div class="rm-spine"><div class="rm-node rn-active">3</div></div>
               <div class="rm-content">
-                <div class="rm-ctitle" data-i18n="rm3-title">Sesión de seguimiento — hoy</div>
-                <div class="rm-cdesc" data-i18n="rm3-desc">Revisas progreso y ajustas estrategias de bienestar con tu mentor.</div>
-                <span class="rm-tag rt-active" data-i18n="rm3-tag">En curso · Hoy 18:00</span>
+                <div class="rm-ctitle" data-i18n="rm3-title">Follow-up session — today</div>
+                <div class="rm-cdesc" data-i18n="rm3-desc">You review progress and adjust wellbeing strategies with your mentor.</div>
+                <span class="rm-tag rt-active" data-i18n="rm3-tag">In progress · Today 6 PM</span>
               </div>
             </div>
             <div class="rm-item todo">
               <div class="rm-spine"><div class="rm-node rn-todo">4</div></div>
               <div class="rm-content">
-                <div class="rm-ctitle" data-i18n="rm4-title">Taller: Límites saludables en el activismo</div>
-                <div class="rm-cdesc" data-i18n="rm4-desc">Próxima semana · 90 min con grupo pequeño de activistas.</div>
-                <span class="rm-tag rt-todo" data-i18n="rm4-tag">Próximamente</span>
+                <div class="rm-ctitle" data-i18n="rm4-title">Workshop: Healthy limits in activism</div>
+                <div class="rm-cdesc" data-i18n="rm4-desc">Next week · 90 min with a small group of activists.</div>
+                <span class="rm-tag rt-todo" data-i18n="rm4-tag">Upcoming</span>
               </div>
             </div>
             <div class="rm-item todo">
               <div class="rm-spine"><div class="rm-node rn-todo">5</div></div>
               <div class="rm-content">
-                <div class="rm-ctitle" data-i18n="rm5-title">Sesión con terapeuta clínico</div>
-                <div class="rm-cdesc" data-i18n="rm5-desc">Si lo necesitas: Lic. Mauro García disponible para derivación.</div>
-                <span class="rm-tag rt-todo" data-i18n="rm5-tag">Opcional</span>
+                <div class="rm-ctitle" data-i18n="rm5-title">Session with clinical therapist</div>
+                <div class="rm-cdesc" data-i18n="rm5-desc">If needed: Lic. Mauro García available for referral.</div>
+                <span class="rm-tag rt-todo" data-i18n="rm5-tag">Optional</span>
               </div>
             </div>
           </div>
@@ -1031,29 +1026,29 @@ nav {
             <div class="res-card">
               <div class="res-icon ri-g">5'</div>
               <div>
-                <div class="res-title" data-i18n="res1-title">Meditación de 5 min</div>
-                <div class="res-sub" data-i18n="res1-sub">Para activistas en movimiento</div>
+                <div class="res-title" data-i18n="res1-title">5-minute meditation</div>
+                <div class="res-sub" data-i18n="res1-sub">For activists on the go</div>
               </div>
             </div>
             <div class="res-card">
               <div class="res-icon ri-p">PDF</div>
               <div>
-                <div class="res-title" data-i18n="res2-title">Guía de límites</div>
-                <div class="res-sub" data-i18n="res2-sub">PDF · Descarga gratuita</div>
+                <div class="res-title" data-i18n="res2-title">Boundaries guide</div>
+                <div class="res-sub" data-i18n="res2-sub">PDF · Free download</div>
               </div>
             </div>
             <div class="res-card">
               <div class="res-icon ri-c">48</div>
               <div>
-                <div class="res-title" data-i18n="res3-title">Comunidad de pares</div>
-                <div class="res-sub" data-i18n="res3-sub">48 activistas en línea</div>
+                <div class="res-title" data-i18n="res3-title">Peer community</div>
+                <div class="res-sub" data-i18n="res3-sub">48 activists online</div>
               </div>
             </div>
             <div class="res-card">
               <div class="res-icon ri-s">2/3</div>
               <div>
-                <div class="res-title" data-i18n="res4-title">Mis objetivos</div>
-                <div class="res-sub" data-i18n="res4-sub">2 de 3 completados esta semana</div>
+                <div class="res-title" data-i18n="res4-title">My goals</div>
+                <div class="res-sub" data-i18n="res4-sub">2 of 3 completed this week</div>
               </div>
             </div>
           </div>
@@ -1063,44 +1058,44 @@ nav {
       <div class="dash-sidebar">
         <!-- FIX 9: session-card sólido, sin gradiente -->
         <div class="session-card">
-          <div class="sc-label" data-i18n="sc-label">Próxima sesión</div>
-          <div class="sc-title" data-i18n="sc-title">Seguimiento semanal</div>
-          <div class="sc-time" data-i18n="sc-time">Hoy · 18:00 — 18:45 hs</div>
+          <div class="sc-label" data-i18n="sc-label">Next session</div>
+          <div class="sc-title" data-i18n="sc-title">Weekly follow-up</div>
+          <div class="sc-time" data-i18n="sc-time">Today · 6:00 — 6:45 PM</div>
           <div class="sc-mentor">
             <div class="sc-av">DP</div>
             <div>
               <div class="sc-mname" data-i18n="sc-mname">David Perle</div>
-              <div class="sc-mrole" data-i18n="sc-mrole">Especialista en Outreach</div>
+              <div class="sc-mrole" data-i18n="sc-mrole">Outreach Specialist</div>
             </div>
           </div>
-          <button class="btn-join" data-i18n="btn-join">Unirme a la sesión →</button>
+          <button class="btn-join" data-i18n="btn-join">Join session →</button>
         </div>
 
         <div class="wb-card">
           <div class="dcard-title">
-            <span data-i18n="wb-title">Mi bienestar</span>
-            <span class="dcard-link" data-i18n="wb-hist">Ver historial</span>
+            <span data-i18n="wb-title">My wellbeing</span>
+            <span class="dcard-link" data-i18n="wb-hist">View history</span>
           </div>
-          <div style="font-size:12px;color:var(--ink-subtle);" data-i18n="wb-week">Esta semana vs. cuando empezaste</div>
+          <div style="font-size:12px;color:var(--ink-subtle);" data-i18n="wb-week">This week vs. when you started</div>
           <div class="wb-meters">
             <div class="wb-row">
-              <div class="wb-label"><span data-i18n="wb-energy">Energía</span><span>74 / 100</span></div>
+              <div class="wb-label"><span data-i18n="wb-energy">Energy</span><span>74 / 100</span></div>
               <div class="wb-track"><div class="wb-fill wf-brand" style="width:74%"></div></div>
             </div>
             <div class="wb-row">
-              <div class="wb-label"><span data-i18n="wb-motivation">Motivación</span><span>68 / 100</span></div>
+              <div class="wb-label"><span data-i18n="wb-motivation">Motivation</span><span>68 / 100</span></div>
               <div class="wb-track"><div class="wb-fill wf-accent" style="width:68%"></div></div>
             </div>
             <div class="wb-row">
-              <div class="wb-label"><span data-i18n="wb-peace">Paz interior</span><span>71 / 100</span></div>
+              <div class="wb-label"><span data-i18n="wb-peace">Inner peace</span><span>71 / 100</span></div>
               <div class="wb-track"><div class="wb-fill wf-brand" style="width:71%"></div></div>
             </div>
             <div class="wb-row">
-              <div class="wb-label"><span data-i18n="wb-connection">Conexión</span><span>80 / 100</span></div>
+              <div class="wb-label"><span data-i18n="wb-connection">Connection</span><span>80 / 100</span></div>
               <div class="wb-track"><div class="wb-fill wf-cta" style="width:80%"></div></div>
             </div>
           </div>
-          <div class="wb-note" data-i18n="wb-note-text">Tu energía subió 12 puntos desde que empezaste. Sigue así.</div>
+          <div class="wb-note" data-i18n="wb-note-text">Your energy went up 12 points since you started. Keep it up.</div>
         </div>
       </div>
     </div>
@@ -1415,7 +1410,7 @@ const MENTORS = {
 };
 
 /* ─────────── STATE ─────────── */
-let currentLang = 'es';
+let currentLang = 'en';
 let currentTheme = 'light';
 let currentStep = 0;
 const wAnswers = {};
@@ -1424,8 +1419,9 @@ const wAnswers = {};
 function go(screenId, tabEl) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('s-' + screenId).classList.add('active');
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  if (tabEl) tabEl.classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => { t.classList.remove('active'); t.classList.remove('active-home'); });
+  if (screenId === 'home' && tabEl) { tabEl.classList.add('active-home'); }
+  else if (tabEl) tabEl.classList.add('active');
   window.scrollTo(0, 0);
 }
 
@@ -1442,7 +1438,7 @@ function applyLang() {
   if (hp) hp.textContent = HERO_PROOF[currentLang];
   const ey = document.getElementById('hero-eyebrow-el');
   if (ey) ey.textContent = currentLang === 'es' ? 'SALUD MENTAL PARA ACTIVISTAS' : 'MENTAL HEALTH FOR ACTIVISTS';
-  document.getElementById('lang-btn').textContent = currentLang === 'es' ? '🌐 ES' : '🌐 EN';
+  document.getElementById('lang-btn').textContent = currentLang === 'en' ? '🌐 EN' : '🌐 ES';
   // How it works translations
   const isEn = currentLang === 'en';
   const hiwEy = document.getElementById('hiw-eyebrow-el');
