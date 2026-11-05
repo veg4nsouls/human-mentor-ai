@@ -778,7 +778,7 @@ nav {
         </div>
         <div class="result-title" data-i18n="result-title">We found your ideal mentor</div>
         <p class="result-desc" id="result-desc-el">
-          Basándonos en tus respuestas, identificamos <strong>agotamiento por compasión</strong> como tu área prioritaria. Te conectamos con un mentor con experiencia directa.
+          Based on your responses, we identified your priority area and matched you with a mentor with direct experience.
         </p>
         <div id="result-cards-wrap" style="display:flex;flex-direction:column;gap:12px;width:100%;margin-bottom:4px"></div>
         <div class="result-match" style="display:none" id="rm-legacy-hidden">
@@ -1021,7 +1021,7 @@ nav {
         </div>
 
         <div class="dcard">
-          <div class="dcard-title"><span>Recursos recomendados</span></div>
+          <div class="dcard-title"><span data-i18n="res-section-title">Recommended resources</span></div>
           <div class="res-grid">
             <div class="res-card">
               <div class="res-icon ri-g">5'</div>
@@ -1181,6 +1181,7 @@ const LANG = {
     'wb-energy':'Energía','wb-motivation':'Motivación',
     'wb-peace':'Paz interior','wb-connection':'Conexión',
     'wb-note-text':'Tu energía subió 12 puntos desde que empezaste. Sigue así.',
+    'res-section-title':'Recursos recomendados',
   },
   en: {
     'nav-home':'Home','nav-wizard':'Wellness Check','nav-mentors':'Mentors',
@@ -1258,6 +1259,7 @@ const LANG = {
     'wb-energy':'Energy','wb-motivation':'Motivation',
     'wb-peace':'Inner peace','wb-connection':'Connection',
     'wb-note-text':'Your energy went up 12 points since you started. Keep it up.',
+    'res-section-title':'Recommended resources',
   }
 };
 
@@ -1345,7 +1347,7 @@ const MENTORS = {
       es: 'Más de 5 años en outreach callejero trabajando con PETA. Especialista en speech persuasivo, manejo de respuestas hostiles y comunicación no confrontacional. Ofrece mentoría en activismo efectivo, cómo mantener la motivación a largo plazo y cómo cuidar tu salud mental mientras haces cambios reales en el mundo.',
       en: '5+ years of street outreach working with PETA. Specialist in persuasive speech, handling hostile responses, and non-confrontational communication. Offers mentoring in effective activism, how to stay motivated long-term, and how to take care of your mental health while making real change in the world.'
     },
-    tags: ['Outreach', 'Comunicación', 'PETA', 'Burnout'],
+    tags: { en: ['Outreach', 'Communication', 'PETA', 'Burnout'], es: ['Outreach', 'Comunicación', 'PETA', 'Burnout'] },
     price: { es: 'USD $45 / sesión', en: 'USD $45 / session' },
     trial: { es: '🎁 Primera sesión gratuita', en: '🎁 First session free' },
     reviews: [
@@ -1362,7 +1364,7 @@ const MENTORS = {
       es: 'Licenciado en psicología con formación clínica especializada. Ofrece atención terapéutica para activistas: herramientas de autocuidado, prevención del burnout y acompañamiento emocional. Entiende el activismo desde adentro.',
       en: 'Licensed psychologist with specialized clinical training. Offers therapeutic care for activists: self-care tools, burnout prevention, and emotional support. Understands activism from the inside.'
     },
-    tags: ['Burnout', 'Autocuidado', 'Terapia', 'Trauma'],
+    tags: { en: ['Burnout', 'Self-care', 'Therapy', 'Trauma'], es: ['Burnout', 'Autocuidado', 'Terapia', 'Trauma'] },
     price: { es: 'USD $40 / sesión', en: 'USD $40 / session' },
     trial: { es: 'Llamada de prueba gratuita · 15 min', en: 'Free trial call · 15 min' },
     reviews: [
@@ -1379,7 +1381,7 @@ const MENTORS = {
       es: 'Henk van der Wath es coach y fundador de Transilience, con base en Ciudad de El Cabo. Tras más de una década en el sector tecnológico, se adentró en el coaching y ahora ayuda a personas con propósito a que sus logros se acumulen y su progreso se sienta como un juego, en lugar de una lucha constante. Se apoya en la Inteligencia Positiva, el mindfulness, el yoga, la Técnica Alexander y las lecciones de Toastmasters, con "la pausa" como hilo conductor: el momento que nos permite responder en lugar de reaccionar. Su enfoque consiste en ayudar a las personas a construir una vida donde sus objetivos cobren vida de forma significativa y sostenible.\n\nOfrece apoyo y herramientas prácticas para que los activistas puedan seguir adelante de manera sostenible. Cuando alguien necesita atención clínica, trabaja con gusto junto a un terapeuta o ayuda a orientarle hacia el apoyo profesional adecuado.',
       en: 'Henk van der Wath is a coach and the founder of Transilience, based in Cape Town. After more than a decade in ICT, he moved into coaching and now helps purpose-driven people make their wins add up and their progress feel like play, rather than constant striving. He draws on Positive Intelligence, mindfulness, yoga, the Alexander Technique and lessons from Toastmasters, with "the pause" as a common thread: the moment that lets us respond instead of react. His focus is helping people build a life where their goals come alive in a meaningful, sustainable way.\n\nHe offers support and practical tools to help activists keep going in a sustainable way. Where someone needs clinical care, he is glad to work alongside a therapist or help point them towards the right professional support.'
     },
-    tags: ['Coaching', 'Mindfulness', 'Burnout', 'Propósito'],
+    tags: { en: ['Coaching', 'Mindfulness', 'Burnout', 'Purpose'], es: ['Coaching', 'Mindfulness', 'Burnout', 'Propósito'] },
     topics: {
       es: [
         'Sostener tu energía a largo plazo, para que el cuidado de una causa no se convierta en agotamiento',
@@ -1580,7 +1582,7 @@ function showResult() {
   if (resultDescEl) {
     const names = matchIds.map(id => MENTORS[id].name);
     const nameStr = names.length > 1
-      ? names.slice(0,-1).join(', ') + ' y ' + names[names.length-1]
+      ? names.slice(0,-1).join(', ') + (lang === 'es' ? ' y ' : ' and ') + names[names.length-1]
       : names[0];
     const desc = lang === 'es'
       ? `Basándonos en tus respuestas, identificamos <strong>${areaLabel}</strong> como tu área prioritaria. Te conectamos con ${nameStr}, quien tiene experiencia directa en este camino.`
@@ -1663,7 +1665,7 @@ function showMentor(id) {
   }
 
   const tagsEl = document.getElementById('md-tags-el');
-  tagsEl.innerHTML = m.tags.map(t => `<span class="chip chip-subtle">${t}</span>`).join('');
+  tagsEl.innerHTML = (m.tags[currentLang] || m.tags.en || m.tags).map(t => `<span class="chip chip-subtle">${t}</span>`).join('');
 
   const reviewsEl = document.getElementById('md-reviews-el');
   reviewsEl.innerHTML = `<div class="dcard-title"><span>${lang === 'es' ? 'Reseñas de activistas' : 'Activist reviews'}</span></div>` +
