@@ -87,7 +87,6 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  /* FIX 2: fuente principal → DM Sans (menos genérica que Inter) */
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   background: var(--surface-page);
   color: var(--ink);
@@ -699,6 +698,14 @@ nav {
 </style>
 
 <!-- ============================================================
+     VIDEO BACKGROUND
+     ============================================================ -->
+<video id="bg-video" autoplay muted loop playsinline
+  style="position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0.5;pointer-events:none;">
+  <source src="bg.mp4" type="video/mp4">
+</video>
+
+<!-- ============================================================
      NAV
      ============================================================ -->
 <nav>
@@ -1065,10 +1072,10 @@ nav {
           <div class="sc-title" data-i18n="sc-title">Weekly follow-up</div>
           <div class="sc-time" data-i18n="sc-time">Today · 6:00 — 6:45 PM</div>
           <div class="sc-mentor">
-            <div class="sc-av">DP</div>
+            <div class="sc-av">HV</div>
             <div>
-              <div class="sc-mname" data-i18n="sc-mname">David Perle</div>
-              <div class="sc-mrole" data-i18n="sc-mrole">Outreach Specialist</div>
+              <div class="sc-mname" data-i18n="sc-mname">Henk van der Wath</div>
+              <div class="sc-mrole" data-i18n="sc-mrole">Coach · Positive Intelligence</div>
             </div>
           </div>
           <button class="btn-join" data-i18n="btn-join">Join session →</button>
@@ -1154,13 +1161,13 @@ const LANG = {
     'stat1-label':'Sesiones completadas','stat1-delta':'↑ 2 este mes',
     'stat2-label':'Energía promedio','stat2-delta':'↑ 12 pts vs inicio',
     'stat3-label':'Objetivos activos','stat3-delta':'2 en progreso',
-    'stat4-label':'Próxima sesión','stat4-val':'Hoy','stat4-delta':'con David Perle',
+    'stat4-label':'Próxima sesión','stat4-val':'Hoy','stat4-delta':'con Henk van der Wath',
     'rm-title':'Tu hoja de ruta','rm-link':'Ver completa →',
     'rm1-title':'Diagnóstico inicial completado',
     'rm1-desc':'Identificaste agotamiento por compasión como área prioritaria.',
     'rm1-tag':'Completado',
-    'rm2-title':'Primera sesión con David Perle',
-    'rm2-desc':'Estableciste estrategias de outreach y comunicación no confrontacional.',
+    'rm2-title':'Primera sesión con Henk van der Wath',
+    'rm2-desc':'Estableciste estrategias de bienestar e inteligencia positiva.',
     'rm2-tag':'Completado',
     'rm3-title':'Sesión de seguimiento — hoy',
     'rm3-desc':'Revisas progreso y ajustas estrategias de bienestar con tu mentor.',
@@ -1177,7 +1184,7 @@ const LANG = {
     'res4-title':'Mis objetivos','res4-sub':'2 de 3 completados esta semana',
     'sc-label':'Próxima sesión','sc-title':'Seguimiento semanal',
     'sc-time':'Hoy · 18:00 — 18:45 hs',
-    'sc-mname':'David Perle','sc-mrole':'Especialista en Outreach',
+    'sc-mname':'Henk van der Wath','sc-mrole':'Coach · Inteligencia Positiva',
     'btn-join':'Unirme a la sesión →',
     'wb-title':'Mi bienestar','wb-hist':'Ver historial',
     'wb-week':'Esta semana vs. cuando empezaste',
@@ -1232,13 +1239,13 @@ const LANG = {
     'stat1-label':'Sessions completed','stat1-delta':'↑ 2 this month',
     'stat2-label':'Average energy','stat2-delta':'↑ 12 pts vs start',
     'stat3-label':'Active goals','stat3-delta':'2 in progress',
-    'stat4-label':'Next session','stat4-val':'Today','stat4-delta':'with David Perle',
+    'stat4-label':'Next session','stat4-val':'Today','stat4-delta':'with Henk van der Wath',
     'rm-title':'Your roadmap','rm-link':'See full →',
     'rm1-title':'Initial wellness check completed',
     'rm1-desc':'You identified compassion fatigue as your priority area.',
     'rm1-tag':'Completed',
-    'rm2-title':'First session with David Perle',
-    'rm2-desc':'You established outreach strategies and non-confrontational communication tools.',
+    'rm2-title':'First session with Henk van der Wath',
+    'rm2-desc':'You established wellbeing strategies and positive intelligence tools.',
     'rm2-tag':'Completed',
     'rm3-title':'Follow-up session — today',
     'rm3-desc':'You review progress and adjust wellbeing strategies with your mentor.',
@@ -1255,7 +1262,7 @@ const LANG = {
     'res4-title':'My goals','res4-sub':'2 of 3 completed this week',
     'sc-label':'Next session','sc-title':'Weekly follow-up',
     'sc-time':'Today · 6:00 — 6:45 PM',
-    'sc-mname':'David Perle','sc-mrole':'Outreach Specialist',
+    'sc-mname':'Henk van der Wath','sc-mrole':'Coach · Positive Intelligence',
     'btn-join':'Join session →',
     'wb-title':'My wellbeing','wb-hist':'View history',
     'wb-week':'This week vs. when you started',
@@ -1292,9 +1299,7 @@ const STEPS_DATA = {
       { s: 'D', t: 'Relaciones y comunidad' }
     ]},
     { type:'options', cat:'TU APOYO', q: '¿Qué tipo de apoyo prefieres?', opts: [
-      { s: 'A', t: 'Mentor par (alguien que vivió lo mismo)' },
       { s: 'B', t: 'Terapeuta profesional antiespecista' },
-      { s: 'C', t: 'Combinación de ambos' },
       { s: 'D', t: 'Recursos y comunidad por ahora' }
     ]},
     { type:'options', cat:'TU MENTORÍA', q: '¿En qué idioma prefieres hablar con tu mentor/a?', opts: [
@@ -1321,9 +1326,7 @@ const STEPS_DATA = {
       { s: 'D', t: 'Relationships and community' }
     ]},
     { type:'options', cat:'YOUR SUPPORT', q: 'What type of support do you prefer?', opts: [
-      { s: 'A', t: 'Peer mentor (someone who lived it)' },
       { s: 'B', t: 'Anti-speciesist professional therapist' },
-      { s: 'C', t: 'A combination of both' },
       { s: 'D', t: 'Resources and community for now' }
     ]},
     { type:'options', cat:'YOUR MENTORSHIP', q: 'Which language do you prefer to speak with your mentor?', opts: [
